@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Grid\Filter;
+namespace Muhindo\Admin\Grid\Filter;
 
 class NotIn extends In
 {

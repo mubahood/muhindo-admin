@@ -1,16 +1,16 @@
 <?php
 
-namespace Encore\Admin;
+namespace Muhindo\Admin;
 
 use Closure;
-use Encore\Admin\Exception\Handler;
-use Encore\Admin\Grid\Column;
-use Encore\Admin\Grid\Concerns;
-use Encore\Admin\Grid\Displayers;
-use Encore\Admin\Grid\Model;
-use Encore\Admin\Grid\Row;
-use Encore\Admin\Grid\Tools;
-use Encore\Admin\Traits\ShouldSnakeAttributes;
+use Muhindo\Admin\Exception\Handler;
+use Muhindo\Admin\Grid\Column;
+use Muhindo\Admin\Grid\Concerns;
+use Muhindo\Admin\Grid\Displayers;
+use Muhindo\Admin\Grid\Model;
+use Muhindo\Admin\Grid\Row;
+use Muhindo\Admin\Grid\Tools;
+use Muhindo\Admin\Traits\ShouldSnakeAttributes;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Support\Collection;
@@ -43,7 +43,7 @@ class Grid
     /**
      * The grid data model instance.
      *
-     * @var \Encore\Admin\Grid\Model|\Illuminate\Database\Eloquent\Builder
+     * @var \Muhindo\Admin\Grid\Model|\Illuminate\Database\Eloquent\Builder
      */
     protected $model;
 
@@ -245,7 +245,7 @@ class Grid
      *
      * @return string
      */
-    public function getKeyName()
+    public function getKeyName(): string
     {
         return $this->keyName ?: 'id';
     }
@@ -258,7 +258,7 @@ class Grid
      *
      * @return Column
      */
-    public function column($name, $label = '')
+    public function column($name, $label = ''): Column
     {
         if (Str::contains($name, '.')) {
             return $this->addRelationColumn($name, $label);
@@ -398,7 +398,7 @@ class Grid
      *
      * @return Model|\Illuminate\Database\Eloquent\Builder
      */
-    public function model()
+    public function model(): Model
     {
         return $this->model;
     }

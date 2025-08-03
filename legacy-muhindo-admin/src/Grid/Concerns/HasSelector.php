@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Grid\Concerns;
+namespace Muhindo\Admin\Grid\Concerns;
 
-use Encore\Admin\Grid;
-use Encore\Admin\Grid\Tools\Selector;
+use Muhindo\Admin\Grid;
+use Muhindo\Admin\Grid\Tools\Selector;
 
 /**
  * @mixin Grid

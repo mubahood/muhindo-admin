@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Muhindo\Admin\Form\Field;
 
-use Encore\Admin\Form\Field;
+use Muhindo\Admin\Form\Field;
 
 class CascadeGroup extends Field
 {

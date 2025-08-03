@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Muhindo\Admin\Form\Field;
 
 trait PlainInput
 {

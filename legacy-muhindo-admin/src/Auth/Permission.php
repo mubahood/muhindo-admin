@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Auth;
+namespace Muhindo\Admin\Auth;
 
-use Encore\Admin\Facades\Admin;
-use Encore\Admin\Middleware\Pjax;
+use Muhindo\Admin\Facades\Admin;
+use Muhindo\Admin\Middleware\Pjax;
 
 class Permission
 {

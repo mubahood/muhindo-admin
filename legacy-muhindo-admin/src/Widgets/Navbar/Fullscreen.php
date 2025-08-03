@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Widgets\Navbar;
+namespace Muhindo\Admin\Widgets\Navbar;
 
-use Encore\Admin\Admin;
+use Muhindo\Admin\Admin;
 use Illuminate\Contracts\Support\Renderable;
 
 /**

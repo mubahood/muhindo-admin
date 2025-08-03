@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Grid;
+namespace Muhindo\Admin\Grid;
 
-use Encore\Admin\Grid;
-use Encore\Admin\Grid\Exporters\CsvExporter;
+use Muhindo\Admin\Grid;
+use Muhindo\Admin\Grid\Exporters\CsvExporter;
 
 class Exporter
 {

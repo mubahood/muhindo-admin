@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Layout;
+namespace Muhindo\Admin\Layout;
 
 use Closure;
-use Encore\Admin\Facades\Admin;
+use Muhindo\Admin\Facades\Admin;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
 

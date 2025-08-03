@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Exporters;
+namespace Muhindo\Admin\Grid\Exporters;
 
-use Encore\Admin\Grid\Column;
+use Muhindo\Admin\Grid\Column;
 
 class CsvExporter extends AbstractExporter
 {

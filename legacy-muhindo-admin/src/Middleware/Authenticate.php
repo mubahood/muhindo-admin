@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Middleware;
+namespace Muhindo\Admin\Middleware;
 
 use Closure;
-use Encore\Admin\Facades\Admin;
+use Muhindo\Admin\Facades\Admin;
 
 class Authenticate
 {
@@ -15,7 +15,7 @@ class Authenticate
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next): mixed
     {
         \config(['auth.defaults.guard' => 'admin']);
 

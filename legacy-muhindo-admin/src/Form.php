@@ -1,18 +1,18 @@
 <?php
 
-namespace Encore\Admin;
+namespace Muhindo\Admin;
 
 use Closure;
-use Encore\Admin\Exception\Handler;
-use Encore\Admin\Form\Builder;
-use Encore\Admin\Form\Concerns\HandleCascadeFields;
-use Encore\Admin\Form\Concerns\HasFields;
-use Encore\Admin\Form\Concerns\HasHooks;
-use Encore\Admin\Form\Field;
-use Encore\Admin\Form\Layout\Layout;
-use Encore\Admin\Form\Row;
-use Encore\Admin\Form\Tab;
-use Encore\Admin\Traits\ShouldSnakeAttributes;
+use Muhindo\Admin\Exception\Handler;
+use Muhindo\Admin\Form\Builder;
+use Muhindo\Admin\Form\Concerns\HandleCascadeFields;
+use Muhindo\Admin\Form\Concerns\HasFields;
+use Muhindo\Admin\Form\Concerns\HasHooks;
+use Muhindo\Admin\Form\Field;
+use Muhindo\Admin\Form\Layout\Layout;
+use Muhindo\Admin\Form\Row;
+use Muhindo\Admin\Form\Tab;
+use Muhindo\Admin\Traits\ShouldSnakeAttributes;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
@@ -175,7 +175,7 @@ class Form implements Renderable
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function fields()
+    public function fields(): \Illuminate\Support\Collection
     {
         return $this->builder()->fields();
     }
@@ -220,7 +220,7 @@ class Form implements Renderable
      *
      * @return Tab
      */
-    public function getTab()
+    public function getTab(): Tab
     {
         return $this->tab;
     }
@@ -1421,7 +1421,7 @@ class Form implements Renderable
      *
      * @param Closure $callback
      *
-     * @return \Encore\Admin\Form\Footer
+     * @return \Muhindo\Admin\Form\Footer
      */
     public function footer(Closure $callback = null)
     {
@@ -1455,7 +1455,7 @@ class Form implements Renderable
      *
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         try {
             return $this->builder->render();

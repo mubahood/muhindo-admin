@@ -1,10 +1,10 @@
 <?php
 
-namespace Encore\Admin\Traits;
+namespace Muhindo\Admin\Traits;
 
-use Encore\Admin\Form;
-use Encore\Admin\Grid;
-use Encore\Admin\Tree;
+use Muhindo\Admin\Form;
+use Muhindo\Admin\Grid;
+use Muhindo\Admin\Tree;
 
 /**
  * @deprecated

@@ -1,11 +1,11 @@
 <?php
 
-namespace Encore\Admin\Grid;
+namespace Muhindo\Admin\Grid;
 
 use Closure;
-use Encore\Admin\Actions\RowAction;
-use Encore\Admin\Grid;
-use Encore\Admin\Grid\Displayers\AbstractDisplayer;
+use Muhindo\Admin\Actions\RowAction;
+use Muhindo\Admin\Grid;
+use Muhindo\Admin\Grid\Displayers\AbstractDisplayer;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Support\Arr;

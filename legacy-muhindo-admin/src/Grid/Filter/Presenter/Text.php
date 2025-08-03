@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Filter\Presenter;
+namespace Muhindo\Admin\Grid\Filter\Presenter;
 
-use Encore\Admin\Admin;
+use Muhindo\Admin\Admin;
 
 class Text extends Presenter
 {

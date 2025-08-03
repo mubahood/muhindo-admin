@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Traits;
+namespace Muhindo\Admin\Traits;
 
-use Encore\Admin\Grid\Model as GridModel;
+use Muhindo\Admin\Grid\Model as GridModel;
 
 trait ShouldSnakeAttributes
 {

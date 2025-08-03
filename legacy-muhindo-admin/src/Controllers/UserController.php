@@ -1,10 +1,10 @@
 <?php
 
-namespace Encore\Admin\Controllers;
+namespace Muhindo\Admin\Controllers;
 
-use Encore\Admin\Form;
-use Encore\Admin\Grid;
-use Encore\Admin\Show;
+use Muhindo\Admin\Form;
+use Muhindo\Admin\Grid;
+use Muhindo\Admin\Show;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends AdminController

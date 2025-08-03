@@ -1,16 +1,23 @@
 <?php
 
-namespace Encore\Admin;
+namespace Muhindo\Admin;
 
 use Closure;
-use Encore\Admin\Auth\Database\Menu;
-use Encore\Admin\Controllers\AuthController;
-use Encore\Admin\Layout\Content;
-use Encore\Admin\Traits\HasAssets;
-use Encore\Admin\Widgets\Navbar;
+use Muhindo\Admin\Auth\Database\Menu;
+use Muhindo\Admin\Controllers\AuthController;
+use Muhindo\Admin\Form;
+use Muhindo\Admin\Grid;
+use Muhindo\Admin\Layout\Content;
+use Muhindo\Admin\Show;
+use Muhindo\Admin\Traits\HasAssets;
+use Muhindo\Admin\Tree;
+use Muhindo\Admin\Widgets\Navbar;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Request;
 use InvalidArgumentException;
 
 /**
@@ -21,11 +28,11 @@ class Admin
     use HasAssets;
 
     /**
-     * The Laravel admin version.
+     * The Muhindo Admin version.
      *
      * @var string
      */
-    const VERSION = '1.8.17';
+    public const VERSION = '1.0.0';
 
     /**
      * @var Navbar
@@ -63,24 +70,24 @@ class Admin
     protected static $bootedCallbacks = [];
 
     /**
-     * Returns the long version of Laravel-admin.
+     * Returns the long version of Muhindo-admin.
      *
      * @return string The long application version
      */
-    public static function getLongVersion()
+    public static function getLongVersion(): string
     {
-        return sprintf('Laravel-admin <comment>version</comment> <info>%s</info>', self::VERSION);
+        return sprintf('Muhindo-admin <comment>version</comment> <info>%s</info>', self::VERSION);
     }
 
     /**
      * @param $model
      * @param Closure $callable
      *
-     * @return \Encore\Admin\Grid
+     * @return \Muhindo\Admin\Grid
      *
      * @deprecated since v1.6.1
      */
-    public function grid($model, Closure $callable)
+    public function grid($model, Closure $callable): Grid
     {
         return new Grid($this->getModel($model), $callable);
     }
@@ -89,11 +96,11 @@ class Admin
      * @param $model
      * @param Closure $callable
      *
-     * @return \Encore\Admin\Form
+     * @return \Muhindo\Admin\Form
      *
      *  @deprecated since v1.6.1
      */
-    public function form($model, Closure $callable)
+    public function form($model, Closure $callable): Form
     {
         return new Form($this->getModel($model), $callable);
     }
@@ -104,9 +111,9 @@ class Admin
      * @param $model
      * @param Closure|null $callable
      *
-     * @return \Encore\Admin\Tree
+     * @return \Muhindo\Admin\Tree
      */
-    public function tree($model, Closure $callable = null)
+    public function tree($model, Closure $callable = null): Tree
     {
         return new Tree($this->getModel($model), $callable);
     }
@@ -121,7 +128,7 @@ class Admin
      *
      * @deprecated since v1.6.1
      */
-    public function show($model, $callable = null)
+    public function show($model, $callable = null): Show
     {
         return new Show($this->getModel($model), $callable);
     }
@@ -129,11 +136,11 @@ class Admin
     /**
      * @param Closure $callable
      *
-     * @return \Encore\Admin\Layout\Content
+     * @return \Muhindo\Admin\Layout\Content
      *
      * @deprecated since v1.6.1
      */
-    public function content(Closure $callable = null)
+    public function content(Closure $callable = null): Content
     {
         return new Content($callable);
     }
@@ -143,7 +150,7 @@ class Admin
      *
      * @return mixed
      */
-    public function getModel($model)
+    public function getModel($model): Model
     {
         if ($model instanceof Model) {
             return $model;
@@ -161,13 +168,13 @@ class Admin
      *
      * @return array
      */
-    public function menu()
+    public function menu(): array
     {
         if (!empty($this->menu)) {
             return $this->menu;
         }
 
-        $menuClass = config('admin.database.menu_model');
+        $menuClass = Config::get('admin.database.menu_model');
 
         /** @var Menu $menuModel */
         $menuModel = new $menuClass();
@@ -180,7 +187,7 @@ class Admin
      *
      * @return array
      */
-    public function menuLinks($menu = [])
+    public function menuLinks($menu = []): array
     {
         if (empty($menu)) {
             $menu = $this->menu();
@@ -206,7 +213,7 @@ class Admin
      *
      * @return void
      */
-    public static function setTitle($title)
+    public static function setTitle($title): void
     {
         self::$metaTitle = $title;
     }
@@ -216,9 +223,9 @@ class Admin
      *
      * @return string
      */
-    public function title()
+    public function title(): string
     {
-        return self::$metaTitle ? self::$metaTitle : config('admin.title');
+        return self::$metaTitle ? self::$metaTitle : Config::get('admin.title');
     }
 
     /**
@@ -240,7 +247,7 @@ class Admin
      *
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
-    public function user()
+    public function user(): ?\Illuminate\Contracts\Auth\Authenticatable
     {
         return $this->guard()->user();
     }
@@ -250,9 +257,9 @@ class Admin
      *
      * @return \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
      */
-    public function guard()
+    public function guard(): \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
     {
-        $guard = config('admin.auth.guard') ?: 'admin';
+        $guard = Config::get('admin.auth.guard') ?: 'admin';
 
         return Auth::guard($guard);
     }
@@ -276,7 +283,7 @@ class Admin
     /**
      * Get navbar object.
      *
-     * @return \Encore\Admin\Widgets\Navbar
+     * @return \Muhindo\Admin\Widgets\Navbar
      */
     public function getNavbar()
     {
@@ -307,14 +314,14 @@ class Admin
     public function routes()
     {
         $attributes = [
-            'prefix'     => config('admin.route.prefix'),
-            'middleware' => config('admin.route.middleware'),
+            'prefix'     => Config::get('admin.route.prefix'),
+            'middleware' => Config::get('admin.route.middleware'),
         ];
 
-        app('router')->group($attributes, function ($router) {
+        App::make('router')->group($attributes, function ($router) {
 
             /* @var \Illuminate\Support\Facades\Route $router */
-            $router->namespace('\Encore\Admin\Controllers')->group(function ($router) {
+            $router->namespace('\Muhindo\Admin\Controllers')->group(function ($router) {
 
                 /* @var \Illuminate\Routing\Router $router */
                 $router->resource('auth/users', 'UserController')->names('admin.auth.users');

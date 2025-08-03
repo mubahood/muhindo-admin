@@ -1,12 +1,12 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Muhindo\Admin\Form\Field;
 
-use Encore\Admin\Admin;
-use Encore\Admin\Form;
-use Encore\Admin\Form\Field;
-use Encore\Admin\Form\NestedForm;
-use Encore\Admin\Widgets\Form as WidgetForm;
+use Muhindo\Admin\Admin;
+use Muhindo\Admin\Form;
+use Muhindo\Admin\Form\Field;
+use Muhindo\Admin\Form\NestedForm;
+use Muhindo\Admin\Widgets\Form as WidgetForm;
 use Illuminate\Database\Eloquent\Relations\HasMany as Relation;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Arr;

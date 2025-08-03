@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Grid\Selectable;
+namespace Muhindo\Admin\Grid\Selectable;
 
 use Illuminate\Contracts\Support\Renderable;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Grid\Concerns;
+namespace Muhindo\Admin\Grid\Concerns;
 
 use Closure;
-use Encore\Admin\Grid;
+use Muhindo\Admin\Grid;
 
 trait HasActions
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Column;
+namespace Muhindo\Admin\Grid\Column;
 
-use Encore\Admin\Grid\Displayers;
+use Muhindo\Admin\Grid\Displayers;
 
 trait InlineEditing
 {

@@ -1,15 +1,17 @@
-<div class="{{$viewClass['form-group']}} {!! !$errors->has($column) ?: 'has-error' !!}">
+{{-- UPDATED FOR BOOTSTRAP 5 - Priority 2.2 Component Migration --}}
+<div class="{{$viewClass['form-group']}} mb-3 {!! !$errors->has($column) ?: 'is-invalid' !!}">
 
-    <label for="{{$id}}" class="{{$viewClass['label']}} control-label">{{$label}}</label>
+    <label for="{{$id}}" class="{{$viewClass['label']}} form-label">{{$label}}</label>
 
     <div class="{{$viewClass['field']}}" id="{{$id}}">
 
         @if($canCheckAll)
-            <span class="icheck">
-            <label class="checkbox-inline">
-                <input type="checkbox" class="{{ $checkAllClass }}"/>&nbsp;{{ __('admin.all') }}
-            </label>
-            </span>
+            <div class="form-check">
+                <input class="form-check-input {{ $checkAllClass }}" type="checkbox" id="{{$id}}_all">
+                <label class="form-check-label" for="{{$id}}_all">
+                    {{ __('admin.all') }}
+                </label>
+            </div>
             <hr style="margin-top: 10px;margin-bottom: 0;">
         @endif
 
@@ -23,12 +25,11 @@
 
             @foreach($options as $option => $label)
 
-            <div class="checkbox icheck">
-
-                <label>
-                    <input type="checkbox" name="{{$name}}[]" value="{{$option}}" class="{{$class}}" {{ false !== array_search($option, array_filter(old($column, $value ?? []))) || ($value === null && in_array($option, $checked)) ?'checked':'' }} {!! $attributes !!} />&nbsp;{{$label}}&nbsp;&nbsp;
+            <div class="form-check">
+                <input class="form-check-input {{$class}}" type="checkbox" name="{{$name}}[]" value="{{$option}}" id="{{$id}}_{{$option}}" {{ false !== array_search($option, array_filter(old($column, $value ?? []))) || ($value === null && in_array($option, $checked)) ?'checked':'' }} {!! $attributes !!} />
+                <label class="form-check-label" for="{{$id}}_{{$option}}">
+                    {{$label}}
                 </label>
-
             </div>
 
             @endforeach
@@ -39,13 +40,21 @@
 
         @foreach($options as $option => $label)
 
-            {!! $inline ? '<span class="icheck">' : '<div class="checkbox icheck">' !!}
-
-                <label @if($inline)class="checkbox-inline"@endif>
-                    <input type="checkbox" name="{{$name}}[]" value="{{$option}}" class="{{$class}}" {{ false !== array_search($option, array_filter(old($column, $value ?? []))) || ($value === null && in_array($option, $checked)) ?'checked':'' }} {!! $attributes !!} />&nbsp;{{$label}}&nbsp;&nbsp;
-                </label>
-
-            {!! $inline ? '</span>' :  '</div>' !!}
+            @if($inline)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input {{$class}}" type="checkbox" name="{{$name}}[]" value="{{$option}}" id="{{$id}}_{{$option}}" {{ false !== array_search($option, array_filter(old($column, $value ?? []))) || ($value === null && in_array($option, $checked)) ?'checked':'' }} {!! $attributes !!} />
+                    <label class="form-check-label" for="{{$id}}_{{$option}}">
+                        {{$label}}
+                    </label>
+                </div>
+            @else
+                <div class="form-check">
+                    <input class="form-check-input {{$class}}" type="checkbox" name="{{$name}}[]" value="{{$option}}" id="{{$id}}_{{$option}}" {{ false !== array_search($option, array_filter(old($column, $value ?? []))) || ($value === null && in_array($option, $checked)) ?'checked':'' }} {!! $attributes !!} />
+                    <label class="form-check-label" for="{{$id}}_{{$option}}">
+                        {{$label}}
+                    </label>
+                </div>
+            @endif
 
         @endforeach
 

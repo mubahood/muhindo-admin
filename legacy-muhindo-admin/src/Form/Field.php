@@ -1,11 +1,11 @@
 <?php
 
-namespace Encore\Admin\Form;
+namespace Muhindo\Admin\Form;
 
 use Closure;
-use Encore\Admin\Admin;
-use Encore\Admin\Form;
-use Encore\Admin\Widgets\Form as WidgetForm;
+use Muhindo\Admin\Admin;
+use Muhindo\Admin\Form;
+use Muhindo\Admin\Widgets\Form as WidgetForm;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
@@ -1522,7 +1522,7 @@ class Field implements Renderable
     /**
      * @param \Closure $callback
      *
-     * @return \Encore\Admin\Form\Field
+     * @return \Muhindo\Admin\Form\Field
      */
     public function with(Closure $callback): self
     {

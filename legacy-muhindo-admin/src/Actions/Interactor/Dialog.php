@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Actions\Interactor;
+namespace Muhindo\Admin\Actions\Interactor;
 
-use Encore\Admin\Admin;
+use Muhindo\Admin\Admin;
 
 class Dialog extends Interactor
 {

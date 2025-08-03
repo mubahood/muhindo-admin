@@ -1,10 +1,10 @@
 <?php
 
-namespace Encore\Admin\Grid;
+namespace Muhindo\Admin\Grid;
 
-use Encore\Admin\Grid\Filter\AbstractFilter;
-use Encore\Admin\Grid\Filter\Layout\Layout;
-use Encore\Admin\Grid\Filter\Scope;
+use Muhindo\Admin\Grid\Filter\AbstractFilter;
+use Muhindo\Admin\Grid\Filter\Layout\Layout;
+use Muhindo\Admin\Grid\Filter\Scope;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;

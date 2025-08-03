@@ -1,10 +1,10 @@
 <?php
 
-namespace Encore\Admin\Grid\Concerns;
+namespace Muhindo\Admin\Grid\Concerns;
 
-use Encore\Admin\Grid;
-use Encore\Admin\Grid\Exporter;
-use Encore\Admin\Grid\Exporters\AbstractExporter;
+use Muhindo\Admin\Grid;
+use Muhindo\Admin\Grid\Exporter;
+use Muhindo\Admin\Grid\Exporters\AbstractExporter;
 
 trait CanExportGrid
 {

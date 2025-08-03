@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap 5 Migration Test - Muhindo Admin</title>
+    
+    <!-- Bootstrap 5.3.3 CSS -->
+    <link href="vendor/laravel-admin/bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { 
+            background-color: #f8f9fa; 
+            padding: 2rem 0;
+        }
+        .demo-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .comparison {
+            border-left: 4px solid #0d6efd;
+            background: #f8f9ff;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .old-version {
+            border-left-color: #dc3545;
+            background: #fff5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center mb-4">🚀 Bootstrap 5 Migration Test</h1>
+                <p class="text-center text-muted mb-5">
+                    Testing form components migrated from Bootstrap 3.3.5 to Bootstrap 5.3.3
+                </p>
+            </div>
+        </div>
+
+        <!-- Text Area Component Test -->
+        <div class="demo-container">
+            <h3><i class="fas fa-edit text-primary"></i> Textarea Component</h3>
+            <p class="text-muted">Updated: <code>control-label → form-label</code>, <code>has-error → is-invalid</code></p>
+            
+            <!-- NEW Bootstrap 5 Version -->
+            <div class="comparison">
+                <strong>✅ NEW: Bootstrap 5 Version</strong>
+                <div class="col-md-8 mb-3">
+                    <label for="description_new" class="col-sm-2 form-label">Description</label>
+                    <div class="col-sm-8">
+                        <textarea name="description" class="form-control" rows="3" placeholder="Enter description..." id="description_new">Sample content here...</textarea>
+                        <div class="form-text text-muted">
+                            <i class="fa fa-info-circle"></i>&nbsp;Help text using Bootstrap 5 form-text class
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error State Demo -->
+            <div class="comparison old-version">
+                <strong>🔴 Error State Demo</strong>
+                <div class="col-md-8 mb-3 is-invalid">
+                    <label for="description_error" class="col-sm-2 form-label">Description</label>
+                    <div class="col-sm-8">
+                        <textarea name="description" class="form-control is-invalid" rows="3" placeholder="Enter description..." id="description_error"></textarea>
+                        <div class="invalid-feedback">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Component Test -->
+        <div class="demo-container">
+            <h3><i class="fas fa-keyboard text-success"></i> Input Component</h3>
+            <p class="text-muted">Updated: <code>input-group-addon → input-group-text</code></p>
+            
+            <div class="comparison">
+                <strong>✅ NEW: Bootstrap 5 Input Groups</strong>
+                <div class="col-md-8 mb-3">
+                    <label for="price_new" class="col-sm-2 form-label">Price</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" placeholder="0.00" id="price_new">
+                            <span class="input-group-text">.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison">
+                <strong>✅ Input with Button</strong>
+                <div class="col-md-8 mb-3">
+                    <label for="search_new" class="col-sm-2 form-label">Search</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search..." id="search_new">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Select Component Test -->
+        <div class="demo-container">
+            <h3><i class="fas fa-list text-info"></i> Select Component</h3>
+            <p class="text-muted">Updated: <code>form-control → form-select</code> for select elements</p>
+            
+            <div class="comparison">
+                <strong>✅ NEW: Bootstrap 5 Form Select</strong>
+                <div class="col-md-8 mb-3">
+                    <label for="category_new" class="col-sm-2 form-label">Category</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" id="category_new">
+                            <option value="">Choose category...</option>
+                            <option value="1">Technology</option>
+                            <option value="2">Business</option>
+                            <option value="3">Design</option>
+                        </select>
+                        <div class="form-text text-muted">
+                            <i class="fa fa-info-circle"></i>&nbsp;Select a category from the list
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkbox Component Test -->
+        <div class="demo-container">
+            <h3><i class="fas fa-check-square text-warning"></i> Checkbox Component</h3>
+            <p class="text-muted">Complete overhaul: <code>checkbox icheck → form-check</code> system</p>
+            
+            <div class="comparison">
+                <strong>✅ NEW: Bootstrap 5 Form Checks</strong>
+                <div class="col-md-8 mb-3">
+                    <label class="col-sm-2 form-label">Permissions</label>
+                    <div class="col-sm-8">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="read" id="permission_read">
+                            <label class="form-check-label" for="permission_read">
+                                Read Access
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="write" id="permission_write" checked>
+                            <label class="form-check-label" for="permission_write">
+                                Write Access
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="delete" id="permission_delete">
+                            <label class="form-check-label" for="permission_delete">
+                                Delete Access
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison">
+                <strong>✅ Inline Checkboxes</strong>
+                <div class="col-md-8 mb-3">
+                    <label class="col-sm-2 form-label">Features</label>
+                    <div class="col-sm-8">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="sms" id="feature_sms">
+                            <label class="form-check-label" for="feature_sms">SMS</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="email" id="feature_email" checked>
+                            <label class="form-check-label" for="feature_email">Email</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="push" id="feature_push">
+                            <label class="form-check-label" for="feature_push">Push</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Migration Summary -->
+        <div class="demo-container">
+            <h3><i class="fas fa-chart-line text-success"></i> Migration Progress Summary</h3>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>✅ Completed Migrations</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Bootstrap 5 Assets
+                            <span class="badge bg-success rounded-pill">✓</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Textarea Template
+                            <span class="badge bg-success rounded-pill">✓</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Input Template
+                            <span class="badge bg-success rounded-pill">✓</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Select Template
+                            <span class="badge bg-success rounded-pill">✓</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Checkbox Template
+                            <span class="badge bg-success rounded-pill">✓</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Help Block Template
+                            <span class="badge bg-success rounded-pill">✓</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5>🔄 Next Phase</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Radio Button Template
+                            <span class="badge bg-warning rounded-pill">Pending</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Button Templates
+                            <span class="badge bg-warning rounded-pill">Pending</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            File Upload Templates
+                            <span class="badge bg-warning rounded-pill">Pending</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Layout Templates
+                            <span class="badge bg-warning rounded-pill">Pending</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            AdminLTE 4.0 Integration
+                            <span class="badge bg-info rounded-pill">Future</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-4">
+                <h6><i class="fas fa-info-circle"></i> Migration Status</h6>
+                <p class="mb-0">
+                    <strong>Phase 2.1:</strong> ✅ Core Bootstrap 5 Foundation Complete<br>
+                    <strong>Phase 2.2:</strong> 🚧 Component Migration In Progress (5/40+ templates updated)<br>
+                    <strong>Overall Progress:</strong> ~15% Complete
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3.3 JS Bundle -->
+    <script src="vendor/laravel-admin/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Test Bootstrap 5 functionality
+        console.log('Bootstrap 5 Migration Test Page Loaded');
+        console.log('Bootstrap version:', typeof bootstrap !== 'undefined' ? '5.x detected' : 'Bootstrap not detected');
+        
+        // Add some interactive testing
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    console.log(`Checkbox ${this.value || this.id} ${this.checked ? 'checked' : 'unchecked'}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

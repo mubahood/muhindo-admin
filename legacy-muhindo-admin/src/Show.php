@@ -1,12 +1,12 @@
 <?php
 
-namespace Encore\Admin;
+namespace Muhindo\Admin;
 
-use Encore\Admin\Show\Divider;
-use Encore\Admin\Show\Field;
-use Encore\Admin\Show\Panel;
-use Encore\Admin\Show\Relation;
-use Encore\Admin\Traits\ShouldSnakeAttributes;
+use Muhindo\Admin\Show\Divider;
+use Muhindo\Admin\Show\Field;
+use Muhindo\Admin\Show\Panel;
+use Muhindo\Admin\Show\Relation;
+use Muhindo\Admin\Traits\ShouldSnakeAttributes;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

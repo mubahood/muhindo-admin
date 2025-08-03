@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Actions\Interactor;
+namespace Muhindo\Admin\Actions\Interactor;
 
-use Encore\Admin\Actions\Action;
+use Muhindo\Admin\Actions\Action;
 
 abstract class Interactor
 {

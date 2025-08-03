@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Actions;
+namespace Muhindo\Admin\Actions;
 
-use Encore\Admin\Grid\Column;
+use Muhindo\Admin\Grid\Column;
 use Illuminate\Http\Request;
 
 abstract class RowAction extends GridAction

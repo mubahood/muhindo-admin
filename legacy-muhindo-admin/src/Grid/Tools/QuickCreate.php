@@ -1,13 +1,13 @@
 <?php
 
-namespace Encore\Admin\Grid\Tools;
+namespace Muhindo\Admin\Grid\Tools;
 
-use Encore\Admin\Admin;
-use Encore\Admin\Form\Field;
-use Encore\Admin\Form\Field\MultipleSelect;
-use Encore\Admin\Form\Field\Select;
-use Encore\Admin\Form\Field\Text;
-use Encore\Admin\Grid;
+use Muhindo\Admin\Admin;
+use Muhindo\Admin\Form\Field;
+use Muhindo\Admin\Form\Field\MultipleSelect;
+use Muhindo\Admin\Form\Field\Select;
+use Muhindo\Admin\Form\Field\Text;
+use Muhindo\Admin\Grid;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Collection;
 

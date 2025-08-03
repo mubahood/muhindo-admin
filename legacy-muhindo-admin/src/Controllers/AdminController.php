@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Controllers;
+namespace Muhindo\Admin\Controllers;
 
-use Encore\Admin\Layout\Content;
+use Muhindo\Admin\Layout\Content;
 use Illuminate\Routing\Controller;
 
 class AdminController extends Controller

@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Tools;
+namespace Muhindo\Admin\Grid\Tools;
 
-use Encore\Admin\Grid;
+use Muhindo\Admin\Grid;
 use Illuminate\Contracts\Support\Renderable;
 
 abstract class BatchAction implements Renderable

@@ -1,26 +1,25 @@
 <?php
 
-namespace Encore\Admin\Auth\Database;
+namespace Muhindo\Admin\Auth\Database;
 
 use App\Models\Campus;
 use App\Models\Company;
 use App\Models\UserHasProgram;
 use App\Models\Utils;
 use Carbon\Carbon;
-use Encore\Admin\Traits\DefaultDatetimeFormat;
+use Muhindo\Admin\Traits\DefaultDatetimeFormat;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * Class Administrator.
  *
  * @property Role[] $roles
  */
-class Administrator extends Model implements AuthenticatableContract, JWTSubject
+class Administrator extends Model implements AuthenticatableContract
 {
     use Authenticatable;
     use HasPermissions;
@@ -35,22 +34,6 @@ class Administrator extends Model implements AuthenticatableContract, JWTSubject
             $administrators_array[$administrator->id] = $administrator->name;
         }
         return $administrators_array;
-    }
-
-    //company
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
-    }
-
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
     }
 
     //function to get list of this model in array for select

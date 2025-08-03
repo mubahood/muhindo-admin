@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Form\Concerns;
+namespace Muhindo\Admin\Form\Concerns;
 
-use Encore\Admin\Form\Field;
+use Muhindo\Admin\Form\Field;
 use Illuminate\Support\Arr;
 
 /**

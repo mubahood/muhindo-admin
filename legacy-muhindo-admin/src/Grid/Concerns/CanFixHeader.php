@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Concerns;
+namespace Muhindo\Admin\Grid\Concerns;
 
-use Encore\Admin\Admin;
+use Muhindo\Admin\Admin;
 
 trait CanFixHeader
 {

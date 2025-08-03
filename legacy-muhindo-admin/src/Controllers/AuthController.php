@@ -1,13 +1,13 @@
 <?php
 
-namespace Encore\Admin\Controllers;
+namespace Muhindo\Admin\Controllers;
 
 use App\Models\Campus;
 use App\Models\Utils;
-use Encore\Admin\Auth\Database\Administrator;
-use Encore\Admin\Facades\Admin;
-use Encore\Admin\Form;
-use Encore\Admin\Layout\Content;
+use Muhindo\Admin\Auth\Database\Administrator;
+use Muhindo\Admin\Facades\Admin;
+use Muhindo\Admin\Form;
+use Muhindo\Admin\Layout\Content;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Tools;
+namespace Muhindo\Admin\Grid\Tools;
 
-use Encore\Admin\Grid;
+use Muhindo\Admin\Grid;
 
 class CreateButton extends AbstractTool
 {

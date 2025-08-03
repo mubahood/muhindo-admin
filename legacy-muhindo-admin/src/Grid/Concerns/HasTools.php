@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Grid\Concerns;
+namespace Muhindo\Admin\Grid\Concerns;
 
 use Closure;
-use Encore\Admin\Grid\Tools;
+use Muhindo\Admin\Grid\Tools;
 
 trait HasTools
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Muhindo\Admin\Form\Field;
 
-use Encore\Admin\Admin;
-use Encore\Admin\Form;
+use Muhindo\Admin\Admin;
+use Muhindo\Admin\Form;
 use Illuminate\Support\Arr;
 
 /**

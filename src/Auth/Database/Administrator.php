@@ -2,25 +2,20 @@
 
 namespace Muhindo\Admin\Auth\Database;
 
-use App\Models\Campus;
-use App\Models\Company;
-use App\Models\UserHasProgram;
-use App\Models\Utils;
 use Carbon\Carbon;
-use Muhindo\Admin\Traits\DefaultDatetimeFormat;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Muhindo\Admin\Traits\DefaultDatetimeFormat;
 
 /**
  * Class Administrator.
  *
  * @property Role[] $roles
  */
-class Administrator extends Model implements AuthenticatableContract, JWTSubject
+class Administrator extends Model implements AuthenticatableContract
 {
     use Authenticatable;
     use HasPermissions;
@@ -37,35 +32,9 @@ class Administrator extends Model implements AuthenticatableContract, JWTSubject
         return $administrators_array;
     }
 
-    //company
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
-    }
-
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
-
-    //function to get list of this model in array for select
-    public static function get_list()
-    {
-        $list = [];
-        $users = Administrator::all();
-        foreach ($users as $u) {
-            $list[$u->id] = $u->name;
-        }
-        return $list;
-    }
 
 
-    protected $fillable = ['username', 'password', 'name', 'avatar', 'created_at_text'];
+    protected $fillable = ['username', 'password', 'name', 'avatar', 'email', 'created_at_text'];
 
     /**
      * Create a new Eloquent model instance.
@@ -89,7 +58,8 @@ class Administrator extends Model implements AuthenticatableContract, JWTSubject
 
         self::creating(function ($m) {
 
-            if (!Utils::validateEmail($m->email)) {
+            // Only validate email if it's provided
+            if (!empty($m->email) && !filter_var($m->email, FILTER_VALIDATE_EMAIL)) {
                 // throw new \Exception("Invalid email address");
             }
 
@@ -97,20 +67,30 @@ class Administrator extends Model implements AuthenticatableContract, JWTSubject
             if (strlen(trim($n)) > 1) {
                 $m->name = trim($n);
             }
-            $m->username = $m->email;
+            
+            // Only set username from email if email is provided and username is not set
+            if (!empty($m->email) && empty($m->username)) {
+                $m->username = $m->email;
+            }
+            
             if ($m->password == null || strlen($m->password) < 2) {
                 $m->password = password_hash('123456', PASSWORD_DEFAULT);
             }
         });
         self::updating(function ($m) {
-            if (!Utils::validateEmail($m->email)) {
+            // Only validate email if it's provided
+            if (!empty($m->email) && !filter_var($m->email, FILTER_VALIDATE_EMAIL)) {
                 // throw new \Exception("Invalid email address");
             }
             $n = $m->first_name . " " . $m->last_name;
             if (strlen(trim($n)) > 1) {
                 $m->name = trim($n);
             }
-            $m->username = $m->email;
+            
+            // Only set username from email if email is provided and username is not already set differently
+            if (!empty($m->email) && ($m->username === $m->getOriginal('email') || empty($m->username))) {
+                $m->username = $m->email;
+            }
         });
     }
 
@@ -140,6 +120,7 @@ class Administrator extends Model implements AuthenticatableContract, JWTSubject
     }
 
 
+    /*
     public function programs()
     {
         return $this->hasMany(UserHasProgram::class, 'user_id');
@@ -160,6 +141,7 @@ class Administrator extends Model implements AuthenticatableContract, JWTSubject
     {
         return $this->belongsTo(Campus::class, 'campus_id');
     }
+    */
 
     public function getCreatedAtTextAttribute($name)
     {
@@ -193,5 +175,15 @@ class Administrator extends Model implements AuthenticatableContract, JWTSubject
         $relatedModel = config('admin.database.permissions_model');
 
         return $this->belongsToMany($relatedModel, $pivotTable, 'user_id', 'permission_id');
+    }
+
+    /**
+     * Get the name of the unique identifier for the user.
+     *
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return 'username';
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Displayers;
+namespace Muhindo\Admin\Grid\Displayers;
 
-use Encore\Admin\Facades\Admin;
+use Muhindo\Admin\Facades\Admin;
 
 /**
  * Class Copyable.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Grid\Column;
+namespace Muhindo\Admin\Grid\Column;
 
 use Illuminate\Contracts\Support\Renderable;
 

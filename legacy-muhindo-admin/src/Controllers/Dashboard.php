@@ -1,12 +1,12 @@
 <?php
 
-namespace Encore\Admin\Controllers;
+namespace Muhindo\Admin\Controllers;
 
 use App\Models\Event;
 use App\Models\NewsPost;
 use App\Models\Utils;
-use Encore\Admin\Admin;
-use Encore\Admin\Auth\Database\Administrator;
+use Muhindo\Admin\Admin;
+use Muhindo\Admin\Auth\Database\Administrator;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Grid\Displayers;
+namespace Muhindo\Admin\Grid\Displayers;
 
 class Suffix extends AbstractDisplayer
 {

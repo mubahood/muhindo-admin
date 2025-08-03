@@ -1,10 +1,10 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Muhindo\Admin\Form\Field;
 
-use Encore\Admin\Form\EmbeddedForm;
-use Encore\Admin\Form\Field;
-use Encore\Admin\Widgets\Form as WidgetForm;
+use Muhindo\Admin\Form\EmbeddedForm;
+use Muhindo\Admin\Form\Field;
+use Muhindo\Admin\Widgets\Form as WidgetForm;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 

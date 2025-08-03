@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Tools;
+namespace Muhindo\Admin\Grid\Tools;
 
-use Encore\Admin\Admin;
+use Muhindo\Admin\Admin;
 
 class FilterButton extends AbstractTool
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Grid\Column;
+namespace Muhindo\Admin\Grid\Column;
 
-use Encore\Admin\Admin;
-use Encore\Admin\Grid\Model;
+use Muhindo\Admin\Admin;
+use Muhindo\Admin\Grid\Model;
 
 class CheckFilter extends Filter
 {

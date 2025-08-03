@@ -1,7 +1,16 @@
 <?php
 
-namespace Encore\Admin\Traits;
+namespace Muhindo\Admin\Traits;
 
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Collection;
+
+/**
+ * UPDATED FOR BOOTSTRAP 5 - Priority 2.1 Migration
+ * Asset management trait for loading CSS/JS files in admin panel
+ * Migrated from Bootstrap 3.3.5 to Bootstrap 5.3.3
+ */
 trait HasAssets
 {
     /**
@@ -58,33 +67,58 @@ trait HasAssets
     ];
 
     /**
+     * UPDATED FOR BOOTSTRAP 5 - Priority 2.1 Migration
      * @var array
      */
     public static $baseCss = [
-        'vendor/laravel-admin/AdminLTE/bootstrap/css/bootstrap.min.css',
+        // NEW: Bootstrap 5.3.3 (replaces Bootstrap 3.3.5)
+        'vendor/laravel-admin/bootstrap5/css/bootstrap.min.css',
+        
+        // Font Awesome - keeping current version (works with Bootstrap 5)
         'vendor/laravel-admin/font-awesome/css/font-awesome.min.css',
+        
+        // Core admin styles - will need updates for Bootstrap 5 compatibility
         'vendor/laravel-admin/laravel-admin/laravel-admin.css',
+        
+        // Progress and notification libraries - Bootstrap 5 compatible
         'vendor/laravel-admin/nprogress/nprogress.css',
         'vendor/laravel-admin/sweetalert2/dist/sweetalert2.css',
         'vendor/laravel-admin/nestable/nestable.css',
         'vendor/laravel-admin/toastr/build/toastr.min.css',
+        
+        // TODO: Replace with Bootstrap 5 compatible editable
         'vendor/laravel-admin/bootstrap3-editable/css/bootstrap-editable.css',
+        
+        // Google fonts - unchanged
         'vendor/laravel-admin/google-fonts/fonts.css',
+        
+        // TODO: AdminLTE 4.0 - will replace current AdminLTE 2.3.2
         'vendor/laravel-admin/AdminLTE/dist/css/AdminLTE.min.css',
     ];
 
     /**
+     * UPDATED FOR BOOTSTRAP 5 - Priority 2.1 Migration
      * @var array
      */
     public static $baseJs = [
-        'vendor/laravel-admin/AdminLTE/bootstrap/js/bootstrap.min.js',
+        // NEW: Bootstrap 5.3.3 bundle (includes Popper.js, replaces Bootstrap 3 JS)
+        'vendor/laravel-admin/bootstrap5/js/bootstrap.bundle.min.js',
+        
+        // AdminLTE plugins - keeping compatible ones
         'vendor/laravel-admin/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js',
+        
+        // TODO: AdminLTE 4.0 app.js - will replace current app.min.js
         'vendor/laravel-admin/AdminLTE/dist/js/app.min.js',
+        
+        // PJAX and utilities - Bootstrap 5 compatible
         'vendor/laravel-admin/jquery-pjax/jquery.pjax.js',
         'vendor/laravel-admin/nprogress/nprogress.js',
         'vendor/laravel-admin/nestable/jquery.nestable.js',
         'vendor/laravel-admin/toastr/build/toastr.min.js',
+        
+        // TODO: Replace with Bootstrap 5 compatible editable
         'vendor/laravel-admin/bootstrap3-editable/js/bootstrap-editable.min.js',
+        
         'vendor/laravel-admin/sweetalert2/dist/sweetalert2.min.js',
         'vendor/laravel-admin/laravel-admin/laravel-admin.js',
     ];
@@ -121,7 +155,7 @@ trait HasAssets
 
         $css = array_filter(array_unique($css));
 
-        return view('admin::partials.css', compact('css'));
+        return View::make('admin::partials.css', compact('css'));
     }
 
     /**
@@ -138,7 +172,7 @@ trait HasAssets
             return static::$baseCss = $css;
         }
 
-        $skin = config('admin.skin', 'skin-blue-light');
+        $skin = \Illuminate\Support\Facades\Config::get('admin.skin', 'skin-blue-light');
 
         array_unshift(static::$baseCss, "vendor/laravel-admin/AdminLTE/dist/css/skins/{$skin}.min.css");
 

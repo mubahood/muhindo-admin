@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Console;
+namespace Muhindo\Admin\Console;
 
 use Illuminate\Database\Eloquent\Model;
 

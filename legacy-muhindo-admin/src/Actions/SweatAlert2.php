@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Actions;
+namespace Muhindo\Admin\Actions;
 
 class SweatAlert2
 {

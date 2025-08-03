@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Muhindo\Admin\Form\Field;
 
-use Encore\Admin\Admin;
-use Encore\Admin\Grid\Selectable;
+use Muhindo\Admin\Admin;
+use Muhindo\Admin\Grid\Selectable;
 
 trait BelongsToRelation
 {
@@ -143,7 +143,7 @@ STYLE;
     }
 
     /**
-     * @return \Encore\Admin\Grid
+     * @return \Muhindo\Admin\Grid
      */
     protected function makeGrid()
     {

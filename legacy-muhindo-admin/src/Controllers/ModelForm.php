@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Controllers;
+namespace Muhindo\Admin\Controllers;
 
 /**
  * Trait ModelForm.

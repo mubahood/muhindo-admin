@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid;
+namespace Muhindo\Admin\Grid;
 
-use Encore\Admin\Grid;
+use Muhindo\Admin\Grid;
 use Illuminate\Contracts\Support\Renderable;
 
 /**

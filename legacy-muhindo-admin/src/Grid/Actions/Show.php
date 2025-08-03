@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Actions;
+namespace Muhindo\Admin\Grid\Actions;
 
-use Encore\Admin\Actions\RowAction;
+use Muhindo\Admin\Actions\RowAction;
 
 class Show extends RowAction
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Grid\Exporters;
+namespace Muhindo\Admin\Grid\Exporters;
 
 interface ExporterInterface
 {

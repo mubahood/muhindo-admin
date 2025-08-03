@@ -1,13 +1,13 @@
 <?php
 
-namespace Encore\Admin\Grid\Exporters;
+namespace Muhindo\Admin\Grid\Exporters;
 
-use Encore\Admin\Grid;
+use Muhindo\Admin\Grid;
 
 abstract class AbstractExporter implements ExporterInterface
 {
     /**
-     * @var \Encore\Admin\Grid
+     * @var \Muhindo\Admin\Grid
      */
     protected $grid;
 

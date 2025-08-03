@@ -1,12 +1,12 @@
 <?php
 
-namespace Encore\Admin\Widgets;
+namespace Muhindo\Admin\Widgets;
 
 use Closure;
-use Encore\Admin\Facades\Admin;
-use Encore\Admin\Form as BaseForm;
-use Encore\Admin\Form\Field;
-use Encore\Admin\Layout\Content;
+use Muhindo\Admin\Facades\Admin;
+use Muhindo\Admin\Form as BaseForm;
+use Muhindo\Admin\Form\Field;
+use Muhindo\Admin\Layout\Content;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;

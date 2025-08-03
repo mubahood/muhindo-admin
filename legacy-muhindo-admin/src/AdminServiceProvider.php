@@ -1,11 +1,13 @@
 <?php
 
-namespace Encore\Admin;
+namespace Muhindo\Admin;
 
-use Encore\Admin\Layout\Content;
+use Muhindo\Admin\Layout\Content;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
@@ -70,7 +72,7 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
 
@@ -85,7 +87,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->compatibleBlade();
 
         Blade::directive('box', function ($title) {
-            return "<?php \$box = new \Encore\Admin\Widgets\Box({$title}, '";
+            return "<?php \$box = new \Muhindo\Admin\Widgets\Box({$title}, '";
         });
 
         Blade::directive('endbox', function ($expression) {
@@ -100,8 +102,8 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected function ensureHttps()
     {
-        $is_admin = Str::startsWith(request()->getRequestUri(), '/'.ltrim(config('admin.route.prefix'), '/'));
-        if ((config('admin.https') || config('admin.secure')) && $is_admin) {
+        $is_admin = Str::startsWith(Request::getRequestUri(), '/'.ltrim(Config::get('admin.route.prefix'), '/'));
+        if ((Config::get('admin.https') || Config::get('admin.secure')) && $is_admin) {
             url()->forceScheme('https');
             $this->app['request']->server->set('HTTPS', true);
         }
@@ -169,7 +171,7 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->loadAdminAuthConfig();
 
@@ -185,9 +187,9 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function loadAdminAuthConfig()
+    protected function loadAdminAuthConfig(): void
     {
-        config(Arr::dot(config('admin.auth', []), 'auth.'));
+        config(Arr::dot(Config::get('admin.auth', []), 'auth.'));
     }
 
     /**

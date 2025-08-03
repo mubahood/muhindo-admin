@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Muhindo\Admin\Form\Field;
 
-use Encore\Admin\Form\NestedForm;
-use Encore\Admin\Widgets\Form as WidgetForm;
+use Muhindo\Admin\Form\NestedForm;
+use Muhindo\Admin\Widgets\Form as WidgetForm;
 
 class Table extends HasMany
 {

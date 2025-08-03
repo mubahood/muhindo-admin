@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Muhindo\Admin\Form\Field;
 
-use Encore\Admin\Admin;
+use Muhindo\Admin\Admin;
 
 class RadioCard extends RadioButton
 {
