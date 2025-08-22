@@ -1,54 +1,61 @@
-<aside class="main-sidebar">
+<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+    <!-- Brand -->
+    <div class="sidebar-brand">
+        <a href="{{ admin_url('/') }}" class="brand-link">
+            <img src="{{ url('assets/img/logo.png') }}" alt="{{ env('APP_NAME', 'AdminLTE') }} Logo" class="brand-image opacity-75 shadow">
+            <span class="brand-text fw-light">{{ env('APP_NAME', 'AdminLTE') }}</span>
+        </a>
+    </div>
 
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel">
-            <div class="pull-left image">
-                {{-- make it a perfect circle --}}
-                <img src="{{ Admin::user()->avatar }}"
-                    style="width: 35px;height: 35px;object-fit: cover;object-position: center;" class="img-circle"
-                    alt="User Image">
-            </div>
-            <div class="pull-left info">
-                <p>{{ Admin::user()->name }}</p>
-                <!-- Status -->
-                <a href="#"><i class="fa fa-circle text-success"></i> {{ trans('admin.online') }}</a>
-            </div>
-        </div>
-
-        @if (config('admin.enable_menu_search'))
-            <!-- search form (Optional) -->
-            <form class="sidebar-form" style="overflow: initial;" onsubmit="return false;">
-                <div class="input-group">
-                    <input type="text" autocomplete="off" class="form-control autocomplete" placeholder="Search...">
-                    <span class="input-group-btn">
-                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i
-                                class="fa fa-search"></i>
-                        </button>
-                    </span>
-                    <ul class="dropdown-menu" role="menu" style="min-width: 210px;max-height: 300px;overflow: auto;">
-                        @foreach (Admin::menuLinks() as $link)
-                            <li>
-                                <a href="{{ admin_url($link['uri']) }}"><i
-                                        class="fa {{ $link['icon'] }}"></i>{{ admin_trans($link['title']) }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
+    <!-- Sidebar -->
+    <div class="sidebar-wrapper">
+        <nav class="mt-2">
+            <!-- Sidebar user panel (optional) -->
+            <div class="nav-header">
+                <div class="user-panel d-flex">
+                    <div class="image">
+                        <img src="{{ Admin::user()->avatar }}" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="{{ admin_url('auth/setting') }}" class="d-block text-white text-decoration-none">{{ Admin::user()->name }}</a>
+                        <span class="badge badge-success">{{ trans('admin.online') }}</span>
+                    </div>
                 </div>
-            </form>
-            <!-- /.search form -->
-        @endif
+            </div>
 
-        <!-- Sidebar Menu -->
-        <ul class="sidebar-menu">
-            <li class="header">{{ trans('admin.menu') }}</li>
+            @if (config('admin.enable_menu_search'))
+                <!-- Search form (Optional) -->
+                <div class="form-inline mt-2">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar autocomplete" type="search" placeholder="Search..." aria-label="Search" autocomplete="off">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar-search-results">
+                            <div class="list-group">
+                                @foreach (Admin::menuLinks() as $link)
+                                    <a href="{{ admin_url($link['uri']) }}" class="list-group-item">
+                                        <i class="fas {{ $link['icon'] }} fa-fw"></i>
+                                        {{ admin_trans($link['title']) }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
-            @each('admin::partials.menu', Admin::menu(), 'item')
-
-        </ul>
-        <!-- /.sidebar-menu -->
-    </section>
+            <!-- Sidebar Menu -->
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                <li class="nav-header text-uppercase">{{ trans('admin.menu') }}</li>
+                
+                @each('admin::partials.menu', Admin::menu(), 'item')
+            </ul>
+        </nav>
+    </div>
     <!-- /.sidebar -->
 </aside>

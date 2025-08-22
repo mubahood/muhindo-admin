@@ -5,7 +5,7 @@ namespace Muhindo\Admin\Form\Field;
 class Number extends Text
 {
     protected static $js = [
-        '/vendor/laravel-admin/number-input/bootstrap-number-input.js',
+        '/vendor/muhindo-admin/number-input/bootstrap-number-input.js',
     ];
 
     public function render()

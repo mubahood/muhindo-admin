@@ -12,6 +12,11 @@
     </title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    
+    <!-- AdminLTE 4 accessibility meta tags -->
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
 
     {{--     @if (!is_null($favicon = Admin::favicon()))
     <link rel="shortcut icon" href="{{$favicon}}">
@@ -30,7 +35,7 @@
 
 </head>
 
-<body class="hold-transition {{ config('admin.skin') }} {{ join(' ', config('admin.layout')) }}">
+<body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary {{ join(' ', config('admin.layout')) }}">
 
     @if ($alert = config('admin.top_alert'))
         <div style="text-align: center;padding: 5px;font-size: 12px;background-color: #ffffd5;color: #ff0000;">
@@ -38,20 +43,28 @@
         </div>
     @endif
 
-    <div class="wrapper">
+    <div class="app-wrapper">
 
         @include('admin::partials.header')
 
         @include('admin::partials.sidebar')
 
-        <div class="content-wrapper" id="pjax-container">
-            {!! Admin::style() !!}
-            <div id="app">
-                @yield('content')
+        <main class="app-main">
+            <div class="app-content-header">
+                <div class="container-fluid">
+                    {!! Admin::style() !!}
+                </div>
             </div>
-            {!! Admin::script() !!}
-            {!! Admin::html() !!}
-        </div>
+            <div class="app-content">
+                <div class="container-fluid" id="pjax-container">
+                    <div id="app">
+                        @yield('content')
+                    </div>
+                    {!! Admin::script() !!}
+                    {!! Admin::html() !!}
+                </div>
+            </div>
+        </main>
 
         @include('admin::partials.footer')
 

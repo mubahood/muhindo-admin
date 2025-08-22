@@ -63,6 +63,7 @@ trait HasAssets
     public static $baseCss = [
         'vendor/muhindo-admin/bootstrap5/css/bootstrap.min.css',
         'vendor/muhindo-admin/font-awesome/css/font-awesome.min.css',
+        'vendor/muhindo-admin/AdminLTE4/css/adminlte.min.css',
         'vendor/muhindo-admin/laravel-admin/laravel-admin.css',
         'vendor/muhindo-admin/nprogress/nprogress.css',
         'vendor/muhindo-admin/sweetalert2/dist/sweetalert2.css',
@@ -70,7 +71,6 @@ trait HasAssets
         'vendor/muhindo-admin/toastr/build/toastr.min.css',
         'vendor/muhindo-admin/bootstrap3-editable/css/bootstrap-editable.css',
         'vendor/muhindo-admin/google-fonts/fonts.css',
-        'vendor/muhindo-admin/AdminLTE/dist/css/AdminLTE.min.css',
     ];
 
     /**
@@ -78,8 +78,7 @@ trait HasAssets
      */
     public static $baseJs = [
         'vendor/muhindo-admin/bootstrap5/js/bootstrap.bundle.min.js',
-        'vendor/muhindo-admin/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js',
-        'vendor/muhindo-admin/AdminLTE/dist/js/app.min.js',
+        'vendor/muhindo-admin/AdminLTE4/js/adminlte.min.js',
         'vendor/muhindo-admin/jquery-pjax/jquery.pjax.js',
         'vendor/muhindo-admin/nprogress/nprogress.js',
         'vendor/muhindo-admin/nestable/jquery.nestable.js',
@@ -138,9 +137,9 @@ trait HasAssets
             return static::$baseCss = $css;
         }
 
-        $skin = config('admin.skin', 'skin-blue-light');
-
-        array_unshift(static::$baseCss, "vendor/muhindo-admin/AdminLTE/dist/css/skins/{$skin}.min.css");
+        // AdminLTE 4 uses modern color themes instead of the old skin system
+        // The main adminlte.min.css already includes all theme support
+        // Additional themes can be activated via CSS classes on body element
 
         return static::$baseCss;
     }
