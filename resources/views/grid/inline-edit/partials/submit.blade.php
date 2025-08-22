@@ -26,18 +26,25 @@ $(document).off('click', '.ie-content .ie-submit').on('click', '.ie-content .ie-
     $.ajax({
         url: "{{ $resource }}/" + $trigger.data('key'),
         type: "POST",
-        data: data,
-        success: function (data) {
-            toastr.success(data.message);
+        data: data
+    }).done(function (data) {
+        toastr.success(data.message);
 
-            {{ $slot }}
+        {{ $slot }}
 
-            $trigger.data('value', val)
-                .data('original', val);
+        $trigger.data('value', val)
+            .data('original', val);
 
-            $('[data-toggle="popover"]').popover('hide');
-        },
-        statusCode: {
+        $('[data-toggle="popover"]').popover('hide');
+    }).fail(function (xhr, textStatus, errorThrown) {
+        var data = xhr.responseJSON;
+        if (data && (data['errors'] || data['message'])) {
+            var message = data['message'] || Object.values(data['errors']).join("\n");
+            toastr.error(message);
+        } else {
+            toastr.error('Update failed: ' + errorThrown);
+        }
+    });
             422: function(xhr) {
                 $popover.find('.error').empty();
                 var errors = xhr.responseJSON.errors;

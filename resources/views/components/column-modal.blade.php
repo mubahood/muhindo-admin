@@ -40,8 +40,10 @@
                 <i class='fa fa-spinner fa-pulse fa-3x fa-fw' style='margin-top: 80px;'></i>\
             </div>");
 
-        $.get(url, function (data) {
+        $.get(url).done(function (data) {
             modalBody.html(data);
+        }).fail(function (xhr, textStatus, errorThrown) {
+            modalBody.html('<div class="alert alert-danger">Failed to load content: ' + errorThrown + '</div>');
         });
     };
 

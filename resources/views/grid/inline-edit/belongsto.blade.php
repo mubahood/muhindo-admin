@@ -57,9 +57,16 @@
                 '{{ $name }}': selected.length ? selected : [''],
                 _token: LA.token,
                 _method: 'PUT'
-            },
-            success: function (data) {
-                callback(data);
+            }
+        }).done(function (data) {
+            callback(data);
+        }).fail(function (xhr, textStatus, errorThrown) {
+            var data = xhr.responseJSON;
+            if (data && (data['errors'] || data['message'])) {
+                var message = data['message'] || Object.values(data['errors']).join("\n");
+                toastr.error(message);
+            } else {
+                toastr.error('Update failed: ' + errorThrown);
             }
         });
     };
@@ -69,7 +76,7 @@
     var selected = null;
 
     var load = function (url) {
-        $.get(url, function (data) {
+        $.get(url).done(function (data) {
             $modal.find('.modal-body').html(data);
             $modal.find('.select').iCheck({
                 radioClass:'iradio_minimal-blue',
@@ -77,11 +84,13 @@
             });
             $modal.find('.box-header:first').hide();
 
-            $modal.find('input.select').each(function (index,    el) {
+            $modal.find('input.select').each(function (index, el) {
                 if ($(el).val() == selected) {
                     $(el).iCheck('toggle');
                 }
             });
+        }).fail(function (xhr, textStatus, errorThrown) {
+            toastr.error('Failed to load data: ' + errorThrown);
         });
     };
 
@@ -112,7 +121,7 @@
     var selected = [];
 
     var load = function (url) {
-        $.get(url, function (data) {
+        $.get(url).done(function (data) {
             $modal.find('.modal-body').html(data);
             $modal.find('.select').iCheck({
                 radioClass:'iradio_minimal-blue',
@@ -125,6 +134,8 @@
                     $(el).iCheck('toggle');
                 }
             });
+        }).fail(function (xhr, textStatus, errorThrown) {
+            toastr.error('Failed to load data: ' + errorThrown);
         });
     };
 

@@ -53,7 +53,7 @@ modal.on('show.bs.modal', function (e) {
     };
 
     var load = function (url) {
-        $.get(url, function (data) {
+        $.get(url).done(function (data) {
             modal.find('.modal-body').html(data);
             modal.find('input.select').iCheck({
                 radioClass:'iradio_minimal-blue',
@@ -66,6 +66,8 @@ modal.on('show.bs.modal', function (e) {
                     $(el).iCheck('toggle');
                 }
             });
+        }).fail(function (xhr, textStatus, errorThrown) {
+            toastr.error('Failed to load files: ' + errorThrown);
         });
     };
 
@@ -97,7 +99,7 @@ modal.on('show.bs.modal', function (e) {
     };
 
     var load = function (url) {
-        $.get(url, function (data) {
+        $.get(url).done(function (data) {
             modal.find('.modal-body').html(data);
             modal.find('input.select').iCheck({
                 radioClass:'iradio_minimal-blue',
@@ -110,6 +112,8 @@ modal.on('show.bs.modal', function (e) {
                     $(el).iCheck('toggle');
                 }
             });
+        }).fail(function (xhr, textStatus, errorThrown) {
+            toastr.error('Failed to load files: ' + errorThrown);
         });
     };
 

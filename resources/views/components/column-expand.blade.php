@@ -28,8 +28,10 @@
     @if($async)
 
     var load = function (url, target) {
-        $.get(url, function (data) {
+        $.get(url).done(function (data) {
             target.find('.html').html(data);
+        }).fail(function (xhr, textStatus, errorThrown) {
+            target.find('.html').html('<div class="text-danger">Failed to load: ' + errorThrown + '</div>');
         });
     };
 

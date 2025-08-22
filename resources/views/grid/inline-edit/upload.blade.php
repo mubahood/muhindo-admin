@@ -30,10 +30,17 @@ $('input.inline-upload').on('change', function () {
         processData: false,
         contentType: false,
         enctype: 'multipart/form-data',
-        data: formData,
-        success: function (data) {
-            toastr.success(data.message);
-            $.admin.reload();
+        data: formData
+    }).done(function (data) {
+        toastr.success(data.message);
+        $.admin.reload();
+    }).fail(function (xhr, textStatus, errorThrown) {
+        var data = xhr.responseJSON;
+        if (data && (data['errors'] || data['message'])) {
+            var message = data['message'] || Object.values(data['errors']).join("\n");
+            toastr.error(message);
+        } else {
+            toastr.error('Upload failed: ' + errorThrown);
         }
     });
 });

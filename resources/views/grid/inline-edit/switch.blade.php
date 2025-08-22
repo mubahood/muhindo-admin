@@ -18,31 +18,29 @@
             $.ajax({
                 url: "{{ $resource }}/" + key,
                 type: "POST",
-                async:false,
                 data: {
                     "{{ $name }}": value,
                     _token: LA.token,
                     _method: 'PUT',
                     _edit_inline: true
-                },
-                success: function (data) {
-                    if (data.status)
-                        toastr.success(data.message);
-                    else
-                        toastr.warning(data.message);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    _status = false;
-                    var data = xhr.responseJSON
-                    if (data['errors'] || data['message']) {
-                        var message = data['message'] || Object.values(data['errors']).join("\n");
-                        toastr.error(message);
-                    } else {
-                        toastr.error('Error: ' + errorThrown);
-                    }
-                },
-                complete:function(xhr,status) {
-                    if (status == 'success')
+                }
+            }).done(function (data) {
+                if (data.status) {
+                    toastr.success(data.message);
+                } else {
+                    toastr.warning(data.message);
+                }
+            }).fail(function (xhr, textStatus, errorThrown) {
+                _status = false;
+                var data = xhr.responseJSON;
+                if (data && (data['errors'] || data['message'])) {
+                    var message = data['message'] || Object.values(data['errors']).join("\n");
+                    toastr.error(message);
+                } else {
+                    toastr.error('Error: ' + errorThrown);
+                }
+            }).always(function(xhr, status) {
+                if (status === 'success'
                         _status = xhr.responseJSON.status;
                 }
             });
