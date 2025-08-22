@@ -20,7 +20,7 @@ class ExtendCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Build a Laravel-admin extension';
+    protected $description = 'Build a Muhindo-admin extension';
 
     /**
      * @var string

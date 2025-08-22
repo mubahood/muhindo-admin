@@ -4,29 +4,29 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Laravel-admin name
+    | Muhindo-admin name
     |--------------------------------------------------------------------------
     |
-    | This value is the name of laravel-admin, This setting is displayed on the
+    | This value is the name of muhindo-admin, This setting is displayed on the
     | login page.
     |
     */
-    'name' => 'Laravel-admin',
+    'name' => 'Muhindo-admin',
 
     /*
     |--------------------------------------------------------------------------
-    | Laravel-admin logo
+    | Muhindo-admin logo
     |--------------------------------------------------------------------------
     |
     | The logo of all admin pages. You can also set it as an image by using a
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>Laravel</b> admin',
+    'logo' => '<b>Muhindo</b> admin',
 
     /*
     |--------------------------------------------------------------------------
-    | Laravel-admin mini logo
+    | Muhindo-admin mini logo
     |--------------------------------------------------------------------------
     |
     | The logo of all admin pages when the sidebar menu is collapsed. You can
@@ -34,21 +34,21 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<b>La</b>',
+    'logo-mini' => '<b>Ma</b>',
 
     /*
     |--------------------------------------------------------------------------
-    | Laravel-admin bootstrap setting
+    | Muhindo-admin bootstrap setting
     |--------------------------------------------------------------------------
     |
-    | This value is the path of laravel-admin bootstrap file.
+    | This value is the path of muhindo-admin bootstrap file.
     |
     */
     'bootstrap' => app_path('Admin/bootstrap.php'),
 
     /*
     |--------------------------------------------------------------------------
-    | Laravel-admin route settings
+    | Muhindo-admin route settings
     |--------------------------------------------------------------------------
     |
     | The routing configuration of the admin page, including the path prefix,

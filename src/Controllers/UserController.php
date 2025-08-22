@@ -32,7 +32,6 @@ class UserController extends AdminController
         $grid->column('id', 'ID')->sortable();
         $grid->column('username', trans('admin.username'));
         $grid->column('name', trans('admin.name'));
-        $grid->column('company.name', 'Company');
         $grid->column('roles', trans('admin.roles'))->pluck('name')->label();
         $grid->column('created_at', trans('admin.created_at'))
             ->date('Y-m-d H:i:s')

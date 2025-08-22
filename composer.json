@@ -1,9 +1,9 @@
 {
-    "name": "muhindo/laravel-admin",
-    "description": "Modern Laravel Admin Panel - A comprehensive admin interface builder for Laravel with PHP 8.1+ and Bootstrap 4+ support",
+    "name": "muhindo/muhindo-admin",
+    "description": "Modern Laravel Admin Panel - A comprehensive admin interface builder for Laravel with PHP 8.1+ and Bootstrap 5+ support",
     "type": "library",
-    "keywords": ["laravel", "admin", "grid", "form", "crud", "panel", "backend", "php8", "bootstrap4"],
-    "homepage": "https://github.com/muhindo/laravel-admin",
+    "keywords": ["laravel", "admin", "grid", "form", "crud", "panel", "backend", "php8", "bootstrap5", "muhindo"],
+    "homepage": "https://github.com/mubahood/muhindo-admin",
     "license": "MIT",
     "authors": [
         {

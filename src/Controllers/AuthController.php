@@ -264,8 +264,6 @@ class AuthController extends Controller
         $form->divider('BIO DATA');
 
         $u = Admin::user();
-        $form->hidden('company_id')->rules('required')->default($u->company_id)
-            ->value($u->company_id);
         $form->text('first_name')->rules('required');
         $form->text('last_name')->rules('required');
         $form->date('date_of_birth');

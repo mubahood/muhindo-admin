@@ -3,6 +3,7 @@
 namespace Muhindo\Admin\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class ExportSeedCommand extends Command
 {
@@ -20,7 +21,7 @@ class ExportSeedCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Export seed a Laravel-admin database tables menu, roles and permissions';
+    protected $description = 'Export seed a Muhindo-admin database tables menu, roles and permissions';
 
     /**
      * Execute the console command.
@@ -86,10 +87,10 @@ class ExportSeedCommand extends Command
      */
     protected function getTableDataArrayAsString($table, $exceptFields = [])
     {
-        $fields = \DB::getSchemaBuilder()->getColumnListing($table);
+        $fields = DB::getSchemaBuilder()->getColumnListing($table);
         $fields = array_diff($fields, $exceptFields);
 
-        $array = \DB::table($table)->get($fields)->map(function ($item) {
+        $array = DB::table($table)->get($fields)->map(function ($item) {
             return (array) $item;
         })->all();
 

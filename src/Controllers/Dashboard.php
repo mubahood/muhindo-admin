@@ -26,23 +26,12 @@ class Dashboard
     public static function dashboard_members()
     {
         $u = Auth::user();
-        $members = Administrator::where([
-            'company_id' => $u->company_id,
-        ])->orderBy('id', 'desc')->limit(8)->get();
-        return view('dashboard.members', [
-            'items' => $members
-        ]);
+     
     }
 
     public static function dashboard_events()
     {
-        $u = Auth::user();
-        $events = Event::where([
-            'company_id' => $u->company_id,
-        ])->orderBy('id', 'desc')->limit(8)->get();
-        return view('dashboard.events', [
-            'items' => $events
-        ]);
+       
     }
 
     public static function dashboard_news()

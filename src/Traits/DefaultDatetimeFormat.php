@@ -8,7 +8,7 @@ trait DefaultDatetimeFormat
 {
     protected function serializeDate(\DateTimeInterface $date)
     {
-        if (version_compare(app()->version(), '7.0.0') < 0) {
+        if (version_compare(app()->version(), '10.0.0') < 0) {
             return parent::serializeDate($date);
         }
 

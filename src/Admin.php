@@ -21,7 +21,7 @@ class Admin
     use HasAssets;
 
     /**
-     * The Laravel admin version.
+     * The Muhindo admin version.
      *
      * @var string
      */
@@ -63,13 +63,13 @@ class Admin
     protected static $bootedCallbacks = [];
 
     /**
-     * Returns the long version of Laravel-admin.
+     * Returns the long version of Muhindo-admin.
      *
      * @return string The long application version
      */
     public static function getLongVersion()
     {
-        return sprintf('Laravel-admin <comment>version</comment> <info>%s</info>', self::VERSION);
+        return sprintf('Muhindo-admin <comment>version</comment> <info>%s</info>', self::VERSION);
     }
 
     /**
@@ -288,7 +288,7 @@ class Admin
     }
 
     /**
-     * Register the laravel-admin builtin routes.
+     * Register the muhindo-admin builtin routes.
      *
      * @return void
      *
@@ -300,7 +300,7 @@ class Admin
     }
 
     /**
-     * Register the laravel-admin builtin routes.
+     * Register the muhindo-admin builtin routes.
      *
      * @return void
      */
