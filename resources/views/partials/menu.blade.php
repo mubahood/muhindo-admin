@@ -2,11 +2,11 @@
     @if(!isset($item['children']))
         <li class="nav-item">
             @if(url()->isValidUrl($item['uri']))
-                <a href="{{ $item['uri'] }}" target="_blank" class="nav-link">
+                <a href="{{ $item['uri'] }}" target="_blank" class="nav-link {{ admin_url($item['uri']) == request()->url() ? 'active' : '' }}">
             @else
-                <a href="{{ admin_url($item['uri']) }}" class="nav-link">
+                <a href="{{ admin_url($item['uri']) }}" class="nav-link {{ admin_url($item['uri']) == request()->url() ? 'active' : '' }}" data-pjax="true">
             @endif
-                <i class="nav-icon fas {{ $item['icon'] }}"></i>
+                <i class="nav-icon fas fa-{{ str_replace('fa-', '', $item['icon'] ?? 'circle') }}"></i>
                 <p>
                     @if (Lang::has($titleTranslation = 'admin.menu_titles.' . trim(str_replace(' ', '_', strtolower($item['title'])))))
                         {{ __($titleTranslation) }}
@@ -17,21 +17,38 @@
             </a>
         </li>
     @else
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas {{ $item['icon'] }}"></i>
+        <li class="nav-item has-treeview">
+            <a href="#" class="nav-link" data-widget="treeview">
+                <i class="nav-icon fas fa-{{ str_replace('fa-', '', $item['icon'] ?? 'folder') }}"></i>
                 <p>
                     @if (Lang::has($titleTranslation = 'admin.menu_titles.' . trim(str_replace(' ', '_', strtolower($item['title'])))))
                         {{ __($titleTranslation) }}
                     @else
                         {{ admin_trans($item['title']) }}
                     @endif
-                    <i class="fas fa-angle-left right"></i>
+                    <i class="nav-arrow fas fa-angle-left"></i>
                 </p>
             </a>
             <ul class="nav nav-treeview">
-                @foreach($item['children'] as $item)
-                    @include('admin::partials.menu', $item)
+                @foreach($item['children'] as $subItem)
+                    @if(Admin::user()->visible(\Illuminate\Support\Arr::get($subItem, 'roles', [])) && Admin::user()->can(\Illuminate\Support\Arr::get($subItem, 'permission')))
+                        <li class="nav-item">
+                            @if(url()->isValidUrl($subItem['uri']))
+                                <a href="{{ $subItem['uri'] }}" target="_blank" class="nav-link {{ admin_url($subItem['uri']) == request()->url() ? 'active' : '' }}">
+                            @else
+                                <a href="{{ admin_url($subItem['uri']) }}" class="nav-link {{ admin_url($subItem['uri']) == request()->url() ? 'active' : '' }}" data-pjax="true">
+                            @endif
+                                <i class="nav-icon fas fa-circle nav-icon"></i>
+                                <p>
+                                    @if (Lang::has($subTitleTranslation = 'admin.menu_titles.' . trim(str_replace(' ', '_', strtolower($subItem['title'])))))
+                                        {{ __($subTitleTranslation) }}
+                                    @else
+                                        {{ admin_trans($subItem['title']) }}
+                                    @endif
+                                </p>
+                            </a>
+                        </li>
+                    @endif
                 @endforeach
             </ul>
         </li>

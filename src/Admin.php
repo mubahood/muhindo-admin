@@ -63,6 +63,16 @@ class Admin
     protected static $bootedCallbacks = [];
 
     /**
+     * Test method to verify symlink functionality
+     * 
+     * @return string
+     */
+    public function getSymlinkTestMessage()
+    {
+        return 'Symlink is working! Changes are reflected on the fly. Updated at: ' . now()->format('H:i:s');
+    }
+
+    /**
      * Returns the long version of Muhindo-admin.
      *
      * @return string The long application version

@@ -26,7 +26,6 @@ class TestCase extends BaseTestCase
 
         $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
 
-        $app->register('Muhindo\Admin\AdminServiceProvider');
 
         return $app;
     }
@@ -49,8 +48,6 @@ class TestCase extends BaseTestCase
         foreach (Arr::dot(Arr::get($adminConfig, 'auth'), 'auth.') as $key => $value) {
             $this->app['config']->set($key, $value);
         }
-
-        $this->artisan('vendor:publish', ['--provider' => 'Muhindo\Admin\AdminServiceProvider']);
 
         Schema::defaultStringLength(191);
 

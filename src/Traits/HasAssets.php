@@ -62,9 +62,11 @@ trait HasAssets
      */
     public static $baseCss = [
         'vendor/muhindo-admin/bootstrap5/css/bootstrap.min.css',
+        'vendor/muhindo-admin/bootstrap-icons/bootstrap-icons.css', // Bootstrap Icons
         'vendor/muhindo-admin/font-awesome/css/font-awesome.min.css',
         'vendor/muhindo-admin/AdminLTE4/css/adminlte.min.css',
         'vendor/muhindo-admin/laravel-admin/laravel-admin.css',
+        'vendor/muhindo-admin/css/adminlte-modern-theme.css', // AdminLTE-compatible modern theme
         'vendor/muhindo-admin/nprogress/nprogress.css',
         'vendor/muhindo-admin/sweetalert2/dist/sweetalert2.css',
         'vendor/muhindo-admin/nestable/nestable.css',
@@ -78,14 +80,16 @@ trait HasAssets
      */
     public static $baseJs = [
         'vendor/muhindo-admin/bootstrap5/js/bootstrap.bundle.min.js',
-        'vendor/muhindo-admin/AdminLTE4/js/adminlte.min.js',
+        'vendor/muhindo-admin/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js',
         'vendor/muhindo-admin/jquery-pjax/jquery.pjax.js',
         'vendor/muhindo-admin/nprogress/nprogress.js',
         'vendor/muhindo-admin/nestable/jquery.nestable.js',
         'vendor/muhindo-admin/toastr/build/toastr.min.js',
-        'vendor/muhindo-admin/bootstrap3-editable/js/bootstrap-editable.min.js',
         'vendor/muhindo-admin/sweetalert2/dist/sweetalert2.min.js',
-        'vendor/muhindo-admin/laravel-admin/laravel-admin.js',
+        'vendor/muhindo-admin/bootstrap3-editable/js/bootstrap-editable.min.js',
+        'vendor/muhindo-admin/AdminLTE4/js/adminlte.min.js', // Moved AdminLTE4 before laravel-admin
+        'vendor/muhindo-admin/laravel-admin/laravel-admin.js', // PJAX config should run after AdminLTE4
+        'vendor/muhindo-admin/js/adminlte-modern-theme.js', // Our enhancements last
     ];
 
     /**

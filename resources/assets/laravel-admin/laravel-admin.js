@@ -22,11 +22,19 @@ toastr.options = {
     timeOut: 4000
 };
 
-$.pjax.defaults.timeout = 5000;
-$.pjax.defaults.maxCacheLength = 0;
-$(document).pjax('a:not(a[target="_blank"])', {
-    container: '#pjax-container'
-});
+// Safely configure PJAX defaults
+if (typeof $.pjax !== 'undefined') {
+    if (!$.pjax.defaults) {
+        $.pjax.defaults = {};
+    }
+    $.pjax.defaults.timeout = 5000;
+    $.pjax.defaults.maxCacheLength = 0;
+    
+    // Initialize PJAX
+    $(document).pjax('a:not(a[target="_blank"])', {
+        container: '#pjax-container'
+    });
+}
 
 NProgress.configure({parent: '#app'});
 
