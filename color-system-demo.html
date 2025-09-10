@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Color System Demo</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Simulate our dynamic color system -->
+    <style>
+        <?php 
+            // Simulate the color system we just built
+            $primary_color = '#198754'; // Green theme
+            $primary_rgb = [25, 135, 84];
+            $primary_hover = '#157347';
+            $primary_active = '#0d5132';
+            $focus_rgb = '25, 135, 84';
+        ?>
+        
+        :root {
+            --bs-primary: <?php echo $primary_color; ?>;
+            --bs-primary-rgb: <?php echo $focus_rgb; ?>;
+        }
+        
+        .btn-primary {
+            --bs-btn-color: #fff;
+            --bs-btn-bg: <?php echo $primary_color; ?>;
+            --bs-btn-border-color: <?php echo $primary_color; ?>;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: <?php echo $primary_hover; ?>;
+            --bs-btn-hover-border-color: <?php echo $primary_hover; ?>;
+            --bs-btn-focus-shadow-rgb: <?php echo $focus_rgb; ?>;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: <?php echo $primary_active; ?>;
+            --bs-btn-active-border-color: <?php echo $primary_active; ?>;
+        }
+        
+        .form-control:focus {
+            border-color: <?php echo $primary_color; ?>;
+            box-shadow: 0 0 0 0.25rem rgba(<?php echo $focus_rgb; ?>, 0.25);
+        }
+        
+        .text-primary {
+            color: <?php echo $primary_color; ?> !important;
+        }
+        
+        .bg-primary {
+            background-color: <?php echo $primary_color; ?> !important;
+        }
+        
+        .border-primary {
+            border-color: <?php echo $primary_color; ?> !important;
+        }
+        
+        .progress-bar {
+            background-color: <?php echo $primary_color; ?>;
+        }
+        
+        .demo-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4 text-primary">🎨 Dynamic Color System</h1>
+            <p class="lead">Demonstration of the new Bootstrap 5 primary color override system</p>
+            <p class="text-muted">Current theme: <strong>Green (#198754)</strong></p>
+        </div>
+        
+        <!-- Buttons Demo -->
+        <div class="demo-section">
+            <h3>Buttons</h3>
+            <button type="button" class="btn btn-primary">Primary Button</button>
+            <button type="button" class="btn btn-primary btn-lg">Large Primary</button>
+            <button type="button" class="btn btn-primary btn-sm">Small Primary</button>
+            <button type="button" class="btn btn-outline-primary">Outline Primary</button>
+        </div>
+        
+        <!-- Forms Demo -->
+        <div class="demo-section">
+            <h3>Form Controls</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="test@example.com">
+                </div>
+                <div class="col-md-6">
+                    <label for="select" class="form-label">Select</label>
+                    <select class="form-select" id="select">
+                        <option>Choose option...</option>
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Text & Backgrounds Demo -->
+        <div class="demo-section">
+            <h3>Text & Backgrounds</h3>
+            <p class="text-primary">This is primary text color</p>
+            <span class="badge bg-primary">Primary Badge</span>
+            <div class="p-3 mt-2 bg-primary text-white rounded">Primary background div</div>
+        </div>
+        
+        <!-- Progress Demo -->
+        <div class="demo-section">
+            <h3>Progress Bars</h3>
+            <div class="progress mb-3">
+                <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+            </div>
+        </div>
+        
+        <!-- Alerts Demo -->
+        <div class="demo-section">
+            <h3>Alerts</h3>
+            <div class="alert alert-primary" role="alert">
+                <strong>Well done!</strong> This is a primary alert with the new color system.
+            </div>
+        </div>
+        
+        <!-- Borders Demo -->
+        <div class="demo-section">
+            <h3>Borders</h3>
+            <div class="p-3 border border-primary border-3 rounded">
+                This div has a primary colored border
+            </div>
+        </div>
+        
+        <!-- Color Swatches -->
+        <div class="demo-section">
+            <h3>Color Variations</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="p-3 text-white text-center rounded" style="background-color: <?php echo $primary_color; ?>">
+                        <strong>Primary</strong><br>
+                        <?php echo $primary_color; ?>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 text-white text-center rounded" style="background-color: <?php echo $primary_hover; ?>">
+                        <strong>Hover</strong><br>
+                        <?php echo $primary_hover; ?>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 text-white text-center rounded" style="background-color: <?php echo $primary_active; ?>">
+                        <strong>Active</strong><br>
+                        <?php echo $primary_active; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5">
+            <h4 class="text-primary">✅ Dynamic Color System Working!</h4>
+            <p class="text-muted">All components automatically inherit the primary color theme</p>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

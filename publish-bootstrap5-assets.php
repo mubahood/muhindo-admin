@@ -17,9 +17,22 @@ $directories = [
     $publicPath . '/bootstrap5/css',
     $publicPath . '/bootstrap5/js', 
     $publicPath . '/css',
-    $publicPath . '/font-awesome/css',
+    $publicPath . '/font-awesome-6.4.2/css',
+    $publicPath . '/font-awesome-6.4.2/webfonts',
+    $publicPath . '/muhindo-core',
     $publicPath . '/AdminLTE/dist/css',
+    $publicPath . '/AdminLTE/dist/js',
+    $publicPath . '/AdminLTE/plugins/slimScroll',
     $publicPath . '/laravel-admin',
+    $publicPath . '/jquery-pjax',
+    $publicPath . '/nprogress',
+    $publicPath . '/nestable',
+    $publicPath . '/toastr/build',
+    $publicPath . '/sweetalert2/dist',
+    $publicPath . '/jquery',
+    $publicPath . '/google-fonts',
+    $publicPath . '/bootstrap3-editable/js',
+    $publicPath . '/bootstrap3-editable/css',
 ];
 
 foreach ($directories as $dir) {
@@ -37,14 +50,58 @@ $assets = [
     // Bootstrap 5 JS
     'resources/assets/bootstrap5/js/bootstrap.bundle.min.js' => 'bootstrap5/js/bootstrap.bundle.min.js',
     
-    // Override CSS
-    'resources/assets/css/bootstrap5-admin-override.css' => 'css/bootstrap5-admin-override.css',
+    // Muhindo Core CSS (our custom AdminLTE)
+    'resources/assets/muhindo-core/main.css' => 'muhindo-core/main.css',
     
-    // Font Awesome (placeholder)
-    'resources/assets/font-awesome/css/font-awesome.min.css' => 'font-awesome/css/font-awesome.min.css',
+    // Font Awesome 6.4.2
+    'resources/assets/font-awesome-6.4.2/css/all.min.css' => 'font-awesome-6.4.2/css/all.min.css',
+    'resources/assets/font-awesome-6.4.2/webfonts/fa-brands-400.woff2' => 'font-awesome-6.4.2/webfonts/fa-brands-400.woff2',
+    'resources/assets/font-awesome-6.4.2/webfonts/fa-brands-400.ttf' => 'font-awesome-6.4.2/webfonts/fa-brands-400.ttf',
+    'resources/assets/font-awesome-6.4.2/webfonts/fa-regular-400.woff2' => 'font-awesome-6.4.2/webfonts/fa-regular-400.woff2',
+    'resources/assets/font-awesome-6.4.2/webfonts/fa-regular-400.ttf' => 'font-awesome-6.4.2/webfonts/fa-regular-400.ttf',
+    'resources/assets/font-awesome-6.4.2/webfonts/fa-solid-900.woff2' => 'font-awesome-6.4.2/webfonts/fa-solid-900.woff2',
+    'resources/assets/font-awesome-6.4.2/webfonts/fa-solid-900.ttf' => 'font-awesome-6.4.2/webfonts/fa-solid-900.ttf',
     
-    // AdminLTE (placeholder)
+    // AdminLTE CSS
     'resources/assets/AdminLTE/dist/css/AdminLTE.min.css' => 'AdminLTE/dist/css/AdminLTE.min.css',
+    
+    // AdminLTE JavaScript (now properly available in AdminLTE directory)
+    'resources/assets/AdminLTE/dist/js/adminlte.min.js' => 'AdminLTE/dist/js/adminlte.min.js',
+    
+    // AdminLTE Plugins
+    'resources/assets/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js' => 'AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js',
+    
+    // Laravel Admin
+    'resources/assets/laravel-admin/laravel-admin.js' => 'laravel-admin/laravel-admin.js',
+    
+    // jQuery
+    'resources/assets/jquery/jquery-3.7.1.min.js' => 'jquery/jquery-3.7.1.min.js',
+    
+    // jQuery PJAX
+    'resources/assets/jquery-pjax/jquery.pjax.js' => 'jquery-pjax/jquery.pjax.js',
+    
+    // NProgress
+    'resources/assets/nprogress/nprogress.js' => 'nprogress/nprogress.js',
+    'resources/assets/nprogress/nprogress.css' => 'nprogress/nprogress.css',
+    
+    // Nestable
+    'resources/assets/nestable/jquery.nestable.js' => 'nestable/jquery.nestable.js',
+    'resources/assets/nestable/nestable.css' => 'nestable/nestable.css',
+    
+    // Toastr
+    'resources/assets/toastr/build/toastr.min.js' => 'toastr/build/toastr.min.js',
+    'resources/assets/toastr/build/toastr.min.css' => 'toastr/build/toastr.min.css',
+    
+    // SweetAlert2
+    'resources/assets/sweetalert2/dist/sweetalert2.min.js' => 'sweetalert2/dist/sweetalert2.min.js',
+    'resources/assets/sweetalert2/dist/sweetalert2.css' => 'sweetalert2/dist/sweetalert2.css',
+    
+    // Google Fonts
+    'resources/assets/google-fonts/fonts.css' => 'google-fonts/fonts.css',
+    
+    // Bootstrap 3 Editable (required by laravel-admin.js)
+    'resources/assets/bootstrap3-editable/js/bootstrap-editable.min.js' => 'bootstrap3-editable/js/bootstrap-editable.min.js',
+    'resources/assets/bootstrap3-editable/css/bootstrap-editable.css' => 'bootstrap3-editable/css/bootstrap-editable.css',
 ];
 
 $copied = 0;
@@ -77,11 +134,16 @@ $testLayout = <<<HTML
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muhindo Admin - Bootstrap 5 Test Layout</title>
     
-    <!-- Published Assets -->
+    <!-- Published Assets - Order matches HasAssets.php $baseCss array -->
     <link href="vendor/muhindo-admin/bootstrap5/css/bootstrap.min.css" rel="stylesheet">
-    <link href="vendor/muhindo-admin/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="vendor/muhindo-admin/AdminLTE/dist/css/AdminLTE.min.css" rel="stylesheet">
-    <link href="vendor/muhindo-admin/css/bootstrap5-admin-override.css" rel="stylesheet">
+    <link href="vendor/muhindo-admin/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="vendor/muhindo-admin/muhindo-core/main.css" rel="stylesheet">
+    <link href="vendor/muhindo-admin/nprogress/nprogress.css" rel="stylesheet">
+    <link href="vendor/muhindo-admin/sweetalert2/dist/sweetalert2.css" rel="stylesheet">
+    <link href="vendor/muhindo-admin/nestable/nestable.css" rel="stylesheet">
+    <link href="vendor/muhindo-admin/toastr/build/toastr.min.css" rel="stylesheet">
+    <link href="vendor/muhindo-admin/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+    <link href="vendor/muhindo-admin/google-fonts/fonts.css" rel="stylesheet">
     
     <style>
         .admin-header {
@@ -338,8 +400,26 @@ $testLayout = <<<HTML
         </div>
     </div>
     
-    <!-- Published JavaScript -->
+    <!-- Published JavaScript - Order matches HasAssets.php $baseJs array -->
+    <script>
+        // Define LA object (CRITICAL for laravel-admin.js)
+        function LA() {}
+        LA.token = "dummy-token-for-testing";
+        LA.user = {"id": 1, "name": "Test User"};
+        console.log('✅ LA object defined for testing');
+    </script>
+    
+    <script src="vendor/muhindo-admin/jquery/jquery-3.7.1.min.js"></script>
     <script src="vendor/muhindo-admin/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/muhindo-admin/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="vendor/muhindo-admin/jquery-pjax/jquery.pjax.js"></script>
+    <script src="vendor/muhindo-admin/nprogress/nprogress.js"></script>
+    <script src="vendor/muhindo-admin/nestable/jquery.nestable.js"></script>
+    <script src="vendor/muhindo-admin/toastr/build/toastr.min.js"></script>
+    <script src="vendor/muhindo-admin/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="vendor/muhindo-admin/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="vendor/muhindo-admin/AdminLTE/dist/js/adminlte.min.js"></script>
+    <script src="vendor/muhindo-admin/laravel-admin/laravel-admin.js"></script>
     
     <script>
         // Initialize tooltips and other Bootstrap 5 components
@@ -351,6 +431,7 @@ $testLayout = <<<HTML
             });
             
             console.log('🎉 Bootstrap 5 components initialized!');
+            console.log('✅ All JavaScript assets loaded successfully!');
         });
     </script>
 </body>

@@ -275,7 +275,31 @@ return [
     |    "skin-red", "skin-red-light", "skin-black", "skin-black-light".
     |
     */
-    'skin' => env('ADMIN_SKIN', 'skin-blue-light'),
+    'skin' => env('ADMIN_SKIN', 'skin-green'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Primary Color Theme
+    |--------------------------------------------------------------------------
+    |
+    | This value sets the primary color for the admin interface.
+    | It dynamically overrides all Bootstrap 5 primary color variables.
+    | This works independently of the skin system and provides modern theming.
+    |
+    | Supported formats:
+    |    Hex colors: "#198754", "#007bff", "#dc3545", "#28a745"
+    |    Named colors will be converted to hex automatically
+    |
+    | Popular color options:
+    |    Green: "#198754" (Bootstrap success green)
+    |    Blue: "#0d6efd" (Bootstrap primary blue) 
+    |    Red: "#dc3545" (Bootstrap danger red)
+    |    Purple: "#6f42c1" (Bootstrap purple)
+    |    Orange: "#fd7e14" (Bootstrap orange)
+    |    Teal: "#20c997" (Bootstrap teal)
+    |
+    */
+    'primary_color' => env('ADMIN_PRIMARY_COLOR', '#198754'),
 
     /*
     |--------------------------------------------------------------------------
@@ -289,7 +313,7 @@ return [
     | "sidebar-mini".
     |
     */
-    'layout' => ['sidebar-mini', 'sidebar-collapse'],
+    'layout' => ['fixed'],
 
     /*
     |--------------------------------------------------------------------------

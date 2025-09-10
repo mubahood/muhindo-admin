@@ -1,6 +1,6 @@
 /* ==============================================
    MUHINDO ADMIN - MODERN REDESIGN
-   Complete UI/UX overhaul for Bootstrap 5
+   Complete UI/UX overhaul for Bootstrap 5 + AdminLTE 4
    ============================================== */
 
 :root {
@@ -29,21 +29,21 @@
   --gray-800: #1e293b;
   --gray-900: #0f172a;
   
-  /* Sidebar */
-  --sidebar-bg: #1e293b;
-  --sidebar-hover: #334155;
+  /* AdminLTE 4 Layout Variables */
+  --sidebar-bg: #343a40;
+  --sidebar-hover: #495057;
   --sidebar-active: var(--primary-color);
-  --sidebar-text: #cbd5e1;
-  --sidebar-width: 280px;
+  --sidebar-text: #c2c7d0;
+  --sidebar-width: 250px;
   --sidebar-collapsed-width: 70px;
   
   /* Header */
   --header-bg: var(--white);
   --header-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  --header-height: 70px;
+  --header-height: 57px;
   
   /* Content */
-  --content-bg: var(--gray-50);
+  --content-bg: #f4f6f9;
   --card-bg: var(--white);
   --card-shadow: 0 1px 3px rgba(0,0,0,0.1);
   --card-shadow-hover: 0 4px 6px -1px rgba(0,0,0,0.1);
@@ -83,6 +83,120 @@
 }
 
 /* ==============================================
+   ADMINLTE 4 LAYOUT OPTIMIZATIONS
+   ============================================== */
+
+/* Wrapper and basic layout */
+.wrapper {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Main Header */
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  background: var(--header-bg);
+  border-bottom: 1px solid #dee2e6;
+  box-shadow: var(--header-shadow);
+  height: var(--header-height);
+}
+
+/* Main Sidebar */
+.main-sidebar {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  z-index: 1020;
+  background: var(--sidebar-bg);
+  box-shadow: 2px 0 6px rgba(0,0,0,.1);
+  overflow-y: auto;
+}
+
+/* Content Wrapper */
+.content-wrapper {
+  margin-left: var(--sidebar-width);
+  margin-top: var(--header-height);
+  background-color: var(--content-bg);
+  min-height: calc(100vh - var(--header-height));
+  position: relative;
+}
+
+/* Content Header */
+.content-header {
+  padding: 15px 15px 0 15px;
+  background: var(--white);
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 15px;
+}
+
+/* Main Content */
+.content {
+  padding: 0 15px 15px 15px;
+}
+
+/* Main Footer */
+.main-footer {
+  background: var(--white);
+  border-top: 1px solid #dee2e6;
+  padding: 10px 15px;
+  color: #6c757d;
+  font-size: 0.875rem;
+  margin-left: var(--sidebar-width);
+}
+
+/* ==============================================
+   RESPONSIVE DESIGN
+   ============================================== */
+
+/* Mobile Styles */
+@media (max-width: 991.98px) {
+  .content-wrapper {
+    margin-left: 0;
+  }
+  
+  .main-sidebar {
+    margin-left: calc(-1 * var(--sidebar-width));
+    transition: margin-left var(--transition-normal);
+  }
+  
+  .sidebar-open .main-sidebar {
+    margin-left: 0;
+  }
+  
+  .main-footer {
+    margin-left: 0;
+  }
+  
+  /* Overlay for mobile sidebar */
+  .sidebar-open::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1019;
+  }
+}
+
+/* Sidebar Collapsed State */
+.sidebar-collapse .main-sidebar {
+  width: var(--sidebar-collapsed-width);
+}
+
+.sidebar-collapse .content-wrapper,
+.sidebar-collapse .main-footer {
+  margin-left: var(--sidebar-collapsed-width);
+}
+
+/* ==============================================
    BASE STYLES
    ============================================== */
 
@@ -105,16 +219,6 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* ==============================================
-   LAYOUT STRUCTURE
-   ============================================== */
-
-.wrapper {
-  display: flex;
-  min-height: 100vh;
-  position: relative;
 }
 
 /* ==============================================

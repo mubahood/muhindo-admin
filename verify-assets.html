@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Verification Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .status { padding: 10px; margin: 5px 0; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .loading { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Asset Loading Verification</h1>
+    <div id="status">
+        <div class="status loading">⏳ Testing asset loading...</div>
+    </div>
+
+    <!-- Load assets in the order specified in HasAssets.php -->
+    <script src="public-test/vendor/muhindo-admin/jquery/jquery-3.7.1.min.js"></script>
+    <script src="public-test/vendor/muhindo-admin/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <script src="public-test/vendor/muhindo-admin/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="public-test/vendor/muhindo-admin/jquery-pjax/jquery.pjax.js"></script>
+    <script src="public-test/vendor/muhindo-admin/nprogress/nprogress.js"></script>
+    <script src="public-test/vendor/muhindo-admin/nestable/jquery.nestable.js"></script>
+    <script src="public-test/vendor/muhindo-admin/toastr/build/toastr.min.js"></script>
+    <script src="public-test/vendor/muhindo-admin/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="public-test/vendor/muhindo-admin/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="public-test/vendor/muhindo-admin/AdminLTE/dist/js/adminlte.min.js"></script>
+    <script src="public-test/vendor/muhindo-admin/laravel-admin/laravel-admin.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusDiv = document.getElementById('status');
+            const tests = [];
+
+            // Test jQuery
+            tests.push({
+                name: 'jQuery 3.7.1',
+                test: () => typeof $ !== 'undefined' && typeof jQuery !== 'undefined',
+                version: () => $ && $.fn ? $.fn.jquery : 'unknown'
+            });
+
+            // Test Bootstrap
+            tests.push({
+                name: 'Bootstrap 5',
+                test: () => typeof bootstrap !== 'undefined',
+                version: () => bootstrap && bootstrap.Tooltip ? '5.x' : 'unknown'
+            });
+
+            // Test AdminLTE
+            tests.push({
+                name: 'AdminLTE',
+                test: () => typeof AdminLTE !== 'undefined' || typeof $.AdminLTE !== 'undefined',
+                version: () => 'latest'
+            });
+
+            // Test NProgress
+            tests.push({
+                name: 'NProgress',
+                test: () => typeof NProgress !== 'undefined',
+                version: () => 'loaded'
+            });
+
+            // Test SweetAlert2
+            tests.push({
+                name: 'SweetAlert2',
+                test: () => typeof Swal !== 'undefined',
+                version: () => Swal && Swal.version ? Swal.version : 'loaded'
+            });
+
+            // Test Bootstrap Editable (required by laravel-admin.js)
+            tests.push({
+                name: 'Bootstrap Editable',
+                test: () => $ && $.fn && $.fn.editable && typeof $.fn.editable.defaults !== 'undefined',
+                version: () => $.fn.editable ? 'loaded' : 'not loaded'
+            });
+
+            // Test Toastr
+            tests.push({
+                name: 'Toastr',
+                test: () => typeof toastr !== 'undefined',
+                version: () => 'loaded'
+            });
+
+            let html = '';
+            let allPassed = true;
+
+            tests.forEach(test => {
+                const passed = test.test();
+                const version = passed ? test.version() : 'not loaded';
+                
+                if (passed) {
+                    html += `<div class="status success">✅ ${test.name} - ${version}</div>`;
+                } else {
+                    html += `<div class="status error">❌ ${test.name} - ${version}</div>`;
+                    allPassed = false;
+                }
+            });
+
+            if (allPassed) {
+                html += '<div class="status success">🎉 All JavaScript assets loaded successfully!</div>';
+                html += '<div class="status success">✅ The 404 error for adminlte.min.js should now be resolved.</div>';
+            } else {
+                html += '<div class="status error">⚠️ Some assets failed to load. Check the browser console for details.</div>';
+            }
+
+            statusDiv.innerHTML = html;
+        });
+    </script>
+</body>
+</html>

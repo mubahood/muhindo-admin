@@ -4,7 +4,7 @@
             @if(url()->isValidUrl($item['uri']))
                 <a href="{{ $item['uri'] }}" target="_blank" class="nav-link {{ admin_url($item['uri']) == request()->url() ? 'active' : '' }}">
             @else
-                <a href="{{ admin_url($item['uri']) }}" class="nav-link {{ admin_url($item['uri']) == request()->url() ? 'active' : '' }}" data-pjax="true">
+                <a href="{{ admin_url($item['uri']) }}" class="nav-link {{ admin_url($item['uri']) == request()->url() ? 'active' : '' }}" data-pjax>
             @endif
                 <i class="nav-icon fas fa-{{ str_replace('fa-', '', $item['icon'] ?? 'circle') }}"></i>
                 <p>
@@ -17,7 +17,7 @@
             </a>
         </li>
     @else
-        <li class="nav-item has-treeview">
+        <li class="nav-item">
             <a href="#" class="nav-link" data-widget="treeview">
                 <i class="nav-icon fas fa-{{ str_replace('fa-', '', $item['icon'] ?? 'folder') }}"></i>
                 <p>
@@ -26,7 +26,7 @@
                     @else
                         {{ admin_trans($item['title']) }}
                     @endif
-                    <i class="nav-arrow fas fa-angle-left"></i>
+                    <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
             <ul class="nav nav-treeview">
@@ -36,9 +36,9 @@
                             @if(url()->isValidUrl($subItem['uri']))
                                 <a href="{{ $subItem['uri'] }}" target="_blank" class="nav-link {{ admin_url($subItem['uri']) == request()->url() ? 'active' : '' }}">
                             @else
-                                <a href="{{ admin_url($subItem['uri']) }}" class="nav-link {{ admin_url($subItem['uri']) == request()->url() ? 'active' : '' }}" data-pjax="true">
+                                <a href="{{ admin_url($subItem['uri']) }}" class="nav-link {{ admin_url($subItem['uri']) == request()->url() ? 'active' : '' }}" data-pjax>
                             @endif
-                                <i class="nav-icon fas fa-circle nav-icon"></i>
+                                <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     @if (Lang::has($subTitleTranslation = 'admin.menu_titles.' . trim(str_replace(' ', '_', strtolower($subItem['title'])))))
                                         {{ __($subTitleTranslation) }}

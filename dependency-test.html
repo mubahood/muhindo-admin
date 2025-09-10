@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Laravel Admin JS Dependency Test</title>
+    <script>
+        // Create a global error handler to catch specific errors
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error('JavaScript Error:', {
+                message: message,
+                source: source,
+                line: lineno,
+                column: colno,
+                error: error
+            });
+            
+            // Check for the specific error we're trying to fix
+            if (message.includes("Cannot read properties of undefined")) {
+                document.getElementById('error-details').innerHTML = `
+                    <div style="background: #f8d7da; color: #721c24; padding: 10px; border: 1px solid #f5c6cb; border-radius: 4px; margin: 10px 0;">
+                        <strong>❌ Dependency Error Found:</strong><br>
+                        Message: ${message}<br>
+                        Source: ${source}<br>
+                        Line: ${lineno}<br>
+                        This suggests a missing dependency before laravel-admin.js
+                    </div>
+                `;
+            }
+            return false; // Don't prevent default error handling
+        };
+    </script>
+</head>
+<body>
+    <h1>🔍 Laravel Admin JS Dependency Test</h1>
+    <div id="error-details"></div>
+    <div id="status">Loading dependencies...</div>
+
+    <!-- Define LA object BEFORE loading laravel-admin.js (CRITICAL!) -->
+    <script>
+        function LA() {}
+        LA.token = "dummy-token-for-testing";
+        LA.user = {"id": 1, "name": "Test User"};
+        console.log('✅ LA object defined:', LA);
+    </script>
+
+    <!-- Load in exact order from HasAssets.php -->
+    <!-- First jQuery (essential) -->
+    <script src="http://localhost:8888/muhindo-admin-testapp/public/vendor/muhindo-admin/jquery/jquery-3.7.1.min.js"></script>
+    
+    <!-- Then Bootstrap -->
+    <script src="http://localhost:8888/muhindo-admin-testapp/public/vendor/muhindo-admin/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Then AdminLTE plugins -->
+    <script src="http://localhost:8888/muhindo-admin-testapp/public/vendor/muhindo-admin/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    
+    <!-- Then supporting libraries -->
+    <script src="http://localhost:8888/muhindo-admin-testapp/public/vendor/muhindo-admin/jquery-pjax/jquery.pjax.js"></script>
+    <script src="http://localhost:8888/muhindo-admin-testapp/public/vendor/muhindo-admin/nprogress/nprogress.js"></script>
+    <script src="http://localhost:8888/muhindo-admin-testapp/public/vendor/muhindo-admin/nestable/jquery.nestable.js"></script>
+    <script src="http://localhost:8888/muhindo-admin-testapp/public/vendor/muhindo-admin/toastr/build/toastr.min.js"></script>
+    <script src="http://localhost:8888/muhindo-admin-testapp/public/vendor/muhindo-admin/sweetalert2/dist/sweetalert2.min.js"></script>
+    
+    <!-- Bootstrap Editable (CRITICAL for laravel-admin.js) -->
+    <script src="http://localhost:8888/muhindo-admin-testapp/public/vendor/muhindo-admin/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    
+    <!-- Then AdminLTE -->
+    <script src="http://localhost:8888/muhindo-admin-testapp/public/vendor/muhindo-admin/AdminLTE/dist/js/adminlte.min.js"></script>
+    
+    <!-- Finally Laravel Admin (this should work now) -->
+    <script src="http://localhost:8888/muhindo-admin-testapp/public/vendor/muhindo-admin/laravel-admin/laravel-admin.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusDiv = document.getElementById('status');
+            
+            // Test if all required dependencies are loaded
+            const tests = [
+                { name: 'jQuery', test: () => typeof $ !== 'undefined' },
+                { name: 'Bootstrap', test: () => typeof bootstrap !== 'undefined' },
+                { name: 'Toastr', test: () => typeof toastr !== 'undefined' },
+                { name: 'NProgress', test: () => typeof NProgress !== 'undefined' },
+                { name: 'jQuery.pjax', test: () => $ && $.pjax },
+                { name: 'Bootstrap Editable', test: () => $ && $.fn && $.fn.editable && $.fn.editable.defaults },
+                { name: 'SweetAlert2', test: () => typeof Swal !== 'undefined' },
+                { name: 'LA Object', test: () => typeof LA !== 'undefined' && LA.token }
+            ];
+            
+            let html = '<h3>Dependency Check Results:</h3>';
+            let allPassed = true;
+            
+            tests.forEach(test => {
+                const passed = test.test();
+                if (passed) {
+                    html += `<div style="color: green;">✅ ${test.name}</div>`;
+                } else {
+                    html += `<div style="color: red;">❌ ${test.name}</div>`;
+                    allPassed = false;
+                }
+            });
+            
+            if (allPassed) {
+                html += '<div style="background: #d4edda; color: #155724; padding: 10px; margin: 10px 0; border-radius: 4px;"><strong>🎉 All dependencies loaded successfully!</strong><br>The "Cannot read properties of undefined" error should be resolved.</div>';
+            } else {
+                html += '<div style="background: #f8d7da; color: #721c24; padding: 10px; margin: 10px 0; border-radius: 4px;"><strong>⚠️ Some dependencies are missing.</strong></div>';
+            }
+            
+            // Test the specific problematic line from laravel-admin.js
+            try {
+                if ($ && $.fn && $.fn.editable && $.fn.editable.defaults) {
+                    html += '<div style="background: #d1ecf1; color: #0c5460; padding: 10px; margin: 10px 0; border-radius: 4px;"><strong>✅ Critical Test Passed:</strong> $.fn.editable.defaults is accessible</div>';
+                } else {
+                    html += '<div style="background: #f8d7da; color: #721c24; padding: 10px; margin: 10px 0; border-radius: 4px;"><strong>❌ Critical Test Failed:</strong> $.fn.editable.defaults is not accessible</div>';
+                }
+            } catch (e) {
+                html += `<div style="background: #f8d7da; color: #721c24; padding: 10px; margin: 10px 0; border-radius: 4px;"><strong>❌ Error accessing $.fn.editable.defaults:</strong> ${e.message}</div>`;
+            }
+            
+            statusDiv.innerHTML = html;
+        });
+    </script>
+</body>
+</html>

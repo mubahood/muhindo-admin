@@ -1,14 +1,13 @@
-<!-- AdminLTE 4 Footer -->
-<footer class="app-footer">
-    <div class="float-end d-none d-sm-inline">
+<!-- Main Footer -->
+<footer class="main-footer">
+    <strong>Copyright &copy; {{ date('Y') }} {{ config('admin.name', 'Laravel Admin') }}.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
         @if (config('admin.show_version'))
-            Version {{ \Muhindo\Admin\Admin::VERSION }}
+            <b>Version</b> {{ \Muhindo\Admin\Admin::VERSION }}
+        @endif
+        @if (config('admin.show_environment') && config('app.env') !== 'production')
+            <span class="badge badge-warning ml-2">{{ strtoupper(config('app.env')) }}</span>
         @endif
     </div>
-    <strong>Copyright © {{ date('Y') }} {{ config('admin.name', 'Laravel Admin') }}.</strong> 
-    All rights reserved.
-    
-    @if (config('admin.show_environment') && config('app.env') !== 'production')
-        <span class="badge bg-warning ms-2">{{ strtoupper(config('app.env')) }}</span>
-    @endif
 </footer>

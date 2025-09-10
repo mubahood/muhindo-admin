@@ -62,14 +62,13 @@ trait HasAssets
      */
     public static $baseCss = [
         'vendor/muhindo-admin/bootstrap5/css/bootstrap.min.css',
-        'vendor/muhindo-admin/font-awesome/css/font-awesome.min.css',
-        'vendor/muhindo-admin/AdminLTE/dist/css/AdminLTE.min.css',
-        'vendor/muhindo-admin/laravel-admin/laravel-admin.css',
-        'vendor/muhindo-admin/css/bootstrap5-admin-override.css', // Bootstrap 5 admin override
+        'vendor/muhindo-admin/font-awesome-6.4.2/css/all.min.css',
+        'vendor/muhindo-admin/muhindo-core/main.css',
         'vendor/muhindo-admin/nprogress/nprogress.css',
         'vendor/muhindo-admin/sweetalert2/dist/sweetalert2.css',
         'vendor/muhindo-admin/nestable/nestable.css',
         'vendor/muhindo-admin/toastr/build/toastr.min.css',
+        'vendor/muhindo-admin/bootstrap3-editable/css/bootstrap-editable.css',
         'vendor/muhindo-admin/google-fonts/fonts.css',
     ];
 
@@ -84,6 +83,7 @@ trait HasAssets
         'vendor/muhindo-admin/nestable/jquery.nestable.js',
         'vendor/muhindo-admin/toastr/build/toastr.min.js',
         'vendor/muhindo-admin/sweetalert2/dist/sweetalert2.min.js',
+        'vendor/muhindo-admin/bootstrap3-editable/js/bootstrap-editable.min.js',
         'vendor/muhindo-admin/AdminLTE/dist/js/adminlte.min.js',
         'vendor/muhindo-admin/laravel-admin/laravel-admin.js',
     ];
@@ -339,7 +339,7 @@ trait HasAssets
         $dom = new \DOMDocument();
 
         libxml_use_internal_errors(true);
-        $dom->loadHTML('<?xml encoding="utf-8" ?>'.$string);
+        $dom->loadHTML('<?xml encoding="utf-8" ?>' . $string);
         libxml_use_internal_errors(false);
 
         if ($head = $dom->getElementsByTagName('head')->item(0)) {
@@ -358,7 +358,7 @@ trait HasAssets
                         if ($child->hasAttribute('src')) {
                             static::js($child->getAttribute('src'));
                         } else {
-                            static::script(';(function () {'.$child->nodeValue.'})();');
+                            static::script(';(function () {' . $child->nodeValue . '})();');
                         }
 
                         continue;
@@ -378,7 +378,7 @@ trait HasAssets
                     }
 
                     if ($child->tagName == 'script' && !empty($child->nodeValue)) {
-                        static::script(';(function () {'.$child->nodeValue.'})();');
+                        static::script(';(function () {' . $child->nodeValue . '})();');
                         continue;
                     }
 
