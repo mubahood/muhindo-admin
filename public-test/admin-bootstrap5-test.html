@@ -272,6 +272,14 @@
     </div>
     
     <!-- Published JavaScript - Order matches HasAssets.php  array -->
+    <script>
+        // Define LA object (CRITICAL for laravel-admin.js)
+        function LA() {}
+        LA.token = "dummy-token-for-testing";
+        LA.user = {"id": 1, "name": "Test User"};
+        console.log('✅ LA object defined for testing');
+    </script>
+    
     <script src="vendor/muhindo-admin/jquery/jquery-3.7.1.min.js"></script>
     <script src="vendor/muhindo-admin/bootstrap5/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/muhindo-admin/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
