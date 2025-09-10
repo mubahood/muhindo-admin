@@ -1,3 +1,72 @@
+/* ========================================================================
+   GOOGLE POPPINS FONT - SYSTEM WIDE ENFORCEMENT
+   ======================================================================== */
+
+/* Import Google Poppins Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* ENFORCE POPPINS FONT SYSTEM WIDE */
+* {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+html {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* ENFORCE ON ALL COMMON ELEMENTS */
+h1, h2, h3, h4, h5, h6,
+p, span, div, a, button, input, textarea, select, label,
+.btn, .form-control, .nav-link, .dropdown-item,
+.sidebar-menu, .nav-sidebar, .main-header, .content-wrapper,
+.card, .card-header, .card-body, .card-footer,
+.table, .table th, .table td,
+.nav, .nav-tabs, .nav-pills,
+.breadcrumb, .pagination,
+.alert, .badge, .modal, .tooltip, .popover {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* ENFORCE ON FORM ELEMENTS */
+input[type="text"], input[type="email"], input[type="password"], 
+input[type="number"], input[type="search"], input[type="tel"], 
+input[type="url"], input[type="date"], input[type="time"],
+textarea, select, option {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* ENFORCE ON ADMINLTE SPECIFIC CLASSES */
+.main-sidebar, .content-wrapper, .main-header, .main-footer,
+.sidebar-menu, .nav-sidebar, .nav-treeview,
+.user-menu, .dropdown-menu, .search-form,
+.box, .box-header, .box-body, .box-footer,
+.info-box, .small-box, .callout,
+.timeline, .timeline-item,
+.chat, .chat-message,
+.todo-list, .todo-list-item {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* ENFORCE ON BOOTSTRAP COMPONENTS */
+.container, .container-fluid, .row, .col,
+.navbar, .navbar-brand, .navbar-nav, .nav-item, .nav-link,
+.dropdown, .dropdown-menu, .dropdown-item,
+.btn, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-light, .btn-dark,
+.form-group, .form-control, .form-label, .form-text,
+.card, .card-header, .card-title, .card-body, .card-text, .card-footer,
+.list-group, .list-group-item,
+.table, .table-responsive,
+.modal, .modal-dialog, .modal-content, .modal-header, .modal-title, .modal-body, .modal-footer,
+.toast, .toast-header, .toast-body,
+.progress, .progress-bar,
+.spinner-border, .spinner-grow {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
 /* ======================================
    MUHINDO ADMIN - DESIGN SYSTEM CSS
    Following DESIGN_SYSTEM_GUIDELINES.md
@@ -7779,4 +7848,542 @@ a.editable-empty {
         max-width: 260px !important;
         right: 5px !important;
     }
+}
+
+/* ========================================================================
+   PERFECT SIDEBAR - COMPREHENSIVE FLAT DESIGN WITH WHITE BACKGROUND
+   ======================================================================== */
+
+/* MAIN SIDEBAR CONTAINER - FIXED POSITION WITH WHITE BACKGROUND */
+.main-sidebar {
+    position: fixed !important;
+    top: 50px !important; /* Header height */
+    left: 0 !important;
+    width: var(--sidebar-width, 250px) !important;
+    height: calc(100vh - 50px) !important; /* Full height minus header */
+    background: #ffffff !important;
+    border-right: 1px solid #e9ecef !important;
+    box-shadow: none !important;
+    z-index: 1000 !important;
+    overflow: hidden !important; /* Hide main scrollbar */
+    transition: transform 0.3s ease !important;
+}
+
+/* SIDEBAR INNER SECTION - SCROLLABLE CONTENT */
+.main-sidebar .sidebar {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    overflow-y: auto !important; /* Only content scrolls */
+    overflow-x: hidden !important;
+    background: #ffffff !important;
+}
+
+/* CUSTOM SCROLLBAR FOR SIDEBAR */
+.main-sidebar .sidebar::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+.main-sidebar .sidebar::-webkit-scrollbar-track {
+    background: #f8f9fa !important;
+    border-radius: 0 !important;
+}
+
+.main-sidebar .sidebar::-webkit-scrollbar-thumb {
+    background: #dee2e6 !important;
+    border-radius: 3px !important;
+    border: none !important;
+}
+
+.main-sidebar .sidebar::-webkit-scrollbar-thumb:hover {
+    background: #adb5bd !important;
+}
+
+/* SIDEBAR SEARCH FORM */
+.sidebar-form {
+    padding: 15px !important;
+    margin: 0 !important;
+    background: #f8f9fa !important;
+    border-bottom: 1px solid #e9ecef !important;
+}
+
+.sidebar-form .input-group {
+    width: 100% !important;
+}
+
+.sidebar-form .form-control {
+    border: 1px solid #ced4da !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    color: #495057 !important;
+    font-size: 13px !important;
+    padding: 8px 12px !important;
+    box-shadow: none !important;
+}
+
+.sidebar-form .form-control:focus {
+    border-color: var(--primary-color, #007bff) !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.sidebar-form .btn {
+    border: 1px solid #ced4da !important;
+    border-left: none !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    color: #6c757d !important;
+    padding: 8px 12px !important;
+    box-shadow: none !important;
+}
+
+.sidebar-form .btn:hover {
+    background: #f8f9fa !important;
+    color: var(--primary-color, #007bff) !important;
+}
+
+/* SIDEBAR MENU CONTAINER */
+.sidebar-menu,
+.nav-sidebar {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 5px 0 !important;
+    background: #ffffff !important;
+    border-radius: 0 !important;
+}
+
+/* SIDEBAR MENU HEADER */
+.sidebar-menu .header,
+.nav-sidebar .header {
+    padding: 10px 15px 5px 15px !important;
+    margin: 0 !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #6c757d !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    background: #ffffff !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+/* MAIN MENU ITEMS */
+.sidebar-menu > li,
+.nav-sidebar > li,
+.sidebar-menu .nav-item,
+.nav-sidebar .nav-item {
+    position: relative !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    border-radius: 0 !important;
+}
+
+/* NAVIGATION LINKS */
+.sidebar-menu .nav-link,
+.nav-sidebar .nav-link {
+    display: flex !important;
+    align-items: center !important;
+    padding: 8px 15px !important;
+    color: #495057 !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    border: none !important;
+    background: #ffffff !important;
+    border-left: 2px solid transparent !important;
+    border-radius: 0 !important;
+    transition: all 0.2s ease !important;
+    width: 100% !important;
+    position: relative !important;
+}
+
+/* NAVIGATION LINK HOVER STATE */
+.sidebar-menu .nav-link:hover,
+.nav-sidebar .nav-link:hover {
+    color: #212529 !important;
+    background: #f8f9fa !important;
+    text-decoration: none !important;
+    border-left-color: var(--primary-color, #007bff) !important;
+    border-radius: 0 !important;
+}
+
+/* PREVENT PARENT HOVER WHEN HOVERING OVER CHILDREN */
+.sidebar-menu .nav-item:hover > .nav-link:not(:hover),
+.nav-sidebar .nav-item:hover > .nav-link:not(:hover),
+.sidebar-menu .nav-treeview:hover ~ .nav-link,
+.nav-sidebar .nav-treeview:hover ~ .nav-link {
+    color: #495057 !important;
+    background: #ffffff !important;
+    border-left-color: transparent !important;
+}
+
+/* ENSURE TREEVIEW PARENT STAYS NORMAL WHEN HOVERING CHILDREN */
+.sidebar-menu .nav-item:has(.nav-treeview:hover) > .nav-link,
+.nav-sidebar .nav-item:has(.nav-treeview:hover) > .nav-link {
+    color: #495057 !important;
+    background: #ffffff !important;
+    border-left-color: transparent !important;
+}
+
+/* FALLBACK: EXPLICIT PARENT STYLING WHEN CHILDREN ARE HOVERED */
+.sidebar-menu .nav-treeview:hover + .nav-link,
+.sidebar-menu .nav-treeview .nav-link:hover ~ .nav-link,
+.nav-sidebar .nav-treeview:hover + .nav-link,
+.nav-sidebar .nav-treeview .nav-link:hover ~ .nav-link {
+    color: #495057 !important;
+    background: #ffffff !important;
+    border-left-color: transparent !important;
+}
+
+/* ACTIVE NAVIGATION LINK - ONLY LEFT BORDER, NO BACKGROUND */
+.sidebar-menu .nav-link.active,
+.nav-sidebar .nav-link.active,
+.main-sidebar .nav-link.active,
+.main-sidebar .sidebar-menu .nav-link.active,
+.main-sidebar .nav-sidebar .nav-link.active {
+    color: #212529 !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border-left-color: var(--primary-color, #007bff) !important;
+    border-left-width: 3px !important;
+    font-weight: 700 !important;
+    border-radius: 0 !important;
+}
+
+/* ENSURE ACTIVE PARENT STAYS ACTIVE EVEN WHEN CHILDREN ARE HOVERED */
+.sidebar-menu .nav-item:hover > .nav-link.active,
+.nav-sidebar .nav-item:hover > .nav-link.active,
+.sidebar-menu .nav-item:has(.nav-treeview:hover) > .nav-link.active,
+.nav-sidebar .nav-item:has(.nav-treeview:hover) > .nav-link.active {
+    color: #212529 !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border-left-color: var(--primary-color, #007bff) !important;
+    border-left-width: 3px !important;
+    font-weight: 700 !important;
+}
+
+.sidebar-menu .nav-link.active .nav-icon,
+.nav-sidebar .nav-link.active .nav-icon,
+.main-sidebar .nav-link.active .nav-icon {
+    font-weight: 900 !important;
+    color: #212529 !important;
+}
+
+.sidebar-menu .nav-link.active p,
+.nav-sidebar .nav-link.active p,
+.main-sidebar .nav-link.active p {
+    font-weight: 700 !important;
+    color: #212529 !important;
+}
+
+/* NAVIGATION ICONS */
+.sidebar-menu .nav-icon,
+.nav-sidebar .nav-icon {
+    width: 18px !important;
+    height: 18px !important;
+    margin-right: 10px !important;
+    font-size: 14px !important;
+    text-align: center !important;
+    color: inherit !important;
+    flex-shrink: 0 !important;
+}
+
+/* NAVIGATION TEXT */
+.sidebar-menu .nav-link p,
+.nav-sidebar .nav-link p {
+    margin: 0 !important;
+    padding: 0 !important;
+    flex: 1 !important;
+    color: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    line-height: 1.4 !important;
+}
+
+/* TREEVIEW TOGGLE ARROW - SPACE BETWEEN TEXT AND ARROW */
+.sidebar-menu .nav-link .fas.fa-angle-left,
+.sidebar-menu .nav-link .right,
+.nav-sidebar .nav-link .fas.fa-angle-left,
+.nav-sidebar .nav-link .right {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    transition: transform 0.2s ease !important;
+    font-size: 12px !important;
+    color: #6c757d !important;
+    flex-shrink: 0 !important;
+    width: 16px !important;
+    text-align: center !important;
+    padding-left: 8px !important;
+}
+
+/* ENSURE PROPER FLEX LAYOUT FOR TREEVIEW ITEMS */
+.sidebar-menu .nav-link[data-widget="treeview"],
+.nav-sidebar .nav-link[data-widget="treeview"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+/* TREEVIEW LINK CONTENT WRAPPER */
+.sidebar-menu .nav-link[data-widget="treeview"] > *:not(.fas):not(.right),
+.nav-sidebar .nav-link[data-widget="treeview"] > *:not(.fas):not(.right) {
+    display: flex !important;
+    align-items: center !important;
+    flex: 1 !important;
+}
+
+/* TREEVIEW EXPANDED ARROW - AdminLTE adds 'menu-open' class */
+.sidebar-menu .nav-item.menu-open > .nav-link .fas.fa-angle-left,
+.sidebar-menu .nav-item.menu-open > .nav-link .right,
+.nav-sidebar .nav-item.menu-open > .nav-link .fas.fa-angle-left,
+.nav-sidebar .nav-item.menu-open > .nav-link .right {
+    transform: rotate(-90deg) !important;
+}
+
+/* ENSURE TREEVIEW ARROWS WORK WITH DIFFERENT ADMINLTE VERSIONS */
+.sidebar-menu .nav-item.has-treeview.menu-open > .nav-link .right,
+.sidebar-menu .nav-item.treeview.menu-open > .nav-link .right,
+.sidebar-menu .nav-item.menu-open > .nav-link .fa-angle-left,
+.nav-sidebar .nav-item.has-treeview.menu-open > .nav-link .right,
+.nav-sidebar .nav-item.treeview.menu-open > .nav-link .right,
+.nav-sidebar .nav-item.menu-open > .nav-link .fa-angle-left {
+    transform: rotate(-90deg) !important;
+}
+
+/* TREEVIEW SUBMENU CONTAINER */
+.sidebar-menu .nav-treeview,
+.nav-sidebar .nav-treeview {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #f8f9fa !important;
+    border-top: 1px solid #e9ecef !important;
+    border-radius: 0 !important;
+    display: none !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+}
+
+/* SHOW TREEVIEW WHEN OPENED - AdminLTE JavaScript adds 'menu-open' class */
+.sidebar-menu .nav-item.menu-open > .nav-treeview {
+    display: block !important;
+}
+
+/* Alternative: Force show if menu-is-opening class exists */
+.sidebar-menu .nav-item.menu-is-opening > .nav-treeview {
+    display: block !important;
+}
+
+/* TREEVIEW SUBMENU ITEMS */
+.sidebar-menu .nav-treeview .nav-item {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* TREEVIEW SUBMENU LINKS */
+.sidebar-menu .nav-treeview .nav-link,
+.nav-sidebar .nav-treeview .nav-link {
+    padding: 6px 15px 6px 35px !important; /* Reduced padding, smaller left indent */
+    color: #6c757d !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    background: #f8f9fa !important;
+    border-left: 2px solid transparent !important;
+    border-radius: 0 !important;
+}
+
+/* TREEVIEW SUBMENU HOVER */
+.sidebar-menu .nav-treeview .nav-link:hover,
+.nav-sidebar .nav-treeview .nav-link:hover {
+    color: #495057 !important;
+    background: #e9ecef !important;
+    border-left-color: var(--primary-color, #007bff) !important;
+    border-radius: 0 !important;
+}
+
+/* RESET PARENT WHEN SUBMENU IS HOVERED */
+.sidebar-menu .nav-item:has(.nav-treeview .nav-link:hover) > .nav-link:not(.active),
+.nav-sidebar .nav-item:has(.nav-treeview .nav-link:hover) > .nav-link:not(.active) {
+    color: #495057 !important;
+    background: #ffffff !important;
+    border-left-color: transparent !important;
+    font-weight: 500 !important;
+}
+
+/* ENSURE PARENT ACTIVE STATE IS PRESERVED WHEN SUBMENU IS HOVERED */
+.sidebar-menu .nav-item:has(.nav-treeview .nav-link:hover) > .nav-link.active,
+.nav-sidebar .nav-item:has(.nav-treeview .nav-link:hover) > .nav-link.active {
+    color: #212529 !important;
+    background: #ffffff !important;
+    border-left-color: var(--primary-color, #007bff) !important;
+    border-left-width: 3px !important;
+    font-weight: 700 !important;
+}
+
+/* TREEVIEW SUBMENU ACTIVE - ONLY LEFT BORDER, NO BACKGROUND */
+.sidebar-menu .nav-treeview .nav-link.active,
+.nav-sidebar .nav-treeview .nav-link.active,
+.main-sidebar .nav-treeview .nav-link.active,
+.main-sidebar .sidebar-menu .nav-treeview .nav-link.active {
+    color: #212529 !important;
+    background: #f8f9fa !important;
+    background-color: #f8f9fa !important;
+    border-left-color: var(--primary-color, #007bff) !important;
+    border-left-width: 3px !important;
+    font-weight: 700 !important;
+    border-radius: 0 !important;
+}
+
+.sidebar-menu .nav-treeview .nav-link.active .nav-icon,
+.nav-sidebar .nav-treeview .nav-link.active .nav-icon,
+.main-sidebar .nav-treeview .nav-link.active .nav-icon {
+    font-weight: 900 !important;
+    color: #212529 !important;
+}
+
+.sidebar-menu .nav-treeview .nav-link.active p,
+.nav-sidebar .nav-treeview .nav-link.active p,
+.main-sidebar .nav-treeview .nav-link.active p {
+    font-weight: 700 !important;
+    color: #212529 !important;
+}
+
+/* OVERRIDE ANY PRIMARY BACKGROUND ON SIDEBAR ITEMS */
+.main-sidebar .nav-link,
+.main-sidebar .sidebar-menu .nav-link,
+.main-sidebar .nav-sidebar .nav-link,
+.sidebar-menu .nav-link,
+.nav-sidebar .nav-link {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+.main-sidebar .nav-treeview .nav-link,
+.sidebar-menu .nav-treeview .nav-link,
+.nav-sidebar .nav-treeview .nav-link {
+    background: #f8f9fa !important;
+    background-color: #f8f9fa !important;
+}
+
+/* TREEVIEW SUBMENU ICONS */
+.sidebar-menu .nav-treeview .nav-icon,
+.nav-sidebar .nav-treeview .nav-icon {
+    width: 14px !important;
+    height: 14px !important;
+    margin-right: 8px !important;
+    font-size: 10px !important;
+    color: inherit !important;
+}
+
+/* RESPONSIVE SIDEBAR BEHAVIOR */
+@media (max-width: 768px) {
+    .main-sidebar {
+        transform: translateX(-100%) !important;
+        width: var(--sidebar-width, 250px) !important;
+    }
+    
+    .sidebar-open .main-sidebar {
+        transform: translateX(0) !important;
+    }
+    
+    /* Content area adjustment for mobile */
+    .sidebar-open .content-wrapper {
+        transform: translateX(var(--sidebar-width, 250px)) !important;
+    }
+}
+
+/* DESKTOP SIDEBAR COLLAPSE */
+@media (min-width: 769px) {
+    .sidebar-collapse .main-sidebar {
+        transform: translateX(calc(-1 * var(--sidebar-width, 250px) + 60px)) !important;
+        width: 60px !important;
+    }
+    
+    .sidebar-collapse .main-sidebar .sidebar-menu .nav-link p,
+    .sidebar-collapse .main-sidebar .sidebar-menu .header,
+    .sidebar-collapse .main-sidebar .sidebar-form,
+    .sidebar-collapse .main-sidebar .sidebar-menu .fas.fa-angle-left {
+        display: none !important;
+    }
+    
+    .sidebar-collapse .main-sidebar .sidebar-menu .nav-link {
+        justify-content: center !important;
+        padding: 15px 10px !important;
+    }
+    
+    .sidebar-collapse .main-sidebar .sidebar-menu .nav-icon {
+        margin: 0 !important;
+    }
+    
+    /* Hide treeview in collapsed mode */
+    .sidebar-collapse .main-sidebar .sidebar-menu .nav-treeview {
+        display: none !important;
+    }
+}
+
+/* ACCESSIBILITY IMPROVEMENTS */
+.sidebar-menu .nav-link:focus {
+    outline: 2px solid var(--primary-color, #007bff) !important;
+    outline-offset: -2px !important;
+}
+
+/* HIGH CONTRAST MODE SUPPORT */
+@media (prefers-contrast: high) {
+    .main-sidebar {
+        border-right-width: 3px !important;
+    }
+    
+    .sidebar-menu .nav-link {
+        border-left-width: 5px !important;
+    }
+}
+
+/* ANIMATION PERFORMANCE */
+.main-sidebar,
+.sidebar-menu .nav-link {
+    will-change: transform !important;
+    backface-visibility: hidden !important;
+}
+
+/* PRINT STYLES */
+@media print {
+    .main-sidebar {
+        display: none !important;
+    }
+}
+
+/* TREEVIEW JAVASCRIPT FALLBACK - CLICK TO TOGGLE */
+.sidebar-menu .nav-item > .nav-link[data-widget="treeview"] {
+    cursor: pointer !important;
+}
+
+/* CSS-only treeview toggle (fallback if JavaScript fails) */
+.sidebar-menu .nav-item:focus-within > .nav-treeview {
+    display: block !important;
+}
+
+/* Ensure AdminLTE treeview functionality */
+.sidebar-menu[data-widget="tree"] .nav-item.has-treeview > .nav-treeview {
+    display: none !important;
+}
+
+.sidebar-menu[data-widget="tree"] .nav-item.has-treeview.menu-open > .nav-treeview {
+    display: block !important;
+}
+
+/* Alternative class combinations that AdminLTE might use */
+.sidebar-menu .nav-item.has-treeview.menu-is-opening > .nav-treeview,
+.sidebar-menu .nav-item.treeview.menu-open > .nav-treeview,
+.sidebar-menu .nav-item.treeview.active > .nav-treeview {
+    display: block !important;
+}
+
+/* Ensure treeview arrows work with different AdminLTE versions */
+.sidebar-menu .nav-item.has-treeview.menu-open > .nav-link .right,
+.sidebar-menu .nav-item.treeview.menu-open > .nav-link .right,
+.sidebar-menu .nav-item.menu-open > .nav-link .fa-angle-left {
+    transform: rotate(-90deg) !important;
 }

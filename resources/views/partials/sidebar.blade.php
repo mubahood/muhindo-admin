@@ -1,39 +1,91 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="{{ admin_url('/') }}" class="brand-link" data-pjax>
-        <img src="{{ admin_asset('img/logo.png') }}" alt="{{ config('admin.name') }} Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">{{ config('admin.name', 'Laravel Admin') }}</span>
-    </a>
+<aside class="main-sidebar p-0">
+    <!-- sidebar: modern flat design structure -->
+    
+    <section class="sidebar">
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="{{ Admin::user()->avatar }}" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="{{ admin_url('auth/users/'.Admin::user()->id.'/edit') }}" class="d-block" data-pjax>{{ Admin::user()->name }}</a>
-            </div>
-        </div>
-
-        <!-- SidebarSearch Form -->
-        <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
+        @if (config('admin.enable_menu_search'))
+            <!-- Modern search form -->
+            <form class="sidebar-form" style="overflow: initial;" onsubmit="return false;">
+                <div class="input-group">
+                    <input type="text" autocomplete="off" class="form-control autocomplete" placeholder="Search menu...">
+                    <span class="input-group-btn">
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </span>
+                    <ul class="dropdown-menu search-results" role="menu" style="min-width: 210px;max-height: 300px;overflow: auto;">
+                        @foreach (Admin::menuLinks() as $link)
+                            <li>
+                                <a href="{{ admin_url($link['uri']) }}">
+                                    <i class="fas fa-{{ str_replace('fa-', '', $link['icon'] ?? 'circle') }}"></i>
+                                    {{ admin_trans($link['title']) }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
-            </div>
-        </div>
+            </form>
+            <!-- /.search form -->
+        @endif
 
-        <!-- Sidebar Menu -->
+        <!-- Modern Sidebar Menu with proper AdminLTE attributes -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column sidebar-menu" data-widget="treeview" role="menu" data-accordion="false">
                 @each('admin::partials.menu', Admin::menu(), 'item')
             </ul>
         </nav>
-    </div>
+        <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
 </aside>
+
+<!-- JavaScript to ensure treeview functionality and auto-expand active parents -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-expand parent menus if a submenu item is active
+    function autoExpandActiveParents() {
+        const activeSubmenus = document.querySelectorAll('.nav-treeview .nav-link.active');
+        activeSubmenus.forEach(function(activeSubmenu) {
+            const parentNavItem = activeSubmenu.closest('.nav-item').parentElement.closest('.nav-item');
+            if (parentNavItem) {
+                parentNavItem.classList.add('menu-open');
+                const submenu = parentNavItem.querySelector('.nav-treeview');
+                const arrow = parentNavItem.querySelector('.fa-angle-left, .right');
+                if (submenu) submenu.style.display = 'block';
+                if (arrow) arrow.style.transform = 'rotate(-90deg)';
+            }
+        });
+    }
+    
+    // Initialize AdminLTE treeview if not already initialized
+    if (typeof $.fn.Treeview !== 'undefined') {
+        $('[data-widget="treeview"]').Treeview();
+        // Auto-expand after AdminLTE initialization
+        setTimeout(autoExpandActiveParents, 100);
+    } else {
+        // Fallback: manual treeview toggle
+        document.querySelectorAll('.nav-link[data-widget="treeview"]').forEach(function(element) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                const parent = this.closest('.nav-item');
+                const submenu = parent.querySelector('.nav-treeview');
+                const arrow = this.querySelector('.fa-angle-left, .right');
+                
+                if (submenu) {
+                    parent.classList.toggle('menu-open');
+                    if (parent.classList.contains('menu-open')) {
+                        submenu.style.display = 'block';
+                        if (arrow) arrow.style.transform = 'rotate(-90deg)';
+                    } else {
+                        submenu.style.display = 'none';
+                        if (arrow) arrow.style.transform = 'rotate(0deg)';
+                    }
+                }
+            });
+        });
+        
+        // Auto-expand immediately for fallback
+        autoExpandActiveParents();
+    }
+});
+</script>
