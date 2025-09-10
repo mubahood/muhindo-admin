@@ -380,6 +380,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Development Mode
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, this will disable asset caching and minification for 
+    | real-time development. Useful when developing the package itself.
+    |
+    */
+    'development_mode' => env('ADMIN_DEVELOPMENT_MODE', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Enable/Disable sidebar menu search
     |--------------------------------------------------------------------------
     */

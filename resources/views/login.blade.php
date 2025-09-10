@@ -26,6 +26,114 @@
   <script src="//oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+
+  <!-- Dynamic Primary Color Override -->
+  <?php 
+      // Get primary color from config
+      $configured_color = config('admin.primary_color');
+      $admin_skin = config('admin.skin', 'skin-green');
+      
+      $skin_color_map = [
+          'skin-blue' => '#007bff',
+          'skin-green' => '#198754',
+          'skin-yellow' => '#ffc107',
+          'skin-purple' => '#6f42c1',
+          'skin-red' => '#dc3545',
+          'skin-black' => '#343a40',
+      ];
+      
+      if (!$configured_color && isset($skin_color_map[$admin_skin])) {
+          $primary_color = $skin_color_map[$admin_skin];
+      } else {
+          $primary_color = $configured_color ?: '#198754';
+      }
+      
+      $primary_rgb = sscanf($primary_color, "#%02x%02x%02x");
+      $primary_hover = sprintf("#%02x%02x%02x", 
+          max(0, $primary_rgb[0] - 25), 
+          max(0, $primary_rgb[1] - 25), 
+          max(0, $primary_rgb[2] - 25)
+      );
+      $primary_active = sprintf("#%02x%02x%02x", 
+          max(0, $primary_rgb[0] - 35), 
+          max(0, $primary_rgb[1] - 35), 
+          max(0, $primary_rgb[2] - 35)
+      );
+      $focus_rgb = implode(', ', $primary_rgb);
+  ?>
+  <style>
+      /* MUHINDO ADMIN LOGIN PRIMARY COLOR OVERRIDE */
+      :root {
+          --bs-primary: <?php echo $primary_color; ?> !important;
+          --bs-primary-rgb: <?php echo $focus_rgb; ?> !important;
+          --primary-color: <?php echo $primary_color; ?> !important;
+          --accent-color: <?php echo $primary_color; ?> !important;
+      }
+      
+      /* LOGIN PAGE OVERRIDES */
+      .bg-gradient-primary,
+      .login-page.bg-gradient-primary {
+          background: <?php echo $primary_color; ?> !important;
+          background-image: none !important;
+      }
+      
+      /* STRONGEST BOOTSTRAP 5 BUTTON PRIMARY OVERRIDES */
+      .btn-primary,
+      .btn.btn-primary {
+          background-color: <?php echo $primary_color; ?> !important;
+          border-color: <?php echo $primary_color; ?> !important;
+          color: #fff !important;
+      }
+      
+      .btn-primary:hover,
+      .btn-primary:focus,
+      .btn.btn-primary:hover,
+      .btn.btn-primary:focus {
+          background-color: <?php echo $primary_hover; ?> !important;
+          border-color: <?php echo $primary_hover; ?> !important;
+          color: #fff !important;
+      }
+      
+      .btn-primary:active,
+      .btn.btn-primary:active {
+          background-color: <?php echo $primary_active; ?> !important;
+          border-color: <?php echo $primary_active; ?> !important;
+          color: #fff !important;
+      }
+      
+      /* FORM CONTROLS */
+      .form-control:focus,
+      .form-select:focus {
+          border-color: <?php echo $primary_color; ?> !important;
+          box-shadow: 0 0 0 0.25rem rgba(<?php echo $focus_rgb; ?>, 0.25) !important;
+      }
+      
+      /* TEXT AND BACKGROUND */
+      .text-primary { color: <?php echo $primary_color; ?> !important; }
+      .bg-primary { background-color: <?php echo $primary_color; ?> !important; color: #fff !important; }
+      .border-primary { border-color: <?php echo $primary_color; ?> !important; }
+      
+      /* BADGES AND PROGRESS */
+      .badge.bg-primary,
+      .badge-primary { background-color: <?php echo $primary_color; ?> !important; }
+      .progress-bar { background-color: <?php echo $primary_color; ?> !important; }
+      
+      /* LOGIN BOX LOGO */
+      .login-logo a {
+          color: #fff !important;
+      }
+      
+      /* LINKS */
+      .link-primary,
+      a.link-primary {
+          color: <?php echo $primary_color; ?> !important;
+      }
+      
+      .link-primary:hover,
+      a.link-primary:hover {
+          color: <?php echo $primary_hover; ?> !important;
+      }
+  </style>
 </head>
 <body class="login-page bg-gradient-primary" @if(config('admin.login_background_image'))style="background: url({{config('admin.login_background_image')}}) no-repeat center center fixed;background-size: cover;"@endif>
 <div class="login-box">

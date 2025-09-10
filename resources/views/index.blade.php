@@ -23,93 +23,154 @@
     <link rel="shortcut icon" href="{{ url('assets/img/logo.png') }}">
 
     {!! Admin::css() !!}
+    
+    <!-- Dynamic Primary Color Override -->
+    <?php 
+        // Get primary color from config
+        $configured_color = config('admin.primary_color');
+        $admin_skin = config('admin.skin', 'skin-green');
+        
+        $skin_color_map = [
+            'skin-blue' => '#007bff',
+            'skin-green' => '#198754',
+            'skin-yellow' => '#ffc107',
+            'skin-purple' => '#6f42c1',
+            'skin-red' => '#dc3545',
+            'skin-black' => '#343a40',
+        ];
+        
+        if (!$configured_color && isset($skin_color_map[$admin_skin])) {
+            $primary_color = $skin_color_map[$admin_skin];
+        } else {
+            $primary_color = $configured_color ?: '#198754';
+        }
+        
+        $primary_rgb = sscanf($primary_color, "#%02x%02x%02x");
+        $primary_hover = sprintf("#%02x%02x%02x", 
+            max(0, $primary_rgb[0] - 25), 
+            max(0, $primary_rgb[1] - 25), 
+            max(0, $primary_rgb[2] - 25)
+        );
+        $primary_active = sprintf("#%02x%02x%02x", 
+            max(0, $primary_rgb[0] - 35), 
+            max(0, $primary_rgb[1] - 35), 
+            max(0, $primary_rgb[2] - 35)
+        );
+        $focus_rgb = implode(', ', $primary_rgb);
+    ?>
+    <style>
+        /* MUHINDO ADMIN PRIMARY COLOR OVERRIDE */
+        :root {
+            --bs-primary: <?php echo $primary_color; ?> !important;
+            --bs-primary-rgb: <?php echo $focus_rgb; ?> !important;
+            --primary-color: <?php echo $primary_color; ?> !important;
+            --accent-color: <?php echo $primary_color; ?> !important;
+        }
+        
+        /* STRONGEST BOOTSTRAP 5 BUTTON PRIMARY OVERRIDES */
+        .btn-primary,
+        .btn.btn-primary {
+            background-color: <?php echo $primary_color; ?> !important;
+            border-color: <?php echo $primary_color; ?> !important;
+            color: #fff !important;
+        }
+        
+        .btn-primary:hover,
+        .btn-primary:focus,
+        .btn.btn-primary:hover,
+        .btn.btn-primary:focus {
+            background-color: <?php echo $primary_hover; ?> !important;
+            border-color: <?php echo $primary_hover; ?> !important;
+            color: #fff !important;
+        }
+        
+        .btn-primary:active,
+        .btn.btn-primary:active {
+            background-color: <?php echo $primary_active; ?> !important;
+            border-color: <?php echo $primary_active; ?> !important;
+            color: #fff !important;
+        }
+        
+        /* FORM CONTROLS */
+        .form-control:focus,
+        .form-select:focus {
+            border-color: <?php echo $primary_color; ?> !important;
+            box-shadow: 0 0 0 0.25rem rgba(<?php echo $focus_rgb; ?>, 0.25) !important;
+        }
+        
+        /* TEXT AND BACKGROUND */
+        .text-primary { color: <?php echo $primary_color; ?> !important; }
+        .bg-primary { background-color: <?php echo $primary_color; ?> !important; color: #fff !important; }
+        .border-primary { border-color: <?php echo $primary_color; ?> !important; }
+        
+        /* BADGES AND PROGRESS */
+        .badge.bg-primary,
+        .badge-primary { background-color: <?php echo $primary_color; ?> !important; }
+        .progress-bar { background-color: <?php echo $primary_color; ?> !important; }
+        
+        /* ADMIN COMPONENTS */
+        .main-header,
+        .main-header .navbar {
+            background-color: <?php echo $primary_color; ?> !important;
+        }
+        
+        .main-sidebar,
+        .left-side {
+            background-color: <?php echo $primary_color; ?> !important;
+        }
+        
+        .main-header .logo:hover,
+        .main-header .navbar .sidebar-toggle:hover,
+        .main-header .navbar .nav > li > a:hover {
+            background-color: <?php echo $primary_hover; ?> !important;
+        }
+        
+        .sidebar-menu > li.active > a,
+        .sidebar-menu > li:hover > a {
+            background-color: <?php echo $primary_hover; ?> !important;
+            border-left-color: #fff !important;
+        }
+        
+        .card-primary .card-header {
+            background-color: <?php echo $primary_color; ?> !important;
+            border-color: <?php echo $primary_color; ?> !important;
+        }
+        
+        /* LINKS */
+        .link-primary,
+        a.link-primary {
+            color: <?php echo $primary_color; ?> !important;
+        }
+        
+        .link-primary:hover,
+        a.link-primary:hover {
+            color: <?php echo $primary_hover; ?> !important;
+        }
+        
+        /* ALERTS */
+        .alert-primary {
+            background-color: rgba(<?php echo $focus_rgb; ?>, 0.1) !important;
+            border-color: rgba(<?php echo $focus_rgb; ?>, 0.2) !important;
+            color: <?php echo $primary_active; ?> !important;
+        }
+        
+        /* DROPDOWN ACTIVE */
+        .dropdown-item:active {
+            background-color: <?php echo $primary_color; ?> !important;
+            color: #fff !important;
+        }
+        
+        /* NAV TABS ACTIVE */
+        .nav-tabs .nav-link.active {
+            color: <?php echo $primary_color; ?> !important;
+        }
+    </style>
 
     <!-- Scripts -->
     <script src="{{ Admin::jQuery() }}"></script>
     {!! Admin::headerJs() !!}
 
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
-    <!-- Additional AdminLTE 4 optimizations -->
-    <style>
-        .wrapper {
-            min-height: 100vh;
-        }
-
-        .main-header {
-            border-bottom: 1px solid #dee2e6;
-            background: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
-        }
-
-        .main-sidebar {
-            box-shadow: 2px 0 6px rgba(0, 0, 0, .1);
-        }
-
-        .content-wrapper {
-            background-color: #f4f6f9;
-            min-height: calc(100vh - 57px);
-        }
-
-        .content-header {
-            padding: 15px 15px 0 15px;
-            background: #fff;
-            border-bottom: 1px solid #dee2e6;
-            margin-bottom: 15px;
-        }
-
-        .content {
-            padding: 0 15px 15px 15px;
-        }
-
-        /* Responsive improvements */
-        @media (max-width: 767.98px) {
-            .content-wrapper {
-                margin-left: 0;
-            }
-
-            .main-sidebar {
-                margin-left: -250px;
-            }
-
-            .sidebar-open .main-sidebar {
-                margin-left: 0;
-            }
-        }
-
-        /* Loading state */
-        .content-wrapper.loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        .content-wrapper.loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 32px;
-            height: 32px;
-            margin: -16px 0 0 -16px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #007bff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed {{ join(' ', config('admin.layout')) }}">
@@ -123,7 +184,7 @@
 
     <div class="wrapper">
         @include('admin::partials.header')
-     {{--    @include('admin::partials.sidebar') --}}
+        @include('admin::partials.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -192,11 +253,56 @@
         $(document).ready(function() {
             console.log('Admin panel initialized');
             console.log('jQuery version:', $.fn.jquery);
+            console.log('Bootstrap available:', typeof bootstrap !== 'undefined');
+            console.log('AdminLTE available:', typeof AdminLTE !== 'undefined');
             console.log('PJAX available:', typeof $.pjax !== 'undefined');
+            console.log('LA object:', typeof LA !== 'undefined', LA);
+
+            // Remove skip links immediately and periodically
+            function removeSkipLinks() {
+                const skipLinks = document.querySelector('.skip-links');
+                if (skipLinks) {
+                    skipLinks.remove();
+                    console.log('Skip links removed');
+                }
+            }
+
+            // Remove skip links on load
+            removeSkipLinks();
 
             // Initialize AdminLTE
             if (typeof AdminLTE !== 'undefined') {
                 AdminLTE.init();
+                console.log('AdminLTE initialized');
+                
+                // Remove skip links after AdminLTE initialization
+                setTimeout(removeSkipLinks, 100);
+                setTimeout(removeSkipLinks, 500);
+                setTimeout(removeSkipLinks, 1000);
+            } else {
+                console.warn('AdminLTE not found');
+            }
+
+            // Watch for skip links being added and remove them
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    mutation.addedNodes.forEach(function(node) {
+                        if (node.nodeType === 1 && (node.classList.contains('skip-links') || node.querySelector('.skip-links'))) {
+                            removeSkipLinks();
+                        }
+                    });
+                });
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
+
+            // Initialize Bootstrap dropdowns manually if needed
+            if (typeof bootstrap !== 'undefined') {
+                // Initialize all dropdowns
+                var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+                var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+                    return new bootstrap.Dropdown(dropdownToggleEl);
+                });
+                console.log('Bootstrap dropdowns initialized:', dropdownList.length);
             }
 
             // PJAX configuration
