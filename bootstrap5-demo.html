@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhindo Admin - Bootstrap 5 Form Demo</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- AdminLTE CSS -->
+    <link href="AdminLTE/dist/css/AdminLTE.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- Custom Bootstrap 5 Admin Override -->
+    <style>
+        /* Bootstrap 5 Form Styles */
+        .form-label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #212529;
+        }
+        
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ced4da;
+            border-radius: 0.375rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        
+        .form-control:focus {
+            border-color: #86b7fe;
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+        
+        .is-invalid {
+            border-color: #dc3545;
+        }
+        
+        .invalid-feedback {
+            display: block;
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: 0.875em;
+            color: #dc3545;
+        }
+        
+        .form-text {
+            margin-top: 0.25rem;
+            font-size: 0.875em;
+            color: #6c757d;
+        }
+        
+        .form-check {
+            display: block;
+            min-height: 1.5rem;
+            padding-left: 1.5em;
+            margin-bottom: 0.125rem;
+        }
+        
+        .form-check-input {
+            width: 1em;
+            height: 1em;
+            margin-top: 0.25em;
+            vertical-align: top;
+            background-color: #fff;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            border: 1px solid rgba(0, 0, 0, 0.25);
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0.25em;
+        }
+        
+        .form-check-input:checked {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+        
+        .form-check-label {
+            color: #212529;
+        }
+        
+        .input-group-text {
+            display: flex;
+            align-items: center;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            text-align: center;
+            white-space: nowrap;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 0.375rem;
+        }
+        
+        .btn-primary {
+            color: #fff;
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+        
+        .btn-primary:hover {
+            color: #fff;
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+        }
+        
+        .mb-3 {
+            margin-bottom: 1rem !important;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title mb-0">
+                            <i class="fa fa-cog me-2"></i>
+                            Muhindo Admin - Bootstrap 5 Form Demo
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted mb-4">
+                            This demonstrates the Bootstrap 5 form components that have been migrated 
+                            from Bootstrap 3. All form templates now use modern Bootstrap 5 classes.
+                        </p>
+                        
+                        <form>
+                            <!-- Text Input (using updated input.blade.php template) -->
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                                <div class="form-text">This uses the migrated input.blade.php template with form-label class.</div>
+                            </div>
+                            
+                            <!-- Email Input with validation -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control is-invalid" id="email" value="invalid-email">
+                                <div class="invalid-feedback">
+                                    Please provide a valid email address.
+                                </div>
+                                <div class="form-text">Demonstrates Bootstrap 5 is-invalid state.</div>
+                            </div>
+                            
+                            <!-- Textarea (using updated textarea.blade.php template) -->
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" rows="3" placeholder="Enter description"></textarea>
+                                <div class="form-text">This uses the migrated textarea.blade.php template.</div>
+                            </div>
+                            
+                            <!-- Select (using updated select.blade.php template) -->
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Category</label>
+                                <select class="form-select" id="category">
+                                    <option selected disabled>Choose a category...</option>
+                                    <option value="1">General</option>
+                                    <option value="2">Support</option>
+                                    <option value="3">Development</option>
+                                </select>
+                                <div class="form-text">This uses the migrated select.blade.php template with form-select class.</div>
+                            </div>
+                            
+                            <!-- Input Group (updated input-group-addon to input-group-text) -->
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">@</span>
+                                    <input type="text" class="form-control" id="username" placeholder="Username">
+                                </div>
+                                <div class="form-text">Uses Bootstrap 5 input-group-text instead of input-group-addon.</div>
+                            </div>
+                            
+                            <!-- Checkboxes (using updated checkbox.blade.php template) -->
+                            <div class="mb-3">
+                                <label class="form-label">Preferences</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="newsletter">
+                                    <label class="form-check-label" for="newsletter">
+                                        Subscribe to newsletter
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="notifications">
+                                    <label class="form-check-label" for="notifications">
+                                        Enable notifications
+                                    </label>
+                                </div>
+                                <div class="form-text">This uses the migrated checkbox.blade.php template with form-check classes.</div>
+                            </div>
+                            
+                            <!-- Radio buttons -->
+                            <div class="mb-3">
+                                <label class="form-label">Priority</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="priority" id="priority-low" value="low">
+                                    <label class="form-check-label" for="priority-low">Low</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="priority" id="priority-high" value="high">
+                                    <label class="form-check-label" for="priority-high">High</label>
+                                </div>
+                                <div class="form-text">Radio buttons using Bootstrap 5 form-check pattern.</div>
+                            </div>
+                            
+                            <!-- Buttons -->
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-save me-1"></i> Save
+                                </button>
+                                <button type="button" class="btn btn-secondary">
+                                    <i class="fa fa-times me-1"></i> Cancel
+                                </button>
+                                <button type="button" class="btn btn-outline-primary">
+                                    <i class="fa fa-eye me-1"></i> Preview
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="text-danger">Bootstrap 3 (Old)</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><code>.control-label</code></li>
+                                    <li class="list-group-item"><code>.has-error</code></li>
+                                    <li class="list-group-item"><code>.help-block</code></li>
+                                    <li class="list-group-item"><code>.input-group-addon</code></li>
+                                    <li class="list-group-item"><code>.checkbox</code></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-success">Bootstrap 5 (New)</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><code>.form-label</code></li>
+                                    <li class="list-group-item"><code>.is-invalid</code></li>
+                                    <li class="list-group-item"><code>.form-text</code></li>
+                                    <li class="list-group-item"><code>.input-group-text</code></li>
+                                    <li class="list-group-item"><code>.form-check</code></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-light">
+                        <small class="text-muted">
+                            <strong>Status:</strong> ✅ Bootstrap 5 migration complete | 
+                            <strong>Templates Updated:</strong> 5 core form templates | 
+                            <strong>Laravel Compatibility:</strong> 12.x ready
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap 5 JS -->
+    <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

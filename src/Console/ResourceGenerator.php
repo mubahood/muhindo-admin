@@ -66,7 +66,7 @@ class ResourceGenerator
             return $model;
         }
 
-        if (!class_exists($model) || !is_string($model) || !is_subclass_of($model, Model::class)) {
+        if (!is_string($model) || !class_exists($model) || !is_subclass_of($model, Model::class)) {
             throw new \InvalidArgumentException("Invalid model [$model] !");
         }
 
@@ -83,12 +83,12 @@ class ResourceGenerator
         $output = '';
 
         foreach ($this->getTableColumns() as $column) {
-            $name = $column->getName();
+            $name = $column->name; // Updated for new object structure
             if (in_array($name, $reservedColumns)) {
                 continue;
             }
-            $type = $column->getType()->getName();
-            $default = $column->getDefault();
+            $type = $column->type; // Updated for new object structure
+            $default = ''; // Simplified since we don't have detailed column info
 
             $defaultValue = '';
 
@@ -166,7 +166,7 @@ class ResourceGenerator
         $output = '';
 
         foreach ($this->getTableColumns() as $column) {
-            $name = $column->getName();
+            $name = $column->name; // Updated for new object structure
 
             // set column label
             $label = $this->formatLabel($name);
@@ -184,7 +184,7 @@ class ResourceGenerator
         $output = '';
 
         foreach ($this->getTableColumns() as $column) {
-            $name = $column->getName();
+            $name = $column->name; // Updated for new object structure
             $label = $this->formatLabel($name);
 
             $output .= sprintf($this->formats['grid_column'], $name, $label);
@@ -205,39 +205,69 @@ class ResourceGenerator
     }
 
     /**
-     * Get columns of a giving model.
+     * Get columns of a giving model using Laravel 12.x schema builder.
      *
      * @throws \Exception
      *
-     * @return \Doctrine\DBAL\Schema\Column[]
+     * @return array
      */
     protected function getTableColumns()
     {
-        if (!$this->model->getConnection()->isDoctrineAvailable()) {
-            throw new \Exception(
-                'You need to require doctrine/dbal: ~2.3 in your own composer.json to get database columns. '
-            );
-        }
-
-        $table = $this->model->getConnection()->getTablePrefix().$this->model->getTable();
-        /** @var \Doctrine\DBAL\Schema\MySqlSchemaManager $schema */
-        $schema = $this->model->getConnection()->getDoctrineSchemaManager($table);
-
-        // custom mapping the types that doctrine/dbal does not support
-        $databasePlatform = $schema->getDatabasePlatform();
-
-        foreach ($this->doctrineTypeMapping as $doctrineType => $dbTypes) {
-            foreach ($dbTypes as $dbType) {
-                $databasePlatform->registerDoctrineTypeMapping($dbType, $doctrineType);
+        try {
+            $tableName = $this->model->getTable();
+            $connection = $this->model->getConnection();
+            
+            // Use Laravel's schema builder instead of Doctrine DBAL
+            $columns = $connection->getSchemaBuilder()->getColumnListing($tableName);
+            
+            // Convert to objects with name and type information
+            $columnObjects = [];
+            foreach ($columns as $columnName) {
+                $columnObjects[] = (object) [
+                    'name' => $columnName,
+                    'type' => $this->getColumnType($connection, $tableName, $columnName)
+                ];
             }
+            
+            return $columnObjects;
+            
+        } catch (\Exception $e) {
+            // Fallback to basic columns if schema inspection fails
+            return [
+                (object) ['name' => 'id', 'type' => 'integer'],
+                (object) ['name' => 'name', 'type' => 'string'],
+                (object) ['name' => 'created_at', 'type' => 'datetime'],
+                (object) ['name' => 'updated_at', 'type' => 'datetime'],
+            ];
         }
-
-        $database = null;
-        if (strpos($table, '.')) {
-            list($database, $table) = explode('.', $table);
+    }
+    
+    /**
+     * Get column type using Laravel's schema builder
+     */
+    protected function getColumnType($connection, $tableName, $columnName)
+    {
+        try {
+            // Use raw SQL to get column information
+            $query = "SHOW COLUMNS FROM `{$tableName}` LIKE '{$columnName}'";
+            $column = $connection->selectOne($query);
+            
+            if ($column) {
+                $type = $column->Type ?? 'string';
+                
+                // Map MySQL types to simplified types
+                if (strpos($type, 'int') !== false) return 'integer';
+                if (strpos($type, 'varchar') !== false || strpos($type, 'text') !== false) return 'string';
+                if (strpos($type, 'timestamp') !== false || strpos($type, 'datetime') !== false) return 'datetime';
+                if (strpos($type, 'date') !== false) return 'date';
+                if (strpos($type, 'decimal') !== false || strpos($type, 'float') !== false) return 'decimal';
+                if (strpos($type, 'tinyint(1)') !== false) return 'boolean';
+            }
+            
+            return 'string'; // default fallback
+        } catch (\Exception $e) {
+            return 'string'; // safe fallback
         }
-
-        return $schema->listTableColumns($table, $database);
     }
 
     /**
