@@ -1,8 +1,8 @@
 <div class="dropdown pull-right column-selector">
-    <button type="button" class="btn btn-sm btn-instagram dropdown-toggle" data-toggle="dropdown">
-        <i class="fa fa-table"></i>
+    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-columns"></i>
         &nbsp;
-        <span class="caret"></span>
+        <span class="caret d-none"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
         <li>

@@ -277,9 +277,26 @@
             // Initialize Bootstrap dropdowns manually if needed
             if (typeof bootstrap !== 'undefined') {
                 // Initialize all dropdowns
+                initializeDropdowns();
+            }
+            
+            // Function to initialize dropdowns
+            function initializeDropdowns() {
                 var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
                 var dropdownList = dropdownElementList.map(function(dropdownToggleEl) {
-                    return new bootstrap.Dropdown(dropdownToggleEl);
+                    // Only initialize if not already initialized
+                    if (!dropdownToggleEl._dropdown) {
+                        dropdownToggleEl._dropdown = new bootstrap.Dropdown(dropdownToggleEl);
+                    }
+                    return dropdownToggleEl._dropdown;
+                });
+                
+                // Also initialize any grid dropdown actions specifically
+                var gridDropdownElements = [].slice.call(document.querySelectorAll('.grid-dropdown-actions .dropdown-toggle'));
+                gridDropdownElements.forEach(function(element) {
+                    if (!element._dropdown) {
+                        element._dropdown = new bootstrap.Dropdown(element);
+                    }
                 });
             }
 
@@ -300,6 +317,47 @@
                 // PJAX Global Setup
                 $.pjax.defaults.timeout = 8000;
                 $.pjax.defaults.scrollTo = 0;
+                $.pjax.defaults.headers = {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-PJAX': true,
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                };
+                
+                // Setup AJAX defaults for CSRF token
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                
+                // Debug authentication status
+                console.log('🔍 Debug Info:');
+                console.log('👤 Default auth check:', {{ Auth::check() ? 'true' : 'false' }});
+                console.log('👤 Admin guard check:', {{ Admin::guard()->check() ? 'true' : 'false' }});
+                console.log('👤 Admin guard guest:', {{ Admin::guard()->guest() ? 'true' : 'false' }});
+                @if(Admin::guard()->check())
+                console.log('👤 Admin User ID:', {{ Admin::guard()->id() }});
+                console.log('👤 Admin User name:', '{{ Admin::guard()->user()->name ?? "Unknown" }}');
+                @endif
+                console.log('🔑 CSRF Token:', $('meta[name="csrf-token"]').attr('content'));
+                
+                // Add loading indicators
+                $(document).on('pjax:start', function() {
+                    $('body').addClass('pjax-loading');
+                    console.log('🔄 PJAX loading started...');
+                });
+                
+                $(document).on('pjax:end', function() {
+                    $('body').removeClass('pjax-loading');
+                    console.log('✅ PJAX loading completed.');
+                });
+                
+                // Debug PJAX requests
+                $(document).on('pjax:beforeSend', function(event, xhr, options) {
+                    console.log('📤 PJAX request headers:', xhr.getAllResponseHeaders ? 'Available' : 'Not available');
+                    console.log('📤 PJAX URL:', options.url);
+                    console.log('📤 PJAX method:', options.type || 'GET');
+                });
 
                 // Manual PJAX click handler
                 $(document).on('click', 'a[data-pjax]', function(e) {
@@ -325,6 +383,89 @@
                         });
                     }
 
+                    return false;
+                });
+                
+                // Additional handler for admin navigation links (backup for links without data-pjax)
+                $(document).on('click', 'a[href*="/admin/"]', function(e) {
+                    const $this = $(this);
+                    const href = $this.attr('href');
+                    
+                    // Skip if already has data-pjax or should be excluded
+                    if ($this.attr('data-pjax') !== undefined || 
+                        $this.attr('target') === '_blank' ||
+                        href.includes('://') ||
+                        href.includes('javascript:') ||
+                        $this.hasClass('no-pjax')) {
+                        return; // Let default handler take over
+                    }
+                    
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('🔗 AUTO PJAX for admin link:', href);
+                    
+                    if (href && href !== '#' && href !== window.location.pathname + window.location.search) {
+                        $.pjax({
+                            url: href,
+                            container: '#pjax-container',
+                            timeout: 8000,
+                            push: true,
+                            replace: false
+                        }).fail(function(xhr, textStatus, errorThrown) {
+                            console.error('❌ AUTO PJAX failed:', textStatus, errorThrown);
+                            // Fallback to normal navigation
+                            window.location = href;
+                        });
+                    }
+                    
+                    return false;
+                });
+                
+                // Specific handler for dropdown action links (Edit/Show actions)
+                $(document).on('click', '.grid-dropdown-actions .dropdown-menu a', function(e) {
+                    const $this = $(this);
+                    const href = $this.attr('href');
+                    
+                    // Skip if it's a delete action or javascript link  
+                    if (!href || href === '#' || href.includes('javascript:') || $this.hasClass('grid-row-delete')) {
+                        return; // Let default handler take over
+                    }
+                    
+                    // Debug: Log what we're intercepting
+                    console.log('🔍 Dropdown link clicked:', href, 'Has data-pjax:', $this.attr('data-pjax'));
+                    
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('🔗 DROPDOWN PJAX for:', href);
+                    
+                    if (href !== window.location.pathname + window.location.search) {
+                        // Try PJAX first
+                        $.pjax({
+                            url: href,
+                            container: '#pjax-container',
+                            timeout: 8000,
+                            push: true,
+                            replace: false,
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'X-PJAX': true,
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        }).fail(function(xhr, textStatus, errorThrown) {
+                            console.error('❌ DROPDOWN PJAX failed:', {
+                                status: xhr.status,
+                                statusText: xhr.statusText,
+                                textStatus: textStatus,
+                                errorThrown: errorThrown,
+                                url: href
+                            });
+                            
+                            // If it's a server error or PJAX-specific issue, try normal navigation
+                            console.log('🔄 Falling back to normal navigation for:', href);
+                            window.location = href;
+                        });
+                    }
+                    
                     return false;
                 });
 
@@ -359,11 +500,7 @@
 
                     // Reinitialize Bootstrap dropdowns
                     if (typeof bootstrap !== 'undefined') {
-                        var dropdownElementList = [].slice.call(document.querySelectorAll(
-                            '.dropdown-toggle'));
-                        var dropdownList = dropdownElementList.map(function(dropdownToggleEl) {
-                            return new bootstrap.Dropdown(dropdownToggleEl);
-                        });
+                        initializeDropdowns();
                     }
 
                     // Reinitialize sidebar treeview
@@ -385,7 +522,8 @@
                     statusText: xhr.statusText,
                     textStatus: textStatus,
                     error: error,
-                    url: options.url
+                    url: options.url,
+                    responseText: xhr.responseText ? xhr.responseText.substring(0, 200) + '...' : 'No response'
                 });
                 $('.content-wrapper').removeClass('loading');
 
@@ -394,9 +532,30 @@
                     NProgress.done();
                 }
 
+                // More specific error handling
+                let errorMessage = 'Navigation failed. Please try again.';
+                if (xhr.status === 404) {
+                    errorMessage = 'Page not found.';
+                } else if (xhr.status === 403) {
+                    errorMessage = 'Access denied.';
+                } else if (xhr.status === 500) {
+                    errorMessage = 'Server error occurred.';
+                } else if (xhr.status === 419) {
+                    errorMessage = 'Session expired. Redirecting...';
+                    // For CSRF token issues, just redirect
+                    setTimeout(() => window.location.reload(), 1000);
+                    return;
+                }
+
                 // Show error message
                 if (typeof toastr !== 'undefined') {
-                    toastr.error('Navigation failed. Please try again.', 'Error');
+                    toastr.error(errorMessage, 'Error');
+                }
+                
+                // For certain errors, don't prevent default behavior
+                if (xhr.status === 404 || xhr.status === 403) {
+                    // Let the browser handle these
+                    return true;
                 }
             });
 
@@ -444,6 +603,47 @@
                 .location.pathname === '/admin/') {
                 // Dashboard page specific initialization if needed
             }
+
+            // ===============================================================
+            // ADMIN PANEL FUNCTIONALITY
+            // ===============================================================
+
+            // Column Selector Functionality  
+            function initColumnSelector() {
+                $(document).on('click', '.column-select-all', function(e) {
+                    e.preventDefault();
+                    $(this).closest('.dropdown-menu').find('.column-select-item').prop('checked', true);
+                });
+                
+                $(document).on('click', '.column-select-submit', function(e) {
+                    e.preventDefault();
+                    const $dropdown = $(this).closest('.dropdown-menu');
+                    const selected = $dropdown.find('.column-select-item:checked').map(function() {
+                        return $(this).val();
+                    }).get();
+                    
+                    // Update grid columns based on selection
+                    // This would typically involve PJAX request or form submission
+                    console.log('Selected columns:', selected);
+                });
+            }
+
+            // Initialize admin functionality
+            initColumnSelector();
+
+            // Reinitialize after PJAX updates
+            $(document).on('pjax:complete', function() {
+                initColumnSelector();
+                
+                // Reinitialize Bootstrap dropdowns
+                if (typeof bootstrap !== 'undefined') {
+                    var dropdownElementList = [].slice.call(document.querySelectorAll(
+                        '.dropdown-toggle'));
+                    var dropdownList = dropdownElementList.map(function(dropdownToggleEl) {
+                        return new bootstrap.Dropdown(dropdownToggleEl);
+                    });
+                }
+            });
         });
     </script>
 

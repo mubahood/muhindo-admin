@@ -1,13 +1,14 @@
-<div class="btn-group" style="margin-right: 5px" data-toggle="buttons">
-    <label class="btn btn-sm btn-dropbox {{ $btn_class }} {{ $expand ? 'active' : '' }}" title="{{ trans('admin.filter') }}">
-        <input type="checkbox"><i class="fa fa-filter"></i><span class="hidden-xs">&nbsp;&nbsp;{{ trans('admin.filter') }}</span>
-    </label>
+<div class="btn-group filter-button-group" data-toggle="buttons">
+    <button type="button" class="btn btn-sm btn-outline-secondary btn-admin-filter {{ $btn_class }} {{ $expand ? 'active' : '' }}" 
+           title="{{ trans('admin.filter') }}" 
+           data-filter-toggle="{{ $filter_id }}">
+        <i class="fas fa-filter"></i><span class="filter-text d-none d-sm-inline">&nbsp;&nbsp;{{ trans('admin.filter') }}</span>
+    </button>
 
     @if($scopes->isNotEmpty())
-    <button type="button" class="btn btn-sm btn-dropbox dropdown-toggle" data-toggle="dropdown">
-
-        <span>{{ $label }}</span>
-        <span class="caret"></span>
+    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+        <span class="filter-scope-label">{{ $label }}</span>
+        <i class="fas fa-chevron-down ms-1"></i>
         <span class="sr-only">Toggle Dropdown</span>
     </button>
     <ul class="dropdown-menu" role="menu">
@@ -15,20 +16,30 @@
             {!! $scope->render() !!}
         @endforeach
         <li role="separator" class="divider"></li>
-        <li><a href="{{ $cancel }}">{{ trans('admin.cancel') }}</a></li>
+        <li><a class="dropdown-item" href="{{ $cancel }}">{{ trans('admin.cancel') }}</a></li>
     </ul>
     @endif
 </div>
 
 <script>
-var $btn = $('.{{ $btn_class }}');
-var $filter = $('#{{ $filter_id }}');
+$(document).ready(function() {
+    var $btn = $('.{{ $btn_class }}');
+    var $filter = $('#{{ $filter_id }}');
 
-$btn.unbind('click').click(function (e) {
-    if ($filter.is(':visible')) {
-        $filter.addClass('hide');
-    } else {
-        $filter.removeClass('hide');
-    }
+    // Remove any existing handlers to prevent conflicts
+    $btn.off('click.filter-toggle');
+    
+    // Add the click handler with namespace
+    $btn.on('click.filter-toggle', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if ($filter.hasClass('hide') || !$filter.is(':visible')) {
+            $filter.removeClass('hide').show();
+            $btn.addClass('active');
+        } else {
+            $filter.addClass('hide').hide();
+            $btn.removeClass('active');
+        }
+    });
 });
-</script>

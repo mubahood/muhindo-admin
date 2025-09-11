@@ -400,7 +400,7 @@ em[class*="bi"] {
 /* BASE ELEMENTS */
 html,
 body {
-  min-height: 100%;
+  min-height: 100vh; /* Changed from 100% to 100vh to ensure full viewport height */
   margin: 0;
   padding: 0;
   font-family: var(--font-family);
@@ -420,6 +420,8 @@ body {
   position: relative;
   overflow: hidden;
   background-color: transparent; /* Transparent to show background */
+  display: flex;
+  flex-direction: column;
 }
 
 .wrapper:before,
@@ -449,21 +451,35 @@ body {
 
 /* CONTENT WRAPPER - MINIMAL PADDING OPTIMIZED */
 .content-wrapper,
-.right-side,
-.main-footer {
+.right-side {
   transition: margin-left 0.3s ease-in-out;
   margin-left: var(--sidebar-width);
   background-color: transparent !important;
   min-height: calc(100vh - var(--header-height));
   padding: 0 !important; /* Remove all padding for tight layout */
+  flex: 1; /* Take up available space to push footer down */
+}
+
+.main-footer {
+  transition: margin-left 0.3s ease-in-out;
+  margin-left: var(--sidebar-width);
+  background-color: transparent !important;
+  padding: 0 !important; /* Remove all padding for tight layout */
+  margin-top: auto; /* Push footer to bottom */
 }
 
 @media (max-width: 767px) {
   .content-wrapper,
-  .right-side,
+  .right-side {
+    margin-left: 0;
+    padding: 0 !important; /* Keep minimal on mobile */
+    flex: 1;
+  }
+  
   .main-footer {
     margin-left: 0;
     padding: 0 !important; /* Keep minimal on mobile */
+    margin-top: auto;
   }
 }
 .layout-top-nav .content-wrapper,
@@ -500,11 +516,12 @@ body {
 /* MAIN FOOTER - FLAT DESIGN */
 .main-footer {
   background-color: var(--white);
-  padding: var(--padding-sm) var(--padding-md); /* Minimal footer padding */
+  padding: var(--padding-sm) var(--padding-md) !important; /* Restore proper footer padding */
   color: var(--text-secondary);
   border-top: var(--border-width) solid var(--border-color);
   font-size: var(--text-xs);
-  margin-top: 0; /* Remove top margin */
+  margin-top: auto !important; /* Stick to bottom of flex container */
+  flex-shrink: 0; /* Prevent footer from shrinking */
 }
 
 /* HEADER COMPONENT - FLAT DESIGN */
@@ -2288,18 +2305,21 @@ label {
   border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius);
   background-color: var(--white) !important; /* Force white background */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  box-shadow: none; /* Remove shadow to match new design */
 }
 
+/* Legacy table styles - updated for consistency */
 .table th {
-  background-color: var(--gray-50);
-  padding: var(--padding-md);
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 8px 12px;
   text-align: left;
-  font-weight: var(--font-semibold);
-  font-size: var(--text-sm);
+  font-weight: 600;
+  font-size: 12px;
   color: var(--text-primary);
-  border-bottom: var(--border-width) solid var(--border-color);
-  border-right: var(--border-width) solid var(--border-color);
+  border-bottom: 2px solid var(--primary-color);
+  border-right: 1px solid #dee2e6;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .table th:last-child {
@@ -2307,11 +2327,12 @@ label {
 }
 
 .table td {
-  padding: var(--padding-md);
-  font-size: var(--text-sm);
+  padding: 6px 12px;
+  font-size: 13px;
   color: var(--text-primary);
-  border-bottom: var(--border-width) solid var(--gray-100);
-  border-right: var(--border-width) solid var(--gray-100);
+  border-bottom: 1px solid #f1f3f4;
+  border-right: 1px solid #f1f3f4;
+  transition: background-color 0.2s ease;
 }
 
 .table td:last-child {
@@ -2929,6 +2950,347 @@ body.hold-transition .main-header .logo {
   margin-bottom: 0 !important;
 }
 
+/* Enhanced Box Body for Tables */
+.box-body.table-responsive,
+.box-body:has(.table) {
+  padding: 0 !important;
+  background-color: var(--white);
+  border: none;
+}
+
+/* Grid Box Styling */
+.grid-box {
+  border: 1px solid var(--border-color) !important;
+  border-radius: 0;
+  background-color: var(--white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.grid-box .box-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 16px;
+  margin: 0;
+}
+
+.grid-box .box-body {
+  padding: 0;
+  background: var(--white);
+}
+
+/* Table Footer Styling */
+.box-footer {
+  background: #f8f9fa;
+  border-top: 1px solid var(--border-color);
+  padding: 12px 16px;
+  margin: 0;
+}
+
+/* Pagination in Footer */
+.box-footer .pagination {
+  margin: 0;
+  justify-content: center;
+}
+
+/* ===============================================================
+   MODERN PAGINATION STYLING
+   =============================================================== */
+
+/* Pagination Container */
+.pagination-container {
+  background: #f8f9fa;
+  border-top: 1px solid var(--border-color);
+}
+
+.pagination-row {
+  padding: 8px 16px;
+  min-height: 40px;
+  width: 100%;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+/* Pagination Info */
+.pagination-info {
+  font-size: 14px;
+  color: #495057;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Per Page Selector */
+.per-page-selector {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px;
+  font-size: 14px;
+  color: #495057;
+}
+
+.per-page-selector select {
+  padding: 2px 8px !important;
+  font-size: 12px !important;
+  min-width: 50px !important;
+  width: auto !important;
+  height: 28px !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 4px !important;
+}
+
+.pagination-links {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Pagination Info Bottom */
+.pagination-info-bottom {
+  padding: 4px 16px 8px 16px;
+  background: #f8f9fa;
+  margin: 0;
+}
+
+.pagination-info-bottom small {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* Modern Pagination Links */
+.modern-pagination {
+  margin: 0;
+  gap: 2px;
+}
+
+/* Force flexbox layout for pagination row */
+.d-flex {
+  display: flex !important;
+}
+
+.justify-content-between {
+  justify-content: space-between !important;
+}
+
+.justify-content-center {
+  justify-content: center !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+/* Utility classes for margins */
+.me-1 { margin-right: 0.25rem !important; }
+.ms-1 { margin-left: 0.25rem !important; }
+.mx-1 { margin-left: 0.25rem !important; margin-right: 0.25rem !important; }
+.mt-2 { margin-top: 0.5rem !important; }
+
+.modern-pagination {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.modern-pagination .page-item {
+  margin: 0;
+}
+
+.modern-pagination .page-link {
+  background: var(--white);
+  border: 1px solid #dee2e6;
+  color: var(--text-primary);
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  border-radius: 0;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+}
+
+.modern-pagination .page-link:hover {
+  background: #f8f9fa;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modern-pagination .page-item.active .page-link {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--white);
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.modern-pagination .page-item.active .page-link:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  transform: none;
+}
+
+.modern-pagination .page-item.disabled .page-link {
+  background: #f8f9fa;
+  border-color: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.modern-pagination .page-item.disabled .page-link:hover {
+  background: #f8f9fa;
+  border-color: #e9ecef;
+  color: #6c757d;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Pagination dots styling */
+.modern-pagination .dots {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-muted) !important;
+  cursor: default !important;
+  font-weight: bold;
+}
+
+.modern-pagination .dots:hover {
+  background: transparent !important;
+  border: none !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Compact Per Page Selector */
+.per-page-selector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.per-page-selector .form-select {
+  background: var(--white);
+  border: 1px solid #dee2e6;
+  border-radius: 0;
+  padding: 4px 8px;
+  font-size: 12px;
+  height: 28px;
+  width: 60px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  margin: 0;
+}
+
+.per-page-selector .form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 1px rgba(var(--primary-color-rgb), 0.25);
+  outline: none;
+}
+
+.per-page-selector small {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* Navigation Icons */
+.modern-pagination .page-link i {
+  font-size: 10px;
+  line-height: 1;
+}
+
+/* Responsive Pagination */
+@media (max-width: 768px) {
+  .pagination-row {
+    padding: 6px 12px;
+    min-height: 36px;
+  }
+  
+  .pagination-info-bottom {
+    padding: 3px 12px 6px 12px;
+  }
+  
+  .pagination-info-bottom small {
+    font-size: 11px;
+  }
+  
+  .per-page-selector .form-select {
+    width: 50px;
+    height: 24px;
+    font-size: 11px;
+    padding: 2px 4px;
+  }
+  
+  .per-page-selector small {
+    font-size: 11px;
+  }
+  
+  .modern-pagination {
+    gap: 1px;
+  }
+  
+  .modern-pagination .page-link {
+    padding: 3px 6px;
+    min-width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+  
+  .modern-pagination .page-link i {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 576px) {
+  .pagination-row {
+    padding: 4px 8px;
+    min-height: 32px;
+  }
+  
+  .pagination-info-bottom {
+    padding: 2px 8px 4px 8px;
+  }
+  
+  .pagination-info-bottom small {
+    font-size: 10px;
+  }
+  
+  .per-page-selector .form-select {
+    width: 45px;
+    height: 22px;
+    font-size: 10px;
+    padding: 1px 3px;
+  }
+  
+  .per-page-selector small {
+    font-size: 10px;
+  }
+  
+  .modern-pagination .page-link {
+    padding: 2px 4px;
+    min-width: 22px;
+    height: 22px;
+    font-size: 10px;
+  }
+  
+  .modern-pagination .page-link i {
+    font-size: 8px;
+  }
+}
+
 /* FILTER AND ACTION BUTTONS - TIGHT LAYOUT */
 .btn-group,
 .filter-box,
@@ -2958,20 +3320,219 @@ body.hold-transition .main-header .logo {
   padding: 4px 8px;
 }
 
-/* ROW HEADERS AND CELLS - COMPACT */
-.table th,
-.table td {
-  padding: 6px 8px !important; /* Much tighter cell padding */
-  vertical-align: middle;
-  line-height: 1.3;
+/* ===============================================================
+   ENHANCED TABLE STYLING - MODERN PROFESSIONAL DESIGN
+   =============================================================== */
+
+/* Main Table Container */
+.table-responsive {
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: var(--white) !important;
+  border: 1px solid var(--border-color);
+  border-radius: 0;
+  overflow-x: auto;
 }
 
-.table thead th {
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
-  font-weight: 600;
+/* Grid Table Base Styling */
+.grid-table,
+.table {
+  margin-bottom: 0 !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  background-color: var(--white);
   font-size: 13px;
-  padding: 8px !important; /* Slightly more padding for headers */
+  line-height: 1.4;
+}
+
+/* Enhanced Table Headers */
+.table thead th {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: none;
+  border-bottom: 2px solid var(--primary-color);
+  border-right: 1px solid #dee2e6;
+  padding: 8px 12px !important;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.table thead th:hover {
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+}
+
+.table thead th:last-child {
+  border-right: none;
+}
+
+.table thead th:first-child {
+  border-left: none;
+}
+
+/* Table Header Sorting Icons */
+.table thead th i {
+  margin-left: 4px;
+  opacity: 0.6;
+  font-size: 11px;
+}
+
+.table thead th:hover i {
+  opacity: 1;
+}
+
+/* Enhanced Table Cells */
+.table th,
+.table td {
+  padding: 6px 12px !important;
+  vertical-align: middle;
+  line-height: 1.4;
+  border-right: 1px solid #f1f3f4;
+  border-bottom: 1px solid #f1f3f4;
+  text-align: left;
+  word-wrap: break-word;
+  max-width: 200px;
+}
+
+.table td {
+  background-color: var(--white);
+  color: var(--text-primary);
+  font-size: 13px;
+  transition: background-color 0.2s ease;
+}
+
+.table th:last-child,
+.table td:last-child {
+  border-right: none;
+}
+
+/* Table Row Hover Effects */
+.table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.table tbody tr:hover td {
+  background-color: transparent;
+}
+
+/* Striped Table Rows */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #fcfdfe;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+  background-color: var(--white);
+}
+
+.table-striped tbody tr:hover {
+  background-color: #f8f9fa !important;
+}
+
+/* Table Actions Column */
+.table td.actions,
+.table th.actions {
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+  text-align: center;
+  padding: 4px 8px !important;
+}
+
+/* Table Status Badges */
+.table .badge {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+/* Table Links */
+.table a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.table a:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+/* Table Empty State */
+.table tbody tr.empty-row td {
+  text-align: center;
+  padding: 40px 20px !important;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Table Checkbox Column */
+.table td.checkbox-column,
+.table th.checkbox-column {
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  text-align: center;
+  padding: 4px !important;
+}
+
+/* Table ID Column */
+.table td.id-column,
+.table th.id-column {
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Small Text in Tables */
+.table .text-sm {
+  font-size: 11px;
+}
+
+.table .text-xs {
+  font-size: 10px;
+}
+
+/* Table Loading State */
+.table.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.table.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* SPECIFIC ADMIN LIST PAGE OPTIMIZATIONS - TRANSPARENT HEADER */
@@ -3310,12 +3871,264 @@ a:focus {
 /* CONTENT HEADER - MINIMAL SPACING - 100% TRANSPARENT */
 .content-header {
   position: relative;
-  padding: 8px 12px 4px 12px; /* Reduced padding significantly */
+  padding: 6px 12px 2px 12px; /* Reduced bottom padding even more */
   background-color: transparent !important;
   background: transparent !important; /* Extra transparency enforcement */
   margin-bottom: 0 !important; /* Remove margin */
   border: none !important; /* No borders */
   box-shadow: none !important; /* No shadows */
+}
+
+/* CONTENT HEADER CONTAINER */
+.content-header-container {
+  padding: 0;
+  margin: 0;
+  background: transparent !important;
+  min-height: 28px; /* Even more compact height */
+}
+
+/* CONTENT SECTION - REDUCE TOP SPACING */
+.content {
+  padding-top: 4px !important; /* Minimal top padding */
+  margin-top: 0 !important; /* No top margin */
+}
+
+/* ADMIN LIST PAGE CONTENT - REDUCE SPACING */
+.admin-list-page .content {
+  padding: 2px 12px 4px 12px !important; /* Minimal padding */
+}
+
+/* BOX ELEMENTS - REDUCE TOP MARGINS */
+.box {
+  margin-top: 0 !important;
+  margin-bottom: 8px;
+}
+
+.grid-box {
+  margin-top: 0 !important;
+}
+
+/* CONTENT WRAPPER - COMPACT LAYOUT */
+.content-wrapper {
+  padding: 0;
+}
+
+.content-wrapper > .content-header + .content {
+  margin-top: 0 !important;
+  padding-top: 2px !important;
+}
+
+/* CONTENT HEADER TITLE SECTION - INLINE LAYOUT */
+.content-header-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.content-header-heading {
+  font-size: 20px; /* Reduced font size */
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.content-header-subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* BREADCRUMB SECTION */
+.content-header-breadcrumb {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb {
+  background: transparent !important;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.breadcrumb-item {
+  color: var(--text-secondary);
+}
+
+.breadcrumb-item.active {
+  color: var(--text-primary);
+}
+
+.breadcrumb-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .content-header {
+    padding: 4px 8px 1px 8px; /* Even more compact on mobile */
+  }
+  
+  .content-header-container {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 2px; /* Reduced gap */
+    min-height: 24px; /* Smaller height on mobile */
+  }
+  
+  .content-header-title {
+    width: 100%;
+    gap: 6px;
+  }
+  
+  .content-header-heading {
+    font-size: 18px;
+  }
+  
+  .content-header-subtitle {
+    font-size: 13px;
+  }
+  
+  .content-header-breadcrumb {
+    width: 100%;
+    margin-top: 1px; /* Minimal margin */
+  }
+  
+  .breadcrumb {
+    font-size: 11px;
+  }
+  
+  .content {
+    padding-top: 2px !important;
+  }
+  
+  .admin-list-page .content {
+    padding: 1px 8px 2px 8px !important;
+  }
+
+  /* Mobile Table Improvements */
+  .table-responsive {
+    border: none;
+    border-radius: 0;
+  }
+  
+  .table thead th {
+    padding: 6px 8px !important;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+  }
+  
+  .table td {
+    padding: 4px 8px !important;
+    font-size: 12px;
+    max-width: 120px;
+  }
+  
+  .table td.actions {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    padding: 2px 4px !important;
+  }
+  
+  .table td.checkbox-column,
+  .table th.checkbox-column {
+    width: 30px;
+    min-width: 30px;
+    max-width: 30px;
+    padding: 2px !important;
+  }
+  
+  .table td.id-column,
+  .table th.id-column {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+  }
+  
+  /* Hide less important columns on mobile */
+  .table .hide-mobile {
+    display: none;
+  }
+  
+  /* Stack table content on very small screens */
+  @media (max-width: 576px) {
+    .table thead {
+      display: none;
+    }
+    
+    .table tbody tr {
+      display: block;
+      border: 1px solid var(--border-color);
+      margin-bottom: 8px;
+      border-radius: 4px;
+      padding: 8px;
+      background: var(--white);
+    }
+    
+    .table tbody td {
+      display: block;
+      border: none;
+      border-bottom: 1px solid #f1f3f4;
+      padding: 4px 0 !important;
+      text-align: left !important;
+      max-width: none;
+    }
+    
+    .table tbody td::before {
+      content: attr(data-label) ": ";
+      font-weight: 600;
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    
+    .table tbody td:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .content-header {
+    padding: 3px 6px 1px 6px; /* Ultra compact on small screens */
+  }
+  
+  .content-header-container {
+    min-height: 20px;
+  }
+  
+  .content-header-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px; /* Minimal gap */
+  }
+  
+  .content-header-heading {
+    font-size: 16px;
+  }
+  
+  .content-header-subtitle {
+    font-size: 12px;
+  }
+  
+  .content {
+    padding-top: 1px !important;
+  }
 }
 
 /* CONTENT HEADER CONTAINER - FORCE TRANSPARENCY */
@@ -3490,44 +4303,126 @@ a:focus {
 .grid-toolbar-container {
   background: var(--white);
   border-bottom: 1px solid var(--border-color);
-  padding: 12px 16px;
+  padding: 8px 16px;
 }
 
 .grid-toolbar {
-  min-height: 40px;
-  gap: 16px;
+  min-height: 36px;
+  gap: 12px;
+  align-items: center;
 }
 
 /* Grid Toolbar Left Side */
 .grid-toolbar-left {
   flex: 1;
-  gap: 12px;
+  gap: 8px;
+  align-items: center;
 }
 
 .grid-header-tools {
   display: flex;
   align-items: center;
   gap: 8px;
+  height: 36px;
 }
 
 /* Grid Toolbar Right Side */
 .grid-toolbar-right {
   flex-shrink: 0;
+  align-items: center;
 }
 
 .grid-action-buttons {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  height: 36px;
 }
 
 /* Button Styling for Grid Actions */
 .grid-action-buttons .btn {
-  height: 38px;
-  padding: 8px 16px;
+  height: 36px;
+  padding: 6px 12px;
   font-size: 14px;
   font-weight: 500;
-  border-radius: var(--border-radius);
+  border-radius: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+/* Ensure all toolbar buttons have consistent height and alignment */
+.grid-toolbar .btn,
+.grid-toolbar .btn-group .btn,
+.grid-toolbar .dropdown-toggle {
+  height: 36px !important;
+  min-height: 36px !important;
+  padding: 6px 12px !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  vertical-align: top !important;
+}
+
+/* Specific styling for export and new buttons */
+.grid-toolbar .btn-success,
+.grid-toolbar .btn-primary {
+  background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--white) !important;
+}
+
+.grid-toolbar .btn-success:hover,
+.grid-toolbar .btn-primary:hover {
+  background: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+}
+
+/* Column selector button */
+.grid-toolbar .btn-default,
+.grid-toolbar .btn-secondary {
+  background: transparent !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-secondary) !important;
+}
+
+.grid-toolbar .btn-default:hover,
+.grid-toolbar .btn-secondary:hover {
+  background: var(--gray-50) !important;
+  border-color: var(--border-dark) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Dropdown menus */
+.grid-toolbar .dropdown-menu {
+  border-radius: 0 !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Input groups in toolbar */
+.grid-toolbar .input-group {
+  height: 36px !important;
+  align-items: center !important;
+}
+
+.grid-toolbar .input-group .form-control {
+  height: 36px !important;
+  border-radius: 0 !important;
+  font-size: 14px !important;
+}
+
+.grid-toolbar .input-group .btn {
+  height: 36px !important;
+  border-radius: 0 !important;
+}
+
+/* Additional styling for consistency */
+.grid-action-buttons .btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -3665,6 +4560,393 @@ a:focus {
   .grid-header-tools .form-control {
     height: 36px;
     font-size: 13px;
+  }
+}
+
+/* ===============================================================
+   FILTER BUTTON IMPROVEMENTS - MODERN DESIGN
+   =============================================================== */
+
+/* Filter Button Group */
+.filter-button-group {
+  margin: 0;
+  display: inline-flex;
+  vertical-align: top;
+  height: 36px;
+  align-items: center;
+}
+
+.btn-admin-filter {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  height: 36px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 0;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  line-height: 1;
+  margin: 0;
+}
+
+.btn-admin-filter:hover {
+  background: var(--gray-50);
+  border-color: var(--border-dark);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-admin-filter.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--white);
+}
+
+.btn-admin-filter.active:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--white);
+}
+
+/* Ensure grid toolbar items are aligned */
+.grid-header-tools {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+}
+
+.grid-search-form {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  height: 36px;
+}
+
+.grid-search-container {
+  width: 250px;
+  height: 36px;
+  border-radius: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background: var(--white);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.grid-quick-search {
+  border: none;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  background: transparent;
+  flex: 1;
+  line-height: 1;
+  margin: 0;
+}
+
+.btn-admin-search {
+  background: var(--primary-color);
+  border: none;
+  color: var(--white);
+  height: 34px;
+  width: 34px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 0;
+  margin: 0;
+}
+
+/* Outline button styles for filter - ensure square corners */
+.btn-outline-secondary {
+  background: transparent !important;
+  border: 1px solid #6c757d !important;
+  color: #6c757d !important;
+  border-radius: 0 !important; /* Force square corners */
+}
+
+.btn-outline-secondary:hover {
+  background: #6c757d !important;
+  border-color: #6c757d !important;
+  color: white !important;
+}
+
+.btn-outline-secondary.active {
+  background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.btn-outline-secondary.active:hover {
+  background: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+  color: white !important;
+}
+
+.btn-admin-filter input[type="checkbox"] {
+  display: none;
+}
+
+.btn-admin-filter i {
+  font-size: 13px;
+}
+
+.filter-text {
+  font-size: 14px;
+}
+
+/* Filter Dropdown */
+.dropdown-toggle-split {
+  border-left: 1px solid var(--border-color);
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.filter-scope-label {
+  font-size: 13px;
+  margin-right: 4px;
+}
+
+/* ===============================================================
+   SEARCH BOX IMPROVEMENTS - MODERN INPUT GROUP
+   =============================================================== */
+
+/* Search Form */
+.grid-search-form {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.grid-search-container {
+  width: 250px;
+  height: 38px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background: var(--white);
+  transition: all 0.2s ease;
+}
+
+.grid-search-container:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(10, 30, 52, 0.1);
+}
+
+.grid-quick-search {
+  border: none;
+  height: 36px;
+  padding: 8px 12px;
+  font-size: 14px;
+  background: transparent;
+  flex: 1;
+}
+
+.grid-quick-search:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.btn-admin-search {
+  background: var(--primary-color);
+  border: none;
+  color: var(--white);
+  height: 36px;
+  width: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 0; /* Square corners */
+}
+
+.btn-admin-search:hover {
+  background: var(--accent-color);
+  color: var(--white);
+}
+
+.btn-admin-search i {
+  font-size: 13px;
+}
+
+/* ===============================================================
+   GRID TOOLBAR ALIGNMENT IMPROVEMENTS
+   =============================================================== */
+
+.grid-toolbar-container {
+  padding: 8px 15px;
+  background: var(--white);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.grid-toolbar {
+  min-height: 40px;
+  align-items: center;
+}
+
+.grid-toolbar-left,
+.grid-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.grid-header-tools,
+.grid-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Ensure all toolbar elements have consistent height */
+.grid-toolbar-left > *,
+.grid-toolbar-right > *,
+.grid-header-tools > *,
+.grid-action-buttons > * {
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+/* Force all buttons in toolbar to have same height and square corners */
+.grid-toolbar .btn,
+.grid-toolbar .btn-group .btn {
+  height: 36px !important;
+  border-radius: 0 !important;
+  padding: 4px 8px !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  vertical-align: top !important;
+}
+
+/* ===============================================================
+   COLUMN SELECTOR AND EXPORT BUTTON IMPROVEMENTS
+   =============================================================== */
+
+/* Column Selector */
+.column-selector .btn {
+  background: var(--gray-100);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.column-selector .btn:hover {
+  background: var(--gray-50);
+  border-color: var(--border-dark);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.column-selector .dropdown-menu {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  min-width: 200px;
+}
+
+/* Export Button */
+.btn-success {
+  background: var(--success-color, #28a745);
+  border-color: var(--success-color, #28a745);
+  color: var(--white);
+  padding: 6px 12px; /* Reduced padding */
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-success:hover {
+  background: var(--success-dark, #218838);
+  border-color: var(--success-dark, #218838);
+  color: var(--white);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Global Button Padding Reduction */
+.btn {
+  padding: 6px 12px; /* Reduced from default */
+}
+
+.btn-sm {
+  padding: 4px 8px; /* Reduced from default */
+}
+
+.btn-lg {
+  padding: 8px 16px; /* Reduced from default */
+}
+
+/* Fix for filter button cursor */
+.btn-admin-filter {
+  cursor: pointer;
+}
+
+/* ===============================================================
+   RESPONSIVE ADJUSTMENTS FOR FILTER AND SEARCH
+   =============================================================== */
+
+@media (max-width: 768px) {
+  .grid-search-container {
+    width: 200px;
+  }
+
+  .filter-text {
+    display: none !important;
+  }
+
+  .btn-admin-filter {
+    padding: 8px 12px;
+  }
+
+  .filter-scope-label {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .grid-search-container {
+    width: 150px;
+  }
+
+  .grid-quick-search {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .btn-admin-search {
+    width: 32px;
+    height: 32px;
+  }
+
+  .btn-admin-filter {
+    font-size: 13px;
+    padding: 6px 10px;
+    height: 34px;
+  }
+
+  .filter-button-group {
+    margin-right: 4px;
+  }
+
+  .grid-search-form {
+    margin-right: 4px;
   }
 }
 
@@ -6041,12 +7323,22 @@ a:focus {
 .nav-tabs-custom.tab-default > .nav-tabs > li.active {
   border-top-color: #d2d6de;
 }
+/* Legacy pagination overrides */
 .pagination > li > a {
-  background: #fafafa;
-  color: #666;
+  background: var(--white);
+  color: var(--text-primary);
+  border: 1px solid #dee2e6;
+  border-radius: 0;
 }
+
 .pagination.pagination-flat > li > a {
   border-radius: 0 !important;
+}
+
+/* Remove old pagination wrapper styles */
+.pagination-wrapper {
+  padding: 0 !important;
+  margin: 0 !important;
 }
 .products-list {
   list-style: none;
@@ -9220,4 +10512,184 @@ a.editable-empty {
 .sidebar-menu .nav-item.treeview.menu-open > .nav-link .right,
 .sidebar-menu .nav-item.menu-open > .nav-link .fa-angle-left {
   transform: rotate(-90deg) !important;
+}
+
+/* =============================================================
+   BOX FOOTER PAGINATION LAYOUT FIX
+   ============================================================= */
+
+/* Box Footer Pagination Layout - Force same row alignment */
+.box-footer {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  gap: 10px;
+  padding: 15px 20px !important;
+}
+
+/* Force the pagination ranger (showing x to y) to be inline and on left */
+.box-footer > :first-child {
+  flex: 0 1 auto;
+  white-space: nowrap;
+  order: 1;
+}
+
+/* Force the per-page selector to align properly on right */
+.box-footer .control-label.pull-right {
+  margin: 0 !important;
+  float: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px;
+  order: 3;
+  margin-left: auto !important;
+}
+
+/* Hide any pagination links that might appear in this context */
+.box-footer .pagination {
+  display: none !important;
+}
+
+/* Force all direct children to be inline-flex */
+.box-footer > * {
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+/* Style the select in the pagination */
+.box-footer select {
+  min-width: 50px !important;
+  width: auto !important;
+  height: 28px !important;
+  padding: 2px 8px !important;
+  font-size: 12px !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 4px !important;
+  margin: 0 5px !important;
+}
+
+/* Remove clearfix behavior that breaks flexbox */
+.box-footer.clearfix::after {
+  display: none !important;
+}
+
+/* =============================================================
+   GRID DROPDOWN ACTIONS FIX
+   ============================================================= */
+
+/* Ensure grid dropdown actions work properly */
+.grid-dropdown-actions {
+  position: relative;
+  display: inline-block;
+}
+
+.grid-dropdown-actions .dropdown-toggle {
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none !important;
+  color: #495057;
+  border: none;
+  background: none;
+  padding: 0 10px !important;
+}
+
+.grid-dropdown-actions .dropdown-toggle:hover {
+  color: #007bff;
+}
+
+.grid-dropdown-actions .dropdown-menu {
+  position: absolute;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 10rem;
+  padding: 0.5rem 0;
+  margin: 0.125rem 0 0;
+  font-size: 0.875rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+}
+
+.grid-dropdown-actions .dropdown-menu.show {
+  display: block;
+}
+
+.grid-dropdown-actions .dropdown-menu li {
+  list-style: none;
+}
+
+.grid-dropdown-actions .dropdown-menu li a {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+
+.grid-dropdown-actions .dropdown-menu li a:hover {
+  color: #16181b;
+  background-color: #e9ecef;
+}
+
+/* =============================================================
+   PJAX LOADING INDICATORS & TRANSITIONS
+   ============================================================= */
+
+/* PJAX loading indicator */
+.pjax-loading {
+  position: relative;
+}
+
+.pjax-loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 999;
+  pointer-events: none;
+}
+
+.pjax-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #ddd;
+  border-top: 2px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Smooth transition for PJAX content */
+#pjax-container {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.pjax-loading #pjax-container {
+  opacity: 0.6;
 }

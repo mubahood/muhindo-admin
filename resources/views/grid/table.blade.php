@@ -9,9 +9,9 @@
         <div class="box-header with-border grid-toolbar-container">
             <div class="grid-toolbar d-flex justify-content-between align-items-center flex-wrap">
                 <!-- Left Side Tools -->
-                <div class="grid-toolbar-left d-flex align-items-center">
+                <div class="grid-toolbar-left d-flex align-items-center gap-2">
                     @if ($grid->showTools())
-                        <div class="grid-header-tools">
+                        <div class="grid-header-tools d-flex align-items-center gap-2">
                             {!! $grid->renderHeaderTools() !!}
                         </div>
                     @endif
@@ -19,7 +19,7 @@
 
                 <!-- Right Side Actions -->
                 <div class="grid-toolbar-right d-flex align-items-center gap-2">
-                    <div class="grid-action-buttons btn-group">
+                    <div class="grid-action-buttons d-flex align-items-center gap-2">
                         {!! $grid->renderColumnSelector() !!}
                         {!! $grid->renderExportButton() !!}
                         {!! $grid->renderCreateButton() !!}
@@ -73,7 +73,7 @@
 
     {!! $grid->renderFooter() !!}
 
-    <div class="box-footer clearfix">
+    <div class="box-footer" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px;">
         {!! $grid->paginator() !!}
     </div>
     <!-- /.box-body -->

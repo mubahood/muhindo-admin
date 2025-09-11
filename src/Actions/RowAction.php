@@ -135,7 +135,8 @@ abstract class RowAction extends GridAction
     public function render()
     {
         if ($href = $this->href()) {
-            return "<a href='{$href}'>{$this->name()}</a>";
+            // Add data-pjax attribute for navigation actions (Edit, Show)
+            return "<a href='{$href}' data-pjax>{$this->name()}</a>";
         }
 
         $this->addScript();
