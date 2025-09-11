@@ -560,8 +560,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Optional: Show completion animation
             tabContainer.classList.add('form-completed');
             
-            // You can add custom completion logic here
-            console.log('Form completed successfully!');
+            // Form completion logic
         }
     }
 

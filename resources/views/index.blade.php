@@ -23,40 +23,32 @@
     <link rel="shortcut icon" href="{{ url('assets/img/logo.png') }}">
 
     {!! Admin::css() !!}
-    
+
     <!-- Dynamic Primary Color Override -->
-    <?php 
-        // Get primary color from config
-        $configured_color = config('admin.primary_color');
-        $admin_skin = config('admin.skin', 'skin-green');
-        
-        $skin_color_map = [
-            'skin-blue' => '#007bff',
-            'skin-green' => '#198754',
-            'skin-yellow' => '#ffc107',
-            'skin-purple' => '#6f42c1',
-            'skin-red' => '#dc3545',
-            'skin-black' => '#343a40',
-        ];
-        
-        if (!$configured_color && isset($skin_color_map[$admin_skin])) {
-            $primary_color = $skin_color_map[$admin_skin];
-        } else {
-            $primary_color = $configured_color ?: '#198754';
-        }
-        
-        $primary_rgb = sscanf($primary_color, "#%02x%02x%02x");
-        $primary_hover = sprintf("#%02x%02x%02x", 
-            max(0, $primary_rgb[0] - 25), 
-            max(0, $primary_rgb[1] - 25), 
-            max(0, $primary_rgb[2] - 25)
-        );
-        $primary_active = sprintf("#%02x%02x%02x", 
-            max(0, $primary_rgb[0] - 35), 
-            max(0, $primary_rgb[1] - 35), 
-            max(0, $primary_rgb[2] - 35)
-        );
-        $focus_rgb = implode(', ', $primary_rgb);
+    <?php
+    // Get primary color from config
+    $configured_color = config('admin.primary_color');
+    $admin_skin = config('admin.skin', 'skin-green');
+    
+    $skin_color_map = [
+        'skin-blue' => '#007bff',
+        'skin-green' => '#198754',
+        'skin-yellow' => '#ffc107',
+        'skin-purple' => '#6f42c1',
+        'skin-red' => '#dc3545',
+        'skin-black' => '#343a40',
+    ];
+    
+    if (!$configured_color && isset($skin_color_map[$admin_skin])) {
+        $primary_color = $skin_color_map[$admin_skin];
+    } else {
+        $primary_color = $configured_color ?: '#198754';
+    }
+    
+    $primary_rgb = sscanf($primary_color, '#%02x%02x%02x');
+    $primary_hover = sprintf('#%02x%02x%02x', max(0, $primary_rgb[0] - 25), max(0, $primary_rgb[1] - 25), max(0, $primary_rgb[2] - 25));
+    $primary_active = sprintf('#%02x%02x%02x', max(0, $primary_rgb[0] - 35), max(0, $primary_rgb[1] - 35), max(0, $primary_rgb[2] - 35));
+    $focus_rgb = implode(', ', $primary_rgb);
     ?>
     <style>
         /* MUHINDO ADMIN PRIMARY COLOR OVERRIDE */
@@ -66,7 +58,7 @@
             --primary-color: <?php echo $primary_color; ?> !important;
             --accent-color: <?php echo $primary_color; ?> !important;
         }
-        
+
         /* STRONGEST BOOTSTRAP 5 BUTTON PRIMARY OVERRIDES */
         .btn-primary,
         .btn.btn-primary {
@@ -74,7 +66,7 @@
             border-color: <?php echo $primary_color; ?> !important;
             color: #fff !important;
         }
-        
+
         .btn-primary:hover,
         .btn-primary:focus,
         .btn.btn-primary:hover,
@@ -83,83 +75,97 @@
             border-color: <?php echo $primary_hover; ?> !important;
             color: #fff !important;
         }
-        
+
         .btn-primary:active,
         .btn.btn-primary:active {
             background-color: <?php echo $primary_active; ?> !important;
             border-color: <?php echo $primary_active; ?> !important;
             color: #fff !important;
         }
-        
+
         /* FORM CONTROLS */
         .form-control:focus,
         .form-select:focus {
             border-color: <?php echo $primary_color; ?> !important;
             box-shadow: 0 0 0 0.25rem rgba(<?php echo $focus_rgb; ?>, 0.25) !important;
         }
-        
+
         /* TEXT AND BACKGROUND */
-        .text-primary { color: <?php echo $primary_color; ?> !important; }
-        .bg-primary { background-color: <?php echo $primary_color; ?> !important; color: #fff !important; }
-        .border-primary { border-color: <?php echo $primary_color; ?> !important; }
-        
+        .text-primary {
+            color: <?php echo $primary_color; ?> !important;
+        }
+
+        .bg-primary {
+            background-color: <?php echo $primary_color; ?> !important;
+            color: #fff !important;
+        }
+
+        .border-primary {
+            border-color: <?php echo $primary_color; ?> !important;
+        }
+
         /* BADGES AND PROGRESS */
         .badge.bg-primary,
-        .badge-primary { background-color: <?php echo $primary_color; ?> !important; }
-        .progress-bar { background-color: <?php echo $primary_color; ?> !important; }
-        
+        .badge-primary {
+            background-color: <?php echo $primary_color; ?> !important;
+        }
+
+        .progress-bar {
+            background-color: <?php echo $primary_color; ?> !important;
+        }
+
         /* ADMIN COMPONENTS */
         .main-header,
         .main-header .navbar {
             background-color: <?php echo $primary_color; ?> !important;
         }
-        
+
         .main-sidebar,
         .left-side {
             background-color: <?php echo $primary_color; ?> !important;
         }
-        
+
         .main-header .logo:hover,
         .main-header .navbar .sidebar-toggle:hover,
-        .main-header .navbar .nav > li > a:hover {
+        .main-header .navbar .nav>li>a:hover {
             background-color: <?php echo $primary_hover; ?> !important;
         }
-        
-        .sidebar-menu > li.active > a,
-        .sidebar-menu > li:hover > a {
+
+        .sidebar-menu>li.active>a,
+        .sidebar-menu>li:hover>a {
             background-color: <?php echo $primary_hover; ?> !important;
             border-left-color: #fff !important;
         }
-        
+
         .card-primary .card-header {
             background-color: <?php echo $primary_color; ?> !important;
             border-color: <?php echo $primary_color; ?> !important;
         }
-        
+
         /* LINKS */
         .link-primary,
         a.link-primary {
             color: <?php echo $primary_color; ?> !important;
         }
-        
+
         .link-primary:hover,
         a.link-primary:hover {
             color: <?php echo $primary_hover; ?> !important;
         }
-        
+
         /* ALERTS */
         .alert-primary {
             background-color: rgba(<?php echo $focus_rgb; ?>, 0.1) !important;
             border-color: rgba(<?php echo $focus_rgb; ?>, 0.2) !important;
             color: <?php echo $primary_active; ?> !important;
         }
-        
+
         /* DROPDOWN ACTIVE */
         .dropdown-item:active {
             background-color: <?php echo $primary_color; ?> !important;
             color: #fff !important;
         }
-        
+
         /* NAV TABS ACTIVE */
         .nav-tabs .nav-link.active {
             color: <?php echo $primary_color; ?> !important;
@@ -169,6 +175,15 @@
     <!-- Scripts -->
     <script src="{{ Admin::jQuery() }}"></script>
     {!! Admin::headerJs() !!}
+
+    <!-- PJAX Fallback CDN if local file fails -->
+    <script>
+        if (typeof $.pjax === 'undefined') {
+            var script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.min.js';
+            document.head.appendChild(script);
+        }
+    </script>
 
 
 </head>
@@ -188,36 +203,6 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            @if (isset($header))
-                                <h1 class="m-0">{{ $header }}</h1>
-                            @endif
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                @if (isset($breadcrumbs))
-                                    @foreach ($breadcrumbs as $breadcrumb)
-                                        @if ($loop->last)
-                                            <li class="breadcrumb-item active">{{ $breadcrumb['text'] }}</li>
-                                        @else
-                                            <li class="breadcrumb-item">
-                                                <a href="{{ $breadcrumb['url'] }}"
-                                                    class="text-decoration-none">{{ $breadcrumb['text'] }}</a>
-                                            </li>
-                                        @endif
-                                    @endforeach
-                                @endif
-                            </ol>
-                        </div>
-                    </div>
-                    {!! Admin::style() !!}
-                </div>
-            </div>
-
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid" id="pjax-container">
@@ -251,19 +236,12 @@
 
     <script>
         $(document).ready(function() {
-            console.log('Admin panel initialized');
-            console.log('jQuery version:', $.fn.jquery);
-            console.log('Bootstrap available:', typeof bootstrap !== 'undefined');
-            console.log('AdminLTE available:', typeof AdminLTE !== 'undefined');
-            console.log('PJAX available:', typeof $.pjax !== 'undefined');
-            console.log('LA object:', typeof LA !== 'undefined', LA);
 
             // Remove skip links immediately and periodically
             function removeSkipLinks() {
                 const skipLinks = document.querySelector('.skip-links');
                 if (skipLinks) {
                     skipLinks.remove();
-                    console.log('Skip links removed');
                 }
             }
 
@@ -273,71 +251,158 @@
             // Initialize AdminLTE
             if (typeof AdminLTE !== 'undefined') {
                 AdminLTE.init();
-                console.log('AdminLTE initialized');
-                
+
                 // Remove skip links after AdminLTE initialization
                 setTimeout(removeSkipLinks, 100);
                 setTimeout(removeSkipLinks, 500);
                 setTimeout(removeSkipLinks, 1000);
-            } else {
-                console.warn('AdminLTE not found');
             }
 
             // Watch for skip links being added and remove them
             const observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
                     mutation.addedNodes.forEach(function(node) {
-                        if (node.nodeType === 1 && (node.classList.contains('skip-links') || node.querySelector('.skip-links'))) {
+                        if (node.nodeType === 1 && (node.classList.contains('skip-links') ||
+                                node.querySelector('.skip-links'))) {
                             removeSkipLinks();
                         }
                     });
                 });
             });
-            observer.observe(document.body, { childList: true, subtree: true });
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
 
             // Initialize Bootstrap dropdowns manually if needed
             if (typeof bootstrap !== 'undefined') {
                 // Initialize all dropdowns
                 var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
-                var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+                var dropdownList = dropdownElementList.map(function(dropdownToggleEl) {
                     return new bootstrap.Dropdown(dropdownToggleEl);
                 });
-                console.log('Bootstrap dropdowns initialized:', dropdownList.length);
             }
 
-            // PJAX configuration
+            // PJAX IMPLEMENTATION
             if (typeof $.pjax !== 'undefined') {
-                $(document).pjax('a[data-pjax]', '#pjax-container', {
-                    timeout: 8000,
-                    push: true,
-                    replace: false
+
+                // Check container
+                const $container = $('#pjax-container');
+
+                if ($container.length === 0) {
+                    console.error('❌ PJAX container #pjax-container not found!');
+                    return;
+                }
+
+                // Clear any existing PJAX handlers
+                $(document).off('click.pjax');
+
+                // PJAX Global Setup
+                $.pjax.defaults.timeout = 8000;
+                $.pjax.defaults.scrollTo = 0;
+
+                // Manual PJAX click handler
+                $(document).on('click', 'a[data-pjax]', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const href = $(this).attr('href');
+                    console.log('� MANUAL PJAX TRIGGERED for:', href);
+
+                    if (href && href !== '#' && href !== window.location.pathname + window.location
+                        .search) {
+
+                        $.pjax({
+                            url: href,
+                            container: '#pjax-container',
+                            timeout: 8000,
+                            push: true,
+                            replace: false
+                        }).fail(function(xhr, textStatus, errorThrown) {
+                            console.error('❌ PJAX failed:', textStatus, errorThrown);
+                            // Fallback to regular navigation
+                            window.location = href;
+                        });
+                    }
+
+                    return false;
                 });
+
+            } else {
+                console.error('❌ PJAX library not available!');
             }
 
-            // PJAX event handling
-            $(document).on('pjax:start', function(event) {
-                console.log('PJAX START:', event);
+            // PJAX EVENT HANDLERS
+            $(document).on('pjax:start', function(xhr, options) {
                 $('.content-wrapper').addClass('loading');
+
+                // Show loading indicator
+                if (typeof NProgress !== 'undefined') {
+                    NProgress.start();
+                }
             });
 
-            $(document).on('pjax:end', function(event) {
-                console.log('PJAX COMPLETE:', event);
+            $(document).on('pjax:end', function(xhr, options) {
                 $('.content-wrapper').removeClass('loading');
+
+                // Hide loading indicator
+                if (typeof NProgress !== 'undefined') {
+                    NProgress.done();
+                }
 
                 // Reinitialize components after PJAX load
-                if (typeof Admin !== 'undefined' && Admin.reinitialize) {
-                    Admin.reinitialize();
+                setTimeout(function() {
+                    // Reinitialize AdminLTE components
+                    if (typeof AdminLTE !== 'undefined') {
+                        AdminLTE.init();
+                    }
+
+                    // Reinitialize Bootstrap dropdowns
+                    if (typeof bootstrap !== 'undefined') {
+                        var dropdownElementList = [].slice.call(document.querySelectorAll(
+                            '.dropdown-toggle'));
+                        var dropdownList = dropdownElementList.map(function(dropdownToggleEl) {
+                            return new bootstrap.Dropdown(dropdownToggleEl);
+                        });
+                    }
+
+                    // Reinitialize sidebar treeview
+                    if (typeof $.fn.Treeview !== 'undefined') {
+                        $('[data-widget="treeview"]').Treeview();
+                    }
+
+                    // Remove skip links after content load
+                    removeSkipLinks();
+
+                    // Trigger custom reinit event
+                    $(document).trigger('admin:pjax:complete');
+                }, 100);
+            });
+
+            $(document).on('pjax:error', function(xhr, textStatus, error, options) {
+                console.error('❌ PJAX ERROR:', {
+                    status: xhr.status,
+                    statusText: xhr.statusText,
+                    textStatus: textStatus,
+                    error: error,
+                    url: options.url
+                });
+                $('.content-wrapper').removeClass('loading');
+
+                // Hide loading indicator
+                if (typeof NProgress !== 'undefined') {
+                    NProgress.done();
                 }
 
-                // Reinitialize AdminLTE components
-                if (typeof AdminLTE !== 'undefined') {
-                    AdminLTE.init();
+                // Show error message
+                if (typeof toastr !== 'undefined') {
+                    toastr.error('Navigation failed. Please try again.', 'Error');
                 }
             });
 
-            $(document).on('pjax:error', function(event) {
-                console.log('PJAX ERROR:', event);
-                $('.content-wrapper').removeClass('loading');
+            $(document).on('pjax:timeout', function(event) {
+                // Prevent the timeout from aborting the request
+                event.preventDefault();
             });
 
             // Mobile sidebar handling
@@ -374,18 +439,18 @@
                 return false;
             });
 
-            // Dashboard page detection
-            if (window.location.pathname.endsWith('/admin') || window.location.pathname.endsWith('/admin/')) {
-                $('body').addClass('dashboard-page');
-                console.log('Dashboard page detected');
+            // Dashboard-specific init
+            if (window.location.pathname.includes('dashboard') || window.location.pathname === '/admin' || window
+                .location.pathname === '/admin/') {
+                // Dashboard page specific initialization if needed
             }
-
-            // Test main elements
-            console.log('App container:', $('#app').length);
-            console.log('PJAX container:', $('#pjax-container').length);
-            console.log('Sidebar menu links:', $('.nav-sidebar .nav-link').length);
         });
     </script>
+
+</body>
+});
+</script>
+</script>
 
 </body>
 

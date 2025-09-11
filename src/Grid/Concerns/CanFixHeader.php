@@ -10,21 +10,21 @@ trait CanFixHeader
     {
         Admin::style(
             <<<'STYLE'
-.wrapper, .grid-box .box-body {
-    overflow: visible;
-}
+            .wrapper, .grid-box .box-body {
+                overflow: visible;
+            }
 
-.grid-table {
-    position: relative;
-    border-collapse: separate;
-}
+            .grid-table {
+                position: relative;
+                border-collapse: separate;
+            }
 
-.grid-table thead tr:first-child th {
-    background: white;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-}
+            .grid-table thead tr:first-child th {
+                background: white;
+                position: sticky;
+                top: 0;
+                z-index: 1;
+            }
 STYLE
         );
     }

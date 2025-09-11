@@ -964,7 +964,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (formLayout.dispatchEvent(saveEvent)) {
             // Default save behavior (you can customize this)
-            console.log('Form save triggered', { isAutoSave, formData });
             
             // Simulate save success
             setTimeout(() => {

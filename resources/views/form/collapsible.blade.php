@@ -840,11 +840,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Custom events
     container.addEventListener('sectionExpanded', function(e) {
-        console.log('Section expanded:', e.detail);
+        // Section expanded handler
     });
     
     container.addEventListener('sectionCollapsed', function(e) {
-        console.log('Section collapsed:', e.detail);
+        // Section collapsed handler
     });
 
     // Initialize everything
