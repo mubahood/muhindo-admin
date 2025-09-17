@@ -1,0 +1,34 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "vendor/": true,
+            "node_modules/": true,
+            ".git/": false
+        },
+        "search.exclude": {
+            "vendor/": true,
+            "node_modules/": true,
+            "storage/": true,
+            "bootstrap/cache/": true
+        },
+        "php.suggest.basic": false,
+        "php.validate.executablePath": "/usr/bin/php",
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "files.associations": {
+            "*.blade.php": "blade"
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "onecentlin.laravel-blade",
+            "bmewburn.vscode-intelephense-client",
+            "ms-vscode.vscode-json"
+        ]
+    }
+}
