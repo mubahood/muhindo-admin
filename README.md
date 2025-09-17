@@ -1,255 +1,506 @@
-# Muhindo Admin# Muhindo Admin
+# Muhindo Admin# Muhindo Admin# Muhindo Admin
 
 
 
-A powerful Laravel admin panel package that helps you build CRUD backends with just a few lines of code.A powerful Laravel admin panel package that helps you build CRUD backends with just a few lines of code.
+A powerful Laravel admin panel package that helps you build CRUD backends with just a few lines of code.
 
 
+
+![License](https://img.shields.io/github/license/mubahood/muhindo-admin)A powerful Laravel admin panel package that helps you build CRUD backends with just a few lines of code.A powerful Laravel admin panel package that helps you build CRUD backends with just a few lines of code.
+
+![GitHub release](https://img.shields.io/github/v/release/mubahood/muhindo-admin)
+
+![PHP Version](https://img.shields.io/badge/php-%5E8.0-blue)
+
+![Laravel Version](https://img.shields.io/badge/laravel-%5E9.0%7C%5E10.0%7C%5E11.0%7C%5E12.0-red)
 
 ## Features## Features
 
+## Features
 
 
-- 🚀 **Rapid Development** - Build admin panels quickly with minimal code- 🚀 **Rapid Development** - Build admin panels quickly with minimal code
 
-- 🎨 **Beautiful UI** - Built on AdminLTE with responsive design- 🎨 **Beautiful UI** - Built on AdminLTE with responsive design
+- 🚀 **Rapid Development** - Build admin panels quickly with minimal code
 
-- 🔐 **Authentication** - Complete role-based access control (RBAC)- 🔐 **Authentication** - Complete role-based access control (RBAC)
+- 🎨 **Beautiful UI** - Built on AdminLTE with responsive design- 🚀 **Rapid Development** - Build admin panels quickly with minimal code- 🚀 **Rapid Development** - Build admin panels quickly with minimal code
 
-- 📊 **Data Grid** - Advanced grid with filtering, sorting, and export- 📊 **Data Grid** - Advanced grid with filtering, sorting, and export
+- 🔐 **Authentication** - Complete role-based access control (RBAC)
 
-- 📝 **Form Builder** - Extensive form fields and validation- 📝 **Form Builder** - Extensive form fields and validation
+- 📊 **Data Grid** - Advanced grid with filtering, sorting, and export- 🎨 **Beautiful UI** - Built on AdminLTE with responsive design- 🎨 **Beautiful UI** - Built on AdminLTE with responsive design
 
-- 🌳 **Tree View** - Hierarchical data management- 🌳 **Tree View** - Hierarchical data management
+- 📝 **Form Builder** - Extensive form fields and validation
+
+- 🌳 **Tree View** - Hierarchical data management- 🔐 **Authentication** - Complete role-based access control (RBAC)- 🔐 **Authentication** - Complete role-based access control (RBAC)
+
+- 🎛️ **Dashboard** - Customizable admin dashboard
+
+- 🔧 **Extensible** - Easy to extend and customize- 📊 **Data Grid** - Advanced grid with filtering, sorting, and export- 📊 **Data Grid** - Advanced grid with filtering, sorting, and export
+
+
+
+## Requirements- 📝 **Form Builder** - Extensive form fields and validation- 📝 **Form Builder** - Extensive form fields and validation
+
+
+
+- PHP ^8.0- 🌳 **Tree View** - Hierarchical data management- 🌳 **Tree View** - Hierarchical data management
+
+- Laravel ^9.0|^10.0|^11.0|^12.0
 
 - 🎛️ **Dashboard** - Customizable admin dashboard- 🎛️ **Dashboard** - Customizable admin dashboard
 
+## Installation
+
 - 🔧 **Extensible** - Easy to extend and customize- 🔧 **Extensible** - Easy to extend and customize
 
+Install via Composer:
 
 
-## Installation## Installation
+
+```bash
+
+composer require muhindo/muhindo-admin## Installation## Installation
+
+```
 
 
+
+Publish the package configuration and assets:
 
 Install via Composer:Install via Composer:
 
+```bash
 
+php artisan vendor:publish --provider="Muhindo\Admin\AdminServiceProvider"
+
+```
 
 ```bash```bash
+
+Run the migrations:
 
 composer require muhindo/muhindo-admincomposer require muhindo/muhindo-admin
 
-``````
+```bash
+
+php artisan migrate``````
+
+```
 
 
+
+Install the admin (creates default admin user):
 
 Publish the package:Publish the package:
 
+```bash
 
+php artisan admin:install
+
+```
 
 ```bash```bash
+
+## Usage
 
 php artisan vendor:publish --provider="Muhindo\Admin\AdminServiceProvider"php artisan vendor:publish --provider="Muhindo\Admin\AdminServiceProvider"
 
+### Creating an Admin Controller
+
 ``````
 
+Generate a new admin controller:
 
 
-Run migrations:Run migrations:
+
+```bash
+
+php artisan admin:make UserController --model=App\\Models\\UserRun migrations:Run migrations:
+
+```
 
 
+
+### Adding Routes
 
 ```bash```bash
+
+Add your routes to `app/Admin/routes.php`:
 
 php artisan migratephp artisan migrate
 
-``````
+```php
+
+$router->resource('users', UserController::class);``````
+
+```
 
 
+
+### Example Controller
 
 Install admin:Install admin:
 
+```php
 
-
-```bash```bash
-
-php artisan admin:installphp artisan admin:install
-
-``````
+<?php
 
 
 
-## Quick Start## Quick Start
+namespace App\Admin\Controllers;```bash```bash
 
 
 
-### Create an Admin Controller### Create an Admin Controller
+use App\Models\User;php artisan admin:installphp artisan admin:install
+
+use Muhindo\Admin\Controllers\AdminController;
+
+use Muhindo\Admin\Form;``````
+
+use Muhindo\Admin\Grid;
+
+use Muhindo\Admin\Show;
 
 
 
-```bash```bash
+class UserController extends AdminController## Quick Start## Quick Start
 
-php artisan admin:make UserController --model=App\\Models\\Userphp artisan admin:make UserController --model=App\\Models\\User
+{
 
-``````
-
-
-
-### Add Routes### Add Routes
-
-
-
-```php```php
-
-// app/Admin/routes.php// app/Admin/routes.php
-
-$router->resource('users', UserController::class);$router->resource('users', UserController::class);
-
-``````
-
-
-
-### Example Controller### Example Controller
-
-
-
-```php```php
-
-<?php<?php
-
-
-
-namespace App\Admin\Controllers;namespace App\Admin\Controllers;
-
-
-
-use App\Models\User;use App\Models\User;
-
-use Muhindo\Admin\Controllers\AdminController;use Muhindo\Admin\Controllers\AdminController;
-
-use Muhindo\Admin\Form;use Muhindo\Admin\Form;
-
-use Muhindo\Admin\Grid;use Muhindo\Admin\Grid;
-
-use Muhindo\Admin\Show;use Muhindo\Admin\Show;
-
-
-
-class UserController extends AdminControllerclass UserController extends AdminController
-
-{{
-
-    protected function grid()    protected function grid()
-
-    {    {
-
-        $grid = new Grid(new User());        $grid = new Grid(new User());
-
-                
-
-        $grid->column('id', __('ID'));        $grid->column('id', __('ID'));
-
-        $grid->column('name', __('Name'));        $grid->column('name', __('Name'));
-
-        $grid->column('email', __('Email'));        $grid->column('email', __('Email'));
-
-        $grid->column('created_at', __('Created at'));        $grid->column('created_at', __('Created at'));
-
-        # Muhindo Admin
-
-        return $grid;
-
-    }A powerful Laravel admin panel package that helps you build CRUD backends with just a few lines of code.
-
-    
-
-    protected function form()## Features
+    protected function grid()
 
     {
 
-        $form = new Form(new User());- 🚀 **Rapid Development** - Build admin panels quickly with minimal code
+        $grid = new Grid(new User());### Create an Admin Controller### Create an Admin Controller
 
-        - 🎨 **Beautiful UI** - Built on AdminLTE with responsive design
+        
 
-        $form->text('name', __('Name'))->required();- 🔐 **Authentication** - Complete role-based access control (RBAC)
+        $grid->column('id', __('ID'));
 
-        $form->email('email', __('Email'))->required();- 📊 **Data Grid** - Advanced grid with filtering, sorting, and export
+        $grid->column('name', __('Name'));
 
-        $form->password('password', __('Password'))->required();- 📝 **Form Builder** - Extensive form fields and validation
+        $grid->column('email', __('Email'));```bash```bash
 
-        - 🌳 **Tree View** - Hierarchical data management
+        $grid->column('created_at', __('Created at'));
 
-        return $form;- 🎛️ **Dashboard** - Customizable admin dashboard
+        php artisan admin:make UserController --model=App\\Models\\Userphp artisan admin:make UserController --model=App\\Models\\User
 
-    }- 🔧 **Extensible** - Easy to extend and customize
+        return $grid;
+
+    }``````
+
+    
+
+    protected function form()
+
+    {
+
+        $form = new Form(new User());### Add Routes### Add Routes
+
+        
+
+        $form->text('name', __('Name'))->required();
+
+        $form->email('email', __('Email'))->required();
+
+        $form->password('password', __('Password'))->required();```php```php
+
+        
+
+        return $form;// app/Admin/routes.php// app/Admin/routes.php
+
+    }
+
+    $router->resource('users', UserController::class);$router->resource('users', UserController::class);
+
+    protected function detail($id)
+
+    {``````
+
+        $show = new Show(User::findOrFail($id));
+
+        
+
+        $show->field('id', __('ID'));
+
+        $show->field('name', __('Name'));### Example Controller### Example Controller
+
+        $show->field('email', __('Email'));
+
+        $show->field('created_at', __('Created at'));
+
+        
+
+        return $show;```php```php
+
+    }
+
+}<?php<?php
+
+```
+
+
+
+### Available Form Fields
+
+namespace App\Admin\Controllers;namespace App\Admin\Controllers;
+
+```php
+
+$form->text('name', 'Name');
+
+$form->email('email', 'Email');
+
+$form->password('password', 'Password');use App\Models\User;use App\Models\User;
+
+$form->textarea('description', 'Description');
+
+$form->select('status', 'Status')->options(['active' => 'Active', 'inactive' => 'Inactive']);use Muhindo\Admin\Controllers\AdminController;use Muhindo\Admin\Controllers\AdminController;
+
+$form->radio('gender', 'Gender')->options(['M' => 'Male', 'F' => 'Female']);
+
+$form->checkbox('permissions', 'Permissions')->options(['read' => 'Read', 'write' => 'Write']);use Muhindo\Admin\Form;use Muhindo\Admin\Form;
+
+$form->image('avatar', 'Avatar');
+
+$form->file('document', 'Document');use Muhindo\Admin\Grid;use Muhindo\Admin\Grid;
+
+$form->date('birth_date', 'Birth Date');
+
+$form->datetime('created_at', 'Created At');use Muhindo\Admin\Show;use Muhindo\Admin\Show;
+
+$form->number('age', 'Age');
+
+$form->currency('salary', 'Salary');
+
+$form->url('website', 'Website');
+
+```class UserController extends AdminControllerclass UserController extends AdminController
+
+
+
+### Grid Features{{
+
+
+
+```php    protected function grid()    protected function grid()
+
+$grid = new Grid(new User());
+
+    {    {
+
+// Basic columns
+
+$grid->column('id', 'ID')->sortable();        $grid = new Grid(new User());        $grid = new Grid(new User());
+
+$grid->column('name', 'Name')->filter();
+
+$grid->column('email', 'Email');                
+
+
+
+// Custom display        $grid->column('id', __('ID'));        $grid->column('id', __('ID'));
+
+$grid->column('status', 'Status')->display(function ($status) {
+
+    return $status ? 'Active' : 'Inactive';        $grid->column('name', __('Name'));        $grid->column('name', __('Name'));
+
+});
+
+        $grid->column('email', __('Email'));        $grid->column('email', __('Email'));
+
+// Actions
+
+$grid->actions(function ($actions) {        $grid->column('created_at', __('Created at'));        $grid->column('created_at', __('Created at'));
+
+    $actions->disableDelete();
+
+    $actions->disableEdit();        # Muhindo Admin
+
+    $actions->disableView();
+
+});        return $grid;
+
+
+
+// Batch actions    }A powerful Laravel admin panel package that helps you build CRUD backends with just a few lines of code.
+
+$grid->batchActions(function ($batch) {
+
+    $batch->add('Activate', new ActivateUsers());    
+
+});
+
+```    protected function form()## Features
+
+
+
+## Configuration    {
+
+
+
+The main configuration file is located at `config/admin.php`. Key settings include:        $form = new Form(new User());- 🚀 **Rapid Development** - Build admin panels quickly with minimal code
+
+
+
+- **Route prefix**: Change the admin URL prefix (default: 'admin')        - 🎨 **Beautiful UI** - Built on AdminLTE with responsive design
+
+- **Middleware**: Configure authentication and other middleware
+
+- **Database**: Set up database connections for admin tables        $form->text('name', __('Name'))->required();- 🔐 **Authentication** - Complete role-based access control (RBAC)
+
+- **Auth**: Configure authentication settings
+
+- **Upload**: Set file upload configurations        $form->email('email', __('Email'))->required();- 📊 **Data Grid** - Advanced grid with filtering, sorting, and export
+
+
+
+## Authentication        $form->password('password', __('Password'))->required();- 📝 **Form Builder** - Extensive form fields and validation
+
+
+
+The package includes a complete authentication system with:        - 🌳 **Tree View** - Hierarchical data management
+
+
+
+- **Users**: Admin users management        return $form;- 🎛️ **Dashboard** - Customizable admin dashboard
+
+- **Roles**: Role-based access control
+
+- **Permissions**: Granular permissions for routes and actions    }- 🔧 **Extensible** - Easy to extend and customize
+
+- **Menu**: Dynamic menu system
 
 }
 
-```## Installation
+Default login credentials after installation:
+
+- **Username**: admin```## Installation
+
+- **Password**: admin
 
 
+
+## Extending
 
 ## RequirementsInstall via Composer:
 
+### Custom Form Fields
 
+
+
+Create custom form fields by extending the base field class:
 
 - PHP ^8.0```bash
 
-- Laravel ^9.0|^10.0|^11.0|^12.0composer require muhindo/muhindo-admin
+```php
+
+use Muhindo\Admin\Form\Field;- Laravel ^9.0|^10.0|^11.0|^12.0composer require muhindo/muhindo-admin
+
+
+
+class CustomField extends Field```
+
+{
+
+    protected $view = 'admin.form.custom';## Documentation
+
+    
+
+    public function render()Publish the package:
+
+    {
+
+        return view($this->view, $this->variables());For detailed documentation, visit [Documentation Link] (coming soon)
+
+    }
+
+}```bash
 
 ```
-
-## Documentation
-
-Publish the package:
-
-For detailed documentation, visit [Documentation Link] (coming soon)
-
-```bash
 
 ## Contributingphp artisan vendor:publish --provider="Muhindo\Admin\AdminServiceProvider"
 
+### Custom Grid Displayers
+
 ```
+
+Create custom grid displayers:
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-Run migrations:
+```php
 
-## License
+use Muhindo\Admin\Grid\Displayers\AbstractDisplayer;Run migrations:
 
-```bash
 
-This project is open-sourced software licensed under the [MIT license](LICENSE).php artisan migrate
+
+class CustomDisplayer extends AbstractDisplayer## License
+
+{
+
+    public function display($callback = null)```bash
+
+    {
+
+        return $this->value;This project is open-sourced software licensed under the [MIT license](LICENSE).php artisan migrate
+
+    }
+
+}```
 
 ```
 
 ## Credits
 
+## Contributing
+
 Install admin:
 
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
 This package is inspired by and based on the excellent [laravel-admin](https://github.com/z-song/laravel-admin) package.
-```bash
-php artisan admin:install
-```
 
-## Quick Start
+1. Fork the repository```bash
 
-### Create an Admin Controller
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)php artisan admin:install
 
-```bash
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)```
+
+4. Push to the branch (`git push origin feature/amazing-feature`)
+
+5. Open a Pull Request## Quick Start
+
+
+
+## Security### Create an Admin Controller
+
+
+
+If you discover any security-related issues, please email mubahood360@gmail.com instead of using the issue tracker.```bash
+
 php artisan admin:make UserController --model=App\\Models\\User
-```
 
-### Add Routes
+## License```
 
-```php
+
+
+This project is open-sourced software licensed under the [MIT license](LICENSE).### Add Routes
+
+
+
+## Credits```php
+
 // app/Admin/routes.php
-$router->resource('users', UserController::class);
+
+This package is inspired by and based on the excellent [laravel-admin](https://github.com/z-song/laravel-admin) package by z-song.$router->resource('users', UserController::class);
+
 ```
+
+## Support
 
 ### Example Controller
 
+If you find this package helpful, please consider giving it a ⭐ on GitHub!
 ```php
 <?php
 
